@@ -7,7 +7,6 @@ dotenv.config();
 
 class LandingPage extends React.Component {
   state = {};
-
   render() {
     return (
       <>
