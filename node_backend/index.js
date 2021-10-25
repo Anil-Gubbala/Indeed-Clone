@@ -74,7 +74,7 @@ initializeApplication()
     console.log(error)
   );
 
-const specs = swaggerJsDoc(options);
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+// const specs = swaggerJsDoc(options);
+// app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 module.exports = app;
