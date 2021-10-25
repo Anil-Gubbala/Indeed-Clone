@@ -19,5 +19,29 @@ const updateField = async (modelObject, id, update) => {
   }
 };
 
+const getDocument = async (modelObject, _id) => {
+  try {
+    return await modelObject.findById(_id);
+  } catch (error) {
+    console.log("Error while retreiving data by ID:" + error);
+    throw new Error(error);
+  }
+};
+
+const getDocumentByDetails = async (modelObject, details) => {
+  try {
+    return await modelObject.findOne({
+      emailId: details.emailId,
+      password: details.password,
+      accountType: details.accountType,
+    });
+  } catch (error) {
+    console.log("Error while retreiving data by details:" + error);
+    throw new Error(error);
+  }
+};
+
+module.exports.getDocumentByDetails = getDocumentByDetails;
 module.exports.saveDocuments = saveDocuments;
+module.exports.getDocument = getDocument;
 module.exports.updateField = updateField;

@@ -9,8 +9,8 @@ const cors = require("cors");
 app.use(cors({ origin: "*", credentials: true }));
 const user = require("./routes/userRoute");
 const connection = require("./db/connection");
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
