@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jobService = require("../services/jobService");
 
-// save jobs
+// save job details
 router.post("/job", async (request, response) => {
   try {
     const data = await jobService.saveJobDetails(request);

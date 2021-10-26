@@ -57,9 +57,8 @@ const getUserDocumentByDetails = async (modelObject, details) => {
   }
 };
 
-const updateDocumentAttribute = async (modelObject, _id, message) => {
+const updateDocumentArrayAttribute = async (modelObject, _id, message) => {
   try {
-    console.log(_id);
     return await modelObject.findOneAndUpdate(
       { _id: _id },
       { $push: { message: message } }
@@ -75,4 +74,4 @@ module.exports.getAllDocumentsWithId = getAllDocumentsWithId;
 module.exports.saveDocuments = saveDocuments;
 module.exports.getDocument = getDocument;
 module.exports.updateField = updateField;
-module.exports.updateDocumentAttribute = updateDocumentAttribute;
+module.exports.updateDocumentArrayAttribute = updateDocumentArrayAttribute;

@@ -13,7 +13,7 @@ exports.saveMessage = async (request) => {
         runValidators: false,
       });
     else {
-      response = await operations.updateDocumentAttribute(
+      response = await operations.updateDocumentArrayAttribute(
         messageScehma,
         request.body.chatId,
         request.body.message

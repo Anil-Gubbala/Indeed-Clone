@@ -15,7 +15,7 @@ router.post("/message", async (request, response) => {
   }
 });
 
-//GET CHAT MESSAGES
+//GET CHAT MESSAGES.
 router.get("/message", async (request, response) => {
   try {
     const data = await messageService.getMessages(request);
