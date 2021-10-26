@@ -11,6 +11,7 @@ const user = require("./routes/userRoute");
 const company = require("./routes/companyRoute");
 const job = require("./routes/jobRoute");
 const jobApplication = require("./routes/jobApplicationRoute");
+const message = require("./routes/messageRoute");
 
 const connection = require("./db/connection");
 app.use(bodyParser.json());
@@ -64,6 +65,8 @@ async function initializeApplication() {
     app.use(company);
     app.use(job);
     app.use(jobApplication);
+    app.use(message);
+
     await connection.createConnection();
     app.listen(process.env.PORT || 8080, () => {
       console.log("App listening on port 8080");

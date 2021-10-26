@@ -39,7 +39,7 @@ const getAllDocumentsWithId = async (modelObject, id, attributeName) => {
       [attributeName]: mongoose.Types.ObjectId(id),
     });
   } catch (error) {
-    console.log("Error while retreiving jobs by ID:" + error);
+    console.log("Error while retreiving details by ID:" + error);
     throw new Error(error);
   }
 };
@@ -57,8 +57,22 @@ const getUserDocumentByDetails = async (modelObject, details) => {
   }
 };
 
+const updateDocumentAttribute = async (modelObject, _id, message) => {
+  try {
+    console.log(_id);
+    return await modelObject.findOneAndUpdate(
+      { _id: _id },
+      { $push: { message: message } }
+    );
+  } catch (error) {
+    console.log("Error while updating data:" + error);
+    throw new Error(error);
+  }
+};
+
 module.exports.getUserDocumentByDetails = getUserDocumentByDetails;
 module.exports.getAllDocumentsWithId = getAllDocumentsWithId;
 module.exports.saveDocuments = saveDocuments;
 module.exports.getDocument = getDocument;
 module.exports.updateField = updateField;
+module.exports.updateDocumentAttribute = updateDocumentAttribute;
