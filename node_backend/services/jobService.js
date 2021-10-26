@@ -1,46 +1,41 @@
 const _ = require("lodash");
 const dotenv = require("dotenv");
 dotenv.config();
-const userSchema = require("../db/schema/user").createModel();
+const jobSchema = require("../db/schema/job").createModel();
 const operations = require("../db/operations");
 const { request } = require("express");
 
-//save or update user details
-exports.saveUserDetails = async (request) => {
+exports.saveJobDetails = async (request) => {
   try {
+    // console.log(request.body.id);
     let response = {};
-    if (!request.body.id)
-      response = await operations.saveDocuments(userSchema, request.body, {
+    if (!request.body.id) {
+      response = await operations.saveDocuments(jobSchema, request.body, {
         runValidators: false,
       });
-    else
+    } else
       response = await operations.updateField(
-        userSchema,
+        jobSchema,
         { id: request.body.id },
         request.body
       );
+
     return { status: 200, body: response };
   } catch (err) {
-    const message = err.message ? err.message : "Error while saving details";
+    const message = err.message
+      ? err.message
+      : "Error while saving job details";
     const code = err.statusCode ? err.statusCode : 500;
     return { status: code, body: { message } };
   }
 };
 
-//get user details
-exports.getUserDetails = async (request) => {
+//get job details
+exports.getJobDetails = async (request) => {
   try {
     if (request.query.id) {
-      let response = await operations.getDocument(userSchema, {
+      let response = await operations.getDocument(jobSchema, {
         _id: request.query.id,
-      });
-      return { status: 200, body: response };
-    }
-    if (request.query.emailId) {
-      let response = await operations.getUserDocumentByDetails(userSchema, {
-        emailId: request.query.emailId,
-        password: request.query.password,
-        accountType: request.query.accountType,
       });
       return { status: 200, body: response };
     }

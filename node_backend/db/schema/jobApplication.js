@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const companyScehma = new Schema(
+const jobApplicationScehma = new Schema(
   {
     _id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -9,16 +9,16 @@ const companyScehma = new Schema(
       auto: true,
     },
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    companyId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    jobId: { type: mongoose.Schema.Types.ObjectId, required: true },
     details: Object,
-    reviews: [{}],
-    images: { type: Array },
   },
   { _id: false },
-  { collection: "company" }
+  { collection: "jobApplication" }
 );
 
 const createModel = function () {
-  return mongoose.model("company", companyScehma);
+  return mongoose.model("jobApplication", jobApplicationScehma);
 };
 
 module.exports.createModel = createModel;

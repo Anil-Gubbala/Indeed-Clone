@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const saveDocuments = async (modelObject, data, options) => {
   try {
     let model = new modelObject(data);
@@ -28,7 +30,21 @@ const getDocument = async (modelObject, _id) => {
   }
 };
 
-const getDocumentByDetails = async (modelObject, details) => {
+const getAllDocumentsWithId = async (modelObject, id, attributeName) => {
+  try {
+    // let query={
+    //   []
+    // }
+    return await modelObject.find({
+      [attributeName]: mongoose.Types.ObjectId(id),
+    });
+  } catch (error) {
+    console.log("Error while retreiving jobs by ID:" + error);
+    throw new Error(error);
+  }
+};
+
+const getUserDocumentByDetails = async (modelObject, details) => {
   try {
     return await modelObject.findOne({
       emailId: details.emailId,
@@ -41,7 +57,8 @@ const getDocumentByDetails = async (modelObject, details) => {
   }
 };
 
-module.exports.getDocumentByDetails = getDocumentByDetails;
+module.exports.getUserDocumentByDetails = getUserDocumentByDetails;
+module.exports.getAllDocumentsWithId = getAllDocumentsWithId;
 module.exports.saveDocuments = saveDocuments;
 module.exports.getDocument = getDocument;
 module.exports.updateField = updateField;

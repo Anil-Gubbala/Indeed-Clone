@@ -5,15 +5,18 @@ const cors = require("cors");
 
 // const swaggerUI = require("swagger-ui-express");
 // const swaggerJsDoc = require("swagger-jsdoc");
-
 app.use(cors({ origin: "*", credentials: true }));
+
 const user = require("./routes/userRoute");
+const company = require("./routes/companyRoute");
+const job = require("./routes/jobRoute");
+const jobApplication = require("./routes/jobApplicationRoute");
+
 const connection = require("./db/connection");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(cors({ origin: process.env.REACT_URL, credentials: true }));
 
 app.use((req, res, next) => {
@@ -58,6 +61,9 @@ app.use((req, res, next) => {
 async function initializeApplication() {
   try {
     app.use(user);
+    app.use(company);
+    app.use(job);
+    app.use(jobApplication);
     await connection.createConnection();
     app.listen(process.env.PORT || 8080, () => {
       console.log("App listening on port 8080");
