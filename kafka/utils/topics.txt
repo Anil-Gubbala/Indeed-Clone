@@ -1,2 +1,4 @@
-bin/kafka-topics.sh --create --topic request-topic --bootstrap-server localhost:9092
+bin/kafka-topics.sh --create --topic request_topic --bootstrap-server localhost:9092
+bin/kafka-topics.sh --create --topic response_topic --bootstrap-server localhost:9092
+
 
