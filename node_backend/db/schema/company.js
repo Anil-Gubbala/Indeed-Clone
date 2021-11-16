@@ -11,7 +11,6 @@ const companyScehma = new Schema(
     },
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
     details: Object,
-    reviews: [{}],
     images: { type: Array },
   },
   { _id: false },
