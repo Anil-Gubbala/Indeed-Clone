@@ -1,5 +1,5 @@
 const config = {
-  SERVERURL: 'http://localhost:4000',
+  SERVERURL: 'http://localhost:8080',
 };
 
 export default config;
