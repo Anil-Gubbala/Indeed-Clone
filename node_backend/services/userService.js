@@ -39,8 +39,7 @@ exports.getUserDetails = async (request) => {
     if (request.query.emailId) {
       let response = await operations.getUserDocumentByDetails(userSchema, {
         emailId: request.query.emailId,
-        password: request.query.password,
-        accountType: request.query.accountType,
+        password: request.query.password
       });
       return { status: 200, body: response };
     }

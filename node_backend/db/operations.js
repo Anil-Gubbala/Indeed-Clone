@@ -48,8 +48,7 @@ const getUserDocumentByDetails = async (modelObject, details) => {
   try {
     return await modelObject.findOne({
       emailId: details.emailId,
-      password: details.password,
-      accountType: details.accountType,
+      password: details.password
     });
   } catch (error) {
     console.log("Error while retreiving data by details:" + error);
@@ -57,8 +56,47 @@ const getUserDocumentByDetails = async (modelObject, details) => {
   }
 };
 
+const getDocuments = async (modelObject, details) => {
+  try {
+    return await modelObject.find({});
+  } catch (error) {
+    console.log("Error while retreiving data by details:" + error);
+    throw new Error(error);
+  }
+};
+
+const getJobsbyFilter = async (modelObject, details) => {
+  try {
+    return await modelObject.find(
+      {$and: [
+           { $or : [ { "details.role" : { $regex : new RegExp(details.role, "i") } }, { "details.companyName" : { $regex : new RegExp(details.role, "i") } } ]},
+           { "details.location" : { $regex : new RegExp(details.location, "i") } },
+        ]
+      });
+  } catch (error) {
+    console.log("Error while retreiving data by details:" + error);
+    throw new Error(error);
+  }
+};
+
+const getJobsInSearch = async (modelObject, details) => {
+  try {
+    return await modelObject.find(
+      {},{"details.role":1, "details.companyName":1,"details.location":1 ,_id:0});
+  } catch (error) {
+    console.log("Error while retreiving data by details:" + error);
+    throw new Error(error);
+  }
+};
+
+
+
+
 module.exports.getUserDocumentByDetails = getUserDocumentByDetails;
 module.exports.getAllDocumentsWithId = getAllDocumentsWithId;
 module.exports.saveDocuments = saveDocuments;
 module.exports.getDocument = getDocument;
 module.exports.updateField = updateField;
+module.exports.getDocuments = getDocuments;
+module.exports.getJobsbyFilter = getJobsbyFilter;
+module.exports.getJobsInSearch = getJobsInSearch;

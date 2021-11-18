@@ -10,7 +10,57 @@ const jobScehma = new Schema(
     },
     jobTitle: { type: String, required: true },
     companyId: mongoose.Schema.Types.ObjectId,
-    details: Object,
+    details: [{
+      role:{
+        type: String,
+        required: true
+      },
+      companyName:{
+        type: String,
+        required: true
+      },
+      rating:
+      {
+        type: Number,
+        required: true
+      },
+      location:
+      {
+        type: String,
+        required: true
+      },
+      salaryDetails:
+      {
+        type: Number,
+        required: true
+      },
+      type:
+      {
+        type: String,
+        required: true
+      },
+      what:
+      {
+        type: String,
+        required: true
+      },
+      why:
+      {
+        type: String,
+        required: true
+      },
+      need:
+      {
+        type: String,
+        required: true
+      },
+      noOfReviews:
+      {
+        type: String,
+        required: true
+      }
+
+    }],
     applications: [{}],
   },
   { _id: false },
