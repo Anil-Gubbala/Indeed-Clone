@@ -50,7 +50,7 @@ class NavBar extends Component {
                         ></path>
                       </svg>
                     </div>
-                    {/* Tabs of Find Jobs, Compoany Reviews and FInd Salaries */}
+                    {/* Tabs of Find Jobs, Compoany Reviews and Find Salaries */}
                     <div className="col-md-8"></div>
                     <div className="col-md-2" style={{ marginTop: '5px' }}>
                       <div className="col-md-6" style={{ color: 'black', display: 'flex' }}>
