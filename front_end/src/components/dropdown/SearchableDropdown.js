@@ -21,10 +21,9 @@ export const SearchableDropdown = ({list, location}) => {
         return (
           <tr>
             <tr>Role: &nbsp; {book.role}</tr>
-            <tr>Location:       &nbsp;     {book.location}</tr>
-            <tr>What: &nbsp;     {book.what}</tr>
-            <tr>Why: &nbsp;     {book.why}</tr>
-            <tr>Need: &nbsp;     {book.need}</tr>
+            <tr>Location:       &nbsp;     {book.location.city}</tr>
+            
+        
           </tr>
         )
       })
@@ -33,10 +32,11 @@ export const SearchableDropdown = ({list, location}) => {
         async function fetchData() {
        var re = await axios.post('/filterjob',{role:"",location:""});
         console.log(re.data);
-        const res = re.data.map(
-            ({details, ...rest}) => details.map(o => Object.assign({}, rest, o))
-          ).flat();
-        setJobList(res);
+        // const res = re.data.map(
+        //     ({details, ...rest}) => details.map(o => Object.assign({}, rest, o))
+        //   ).flat();
+        
+        setJobList(re.data);
         }
         fetchData();
     }, [])
@@ -45,11 +45,11 @@ export const SearchableDropdown = ({list, location}) => {
         e.preventDefault();
         console.log(value+" "+city);
         var r = await axios.post('/filterjob',{role:value,location:city});
-        const result = r.data.map(
-            ({details, ...rest}) => details.map(o => Object.assign({}, rest, o))
-          ).flat();
-        console.log(result);
-        setJobList(result);
+        // const result = r.data.map(
+        //     ({details, ...rest}) => details.map(o => Object.assign({}, rest, o))
+        //   ).flat();
+        console.log(r.data);
+        setJobList(r.data);
     }
     return (
         <>
@@ -97,8 +97,8 @@ export const SearchableDropdown = ({list, location}) => {
                    
                     <div class="row card-body">
                       <h5 class="card-title">{country.role}</h5>
-                      <p>{country.location}</p>
-                      <p>{country.salaryDetails}</p>
+                      <p>{country.location.city}</p>
+                      <p>{country.salary}</p>
                       <p>{country.what}</p>
 
                     </div>

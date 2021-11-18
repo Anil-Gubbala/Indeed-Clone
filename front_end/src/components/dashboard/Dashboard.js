@@ -38,20 +38,20 @@ export const Dashboard = (props) => {
         const req = await axios.get('/getjobinsearch');
         
         //console.log(req.data);
-        const result = req.data.map(
-          ({details, ...rest}) => details.map(o => Object.assign({}, rest, o))
-        ).flat();
+        const result = req.data;
+
+        console.log(result);
 
         result.forEach((item) => {
           var myObj = {
             "role" : item.role
           };
-          var myObj2 = {
-            "role" : item.companyName
-          };
+          // var myObj2 = {
+          //   "role" : item.companyName
+          // };
         
           list2.push( myObj );
-          list2.push( myObj2 );
+          //list2.push( myObj2 );
         });
 
         console.log(list2);

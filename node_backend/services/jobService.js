@@ -48,7 +48,7 @@ exports.getJobDetails = async (request) => {
 
 exports.getJobs = async (request) => {
   try {
-      let response = await operations.getDocuments(jobSchema, {});
+      let response = await operations.getJobDocuments(jobSchema, {});
       return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
@@ -60,7 +60,7 @@ exports.getJobs = async (request) => {
 exports.filterJobs = async (request) => {
   try {
       let response = await operations.getJobsbyFilter(jobSchema, {
-        role: request.body.role,
+        keyw: request.body.keyw,
         location: request.body.location
       });
       return { status: 200, body: response };

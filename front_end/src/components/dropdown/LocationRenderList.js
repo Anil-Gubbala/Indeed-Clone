@@ -24,7 +24,7 @@ border-radius: 15px;
 `;
 export const LocationRenderList = ({city,list,setCity,citytoggle,setCityToggle}) => {
     if(city){
-        const filteredList = list.filter(item => item.location.toString().toLowerCase().startsWith(city.toLowerCase()));
+        const filteredList = list.filter(item => item.location.city.toString().toLowerCase().startsWith(city.toLowerCase()));
         if(filteredList.length){
             return(
                 
@@ -33,8 +33,8 @@ export const LocationRenderList = ({city,list,setCity,citytoggle,setCityToggle})
                <StyledList>{
                  filteredList.map((item) => 
                  <StyledItem onClick={()=> {setCityToggle(false);
-                 setCity(item.location);}}>
-                   {item.location}
+                 setCity(item.location.city);}}>
+                   {item.location.city}
                  </StyledItem>
                  )
                }

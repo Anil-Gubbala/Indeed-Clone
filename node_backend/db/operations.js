@@ -30,6 +30,21 @@ const getDocument = async (modelObject, _id) => {
   }
 };
 
+const getJobDocuments = async (modelObject, _id) => {
+  try {
+    return modelObject.find()
+    .populate({
+      path: 'companyId',
+      select: '-_id'
+    })
+    .lean()
+    
+  } catch (error) {
+    console.log("Error while retreiving data by ID:" + error);
+    throw new Error(error);
+  }
+};
+
 const getAllDocumentsWithId = async (modelObject, id, attributeName) => {
   try {
     // let query={
@@ -67,11 +82,22 @@ const getDocuments = async (modelObject, details) => {
 
 const getJobsbyFilter = async (modelObject, details) => {
   try {
-    return await modelObject.find(
-      {$and: [
-           { $or : [ { "details.role" : { $regex : new RegExp(details.role, "i") } }, { "details.companyName" : { $regex : new RegExp(details.role, "i") } } ]},
-           { "details.location" : { $regex : new RegExp(details.location, "i") } },
-        ]
+    
+    var obj = modelObject.find()
+    .populate({
+      path: 'companyId',
+      select: '-_id'
+    })
+    .lean()
+
+    return await obj.find(
+      
+    {
+      $and: 
+    [
+     { $or : [ { "companyId.name" : { $regex : new RegExp(details.keyw, "i") } } ,{ "role" : { $regex : new RegExp(details.keyw, "i") } }]},
+     { "location.city" : { $regex : new RegExp(details.location, "i") } },
+    ]
       });
   } catch (error) {
     console.log("Error while retreiving data by details:" + error);
@@ -82,7 +108,7 @@ const getJobsbyFilter = async (modelObject, details) => {
 const getJobsInSearch = async (modelObject, details) => {
   try {
     return await modelObject.find(
-      {},{"details.role":1, "details.companyName":1,"details.location":1 ,_id:0});
+      {},{"role":1, "location.city":1 ,_id:0});
   } catch (error) {
     console.log("Error while retreiving data by details:" + error);
     throw new Error(error);
@@ -100,3 +126,4 @@ module.exports.updateField = updateField;
 module.exports.getDocuments = getDocuments;
 module.exports.getJobsbyFilter = getJobsbyFilter;
 module.exports.getJobsInSearch = getJobsInSearch;
+module.exports.getJobDocuments = getJobDocuments;
