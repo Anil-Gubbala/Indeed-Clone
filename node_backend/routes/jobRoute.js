@@ -32,4 +32,52 @@ router.get("/job", async (request, response) => {
   }
 });
 
+router.get("/findjob", async (request, response) => {
+  try {
+    console.log(request.query);
+    const data = await jobService.getJobs(request);
+    console.log(data);
+    response.status(data.status).json(data.body);
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting user Details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
+router.post("/filterjob", async (request, response) => {
+  try {
+    console.log(request.query);
+    const data = await jobService.filterJobs(request);
+    console.log(data);
+    response.status(data.status).json(data.body);
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting user Details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
+router.get("/getjobinsearch", async (request, response) => {
+  try {
+    console.log(request.query);
+    const data = await jobService.filterJobsInSearch(request);
+    console.log(data);
+    response.status(data.status).json(data.body);
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting user Details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
 module.exports = router;

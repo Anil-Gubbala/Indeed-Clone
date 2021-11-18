@@ -21,6 +21,7 @@ const jobScehma = new Schema(
     type: { type: String },
     work: { type: String },
     why: { type: String },
+    need: {type: String}
   },
   { _id: false },
   { collection: "job" }

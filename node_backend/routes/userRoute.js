@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userService = require("../services/userService");
+const User=require("../db/schema/user")
 
 // /**
 //  * @swagger
@@ -27,6 +28,8 @@ const userService = require("../services/userService");
 //  *                 $ref: '#/components/schemas/Post'
 //  */
 
+
+
 //post user - body details are emailid, password, accounttype
 router.post("/user", async (request, response) => {
   console.log(request.body);
@@ -46,7 +49,9 @@ router.post("/user", async (request, response) => {
 //Get user by id or by emailid, password and account type
 router.get("/user", async (request, response) => {
   try {
+    console.log(request.query);
     const data = await userService.getUserDetails(request);
+    console.log(data);
     response.status(data.status).json(data.body);
   } catch (err) {
     console.log(err);
@@ -57,5 +62,10 @@ router.get("/user", async (request, response) => {
     return response.status(code).json({ message });
   }
 });
+
+
+
+
+
 
 module.exports = router;
