@@ -76,17 +76,10 @@ const getDocuments = async (modelObject, details) => {
     return await modelObject.find({});
   } catch (error) {
     console.log("Error while retreiving data by details:" + error);
-const updateDocumentArrayAttribute = async (modelObject, _id, message) => {
-  try {
-    return await modelObject.findOneAndUpdate(
-      { _id: _id },
-      { $push: { message: message } }
-    );
-  } catch (error) {
-    console.log("Error while updating data:" + error);
     throw new Error(error);
   }
 };
+
 
 const getJobsbyFilter = async (modelObject, details) => {
   try {
@@ -123,7 +116,17 @@ const getJobsInSearch = async (modelObject, details) => {
   }
 };
 
-
+const updateDocumentArrayAttribute = async (modelObject, _id, message) => {
+  try {
+    return await modelObject.findOneAndUpdate(
+      { _id: _id },
+      { $push: { message: message } }
+    );
+  } catch (error) {
+    console.log("Error while updating data:" + error);
+    throw new Error(error);
+  }
+};
 
 
 module.exports.getUserDocumentByDetails = getUserDocumentByDetails;
