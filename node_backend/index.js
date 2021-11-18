@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+
 const app = express();
 const cors = require("cors");
 
@@ -11,8 +12,9 @@ const user = require("./routes/userRoute");
 const company = require("./routes/companyRoute");
 const job = require("./routes/jobRoute");
 const jobApplication = require("./routes/jobApplicationRoute");
-
+const message = require("./routes/messageRoute");
 const connection = require("./db/connection");
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
@@ -64,6 +66,8 @@ async function initializeApplication() {
     app.use(company);
     app.use(job);
     app.use(jobApplication);
+    app.use(message);
+
     await connection.createConnection();
     app.listen(process.env.PORT || 8080, () => {
       console.log("App listening on port 8080");
@@ -71,6 +75,7 @@ async function initializeApplication() {
   } catch (error) {
     return Promise.reject(error.message);
   }
+  return Promise.resolve();
 }
 
 initializeApplication()

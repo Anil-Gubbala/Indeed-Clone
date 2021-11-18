@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-
-const { Schema } = mongoose;
+const Schema = mongoose.Schema;
 
 const reviewScehma = new Schema(
   {
@@ -14,13 +13,7 @@ const reviewScehma = new Schema(
     date: { type: Date },
     upVotes: { type: Number },
     downVotes: { type: Number },
-    rating: { type: Number },
-    summary: { type: String },
-    review: { type: String },
-    pros: { type: String },
-    cons: { type: String },
-    approval: { type: Boolean },
-    prep: { type: String },
+    details: {},
   },
   { _id: false },
   { collection: "review" }
