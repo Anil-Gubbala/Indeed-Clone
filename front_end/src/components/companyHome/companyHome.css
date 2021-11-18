@@ -1,0 +1,47 @@
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: Black !important;
+  font-weight: 500 !important;
+  font: bold;
+}
+
+.ant-tabs-tab-btn .ant-tabs-tab-btn:hover {
+  color: black;
+}
+
+.horizontalRule {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 325px;
+}
+
+/* tabs width */
+.ant-tabs-tab + .ant-tabs-tab {
+  margin: 0 0 0 50px;
+}
+
+.companyLogo {
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.15;
+  --swiper-navigation-size: 44px;
+  --swiper-theme-color: #007aff;
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  width: 64px;
+  height: 64px;
+}
+
+.companytxt {
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
+  line-height: 1.5;
+  font-weight: 700;
+  color: #2d2d2d;
+  font-size: 22px;
+}
