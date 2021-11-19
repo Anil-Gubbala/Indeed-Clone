@@ -4,11 +4,17 @@ const mongoose = require("mongoose");
 const connection = require("./Connection");
 const { callFunction } = require("./functionMap");
 const { config } = require("./utils/config");
+const redisClient = require("./redis/redisConfig");
+const db = require("./db/sql/sequelizer");
 
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
+
+db.sequelize.sync().then(() => {
+  console.log("Drop and re-sync db.");
+});
 
 mongoose.connect(config.mongoDB, options, (err) => {
   if (err) {
@@ -31,11 +37,12 @@ const producer = connection.getProducer();
 
 function handleTopicRequest(topicName, fname) {
   // var topicName = 'root_topic';
+  console.log("listening to : ", topicName);
   const consumer = connection.getConsumer(topicName);
   // console.log("server is running ");
   consumer.on("message", (message) => {
-    console.log(`message received for ${topicName} `, fname);
-    console.log(JSON.stringify(message.value));
+    // console.log(`message received for ${topicName} `, fname);
+    // console.log(JSON.stringify(message.value));
     if (!IsJsonString(message.value)) {
       return;
     }
@@ -61,4 +68,4 @@ function handleTopicRequest(topicName, fname) {
   });
 }
 
-handleTopicRequest("request-topic", callFunction);
+handleTopicRequest("request-topic1", callFunction);

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const userScehma = new Schema(
   {
@@ -11,7 +12,15 @@ const userScehma = new Schema(
     emailId: { type: String, required: true },
     password: { type: String, required: true },
     accountType: { type: String, required: true },
-    details: { type: {} },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    image: { type: String },
+    location: { type: String },
+    contact: { type: String },
+    resumeLink: { type: String },
+    appliedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: "job" }],
+    savedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: "job" }],
+    companyId: { type: mongoose.Schema.Types.ObjectId, ref: "company" },
   },
   { _id: false },
   { collection: "user" }
