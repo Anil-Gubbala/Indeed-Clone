@@ -71,13 +71,52 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
+// function randomDate(start, end) {
+//   return new Date(
+//     start.getTime() + Math.random() * (end.getTime() - start.getTime())
+//   );
+// }
+
+function randomDate() {
+  const start = new Date(2021, 10, 15); // date month starts from 0
+  const startHour = 0;
+  const endHour = 23;
+  const end = new Date();
+  const date = new Date(+start + Math.random() * (end - start));
+  const hour = (startHour + Math.random() * (endHour - startHour)) | 0;
+  date.setHours(hour);
+  return date;
+}
+
+// const d = randomDate(new Date(2012, 0, 1), new Date());
+
+const getRandomCompany = () => {
+  const Array = ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10"];
+  const random = Math.floor(Math.random() * Array.length);
+  return Array[random];
+};
+
+const getRandomUser = () => {
+  const Array = ["u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8", "u9", "u10"];
+  const random = Math.floor(Math.random() * Array.length);
+  return Array[random];
+};
+
+const getRandomCEO = () => {
+  const Array = ["o1", "o2", "o3", "o4", "o5", "o6", "o7", "o8", "o9", "o10"];
+  const random = Math.floor(Math.random() * Array.length);
+  return Array[random];
+};
+
 const insertTestReviews = (msg, callback) => {
   const reviewsList = [];
   for (let i = 0; i < 100000; i++) {
     const reviewObject = {
-      comapanyId: (Math.random() + 1).toString(36).substring(7),
-      userId: (Math.random() + 1).toString(36).substring(7),
-      date: Date.now(),
+      // comapanyId: (Math.random() + 1).toString(36).substring(7),
+      companyId: getRandomCompany(),
+      userId: getRandomUser(),
+      // date: randomDate(new Date(2021, 11, 15), new Date()),
+      date: randomDate(),
       upVotes: getRandomInt(10000),
       downVotes: getRandomInt(10000),
       rating: getRandomInt(5),
@@ -87,6 +126,7 @@ const insertTestReviews = (msg, callback) => {
       cons: (Math.random() + 1).toString(36).substring(7),
       approval: Math.random() < 0.5,
       prep: (Math.random() + 1).toString(36).substring(7),
+      status: getRandomInt(2),
     };
     reviewsList.push(reviewObject);
   }

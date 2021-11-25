@@ -6,6 +6,7 @@ import { Dashboard } from '../components/dashboard/Dashboard';
 import companyHome from '../components/companyHome/companyHome';
 
 import NavBar from '../components/navbar/navbar';
+import AdminHome from '../components/admin/AdminHome';
 
 class Routes extends Component {
   render() {
@@ -16,6 +17,7 @@ class Routes extends Component {
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/" component={NavBar} />
         <Route exact path="/" component={companyHome} />
+        <Route exact path="/adminHome" component={AdminHome} />
       </div>
     );
   }

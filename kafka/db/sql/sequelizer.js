@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const { type } = require("../../redis/redisConfig");
 const config = require("./config");
 
 const db = {};
@@ -22,7 +23,7 @@ const reviews = sequelize.define("reviews", {
     autoIncrement: true,
     primaryKey: true,
   },
-  comapanyId: { type: types.STRING, allowNull: false },
+  companyId: { type: types.STRING, allowNull: false },
   userId: { type: types.STRING, allowNull: false },
   date: { type: types.DATE, allowNull: false },
   upVotes: { type: types.INTEGER, allowNull: false },
@@ -34,6 +35,7 @@ const reviews = sequelize.define("reviews", {
   cons: { type: types.STRING, allowNull: false },
   approval: { type: types.STRING, allowNull: false },
   prep: { type: types.STRING, allowNull: false },
+  status: { type: types.INTEGER, allowNull: false, default: 0 }, // 0: not reviewed, 1: pass, 2: fail
 });
 
 db.reviews = reviews;
