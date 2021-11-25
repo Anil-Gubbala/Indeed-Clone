@@ -1,0 +1,38 @@
+
+.dash-details{
+width: 700px;
+  height: 300px;
+ position: fixed;
+ bottom:30px;
+ right:50px;
+ border-radius: 15px;
+ background-color: white;
+ padding: 20px;
+ border-color: grey;
+ margin: 10px;
+ top: 50%;
+}
+
+.yash{
+    width: 468px;
+    height: 273px;
+    border-radius: 15px;
+  
+  padding: 20px;
+  border-color: grey;
+  margin: 10px;
+}
+
+.card-body{
+    width: 468px;
+    height: 273px;
+}
+
+.maincard{
+    margin-bottom: 10px;
+}
+
+.dash-ul {
+    list-style-type: none;
+}
+

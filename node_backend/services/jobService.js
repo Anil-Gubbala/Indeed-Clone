@@ -45,3 +45,41 @@ exports.getJobDetails = async (request) => {
     return { status: code, body: { message } };
   }
 };
+
+exports.getJobs = async (request) => {
+  try {
+      let response = await operations.getJobDocuments(jobSchema, {});
+      return { status: 200, body: response };
+  } catch (err) {
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
+exports.filterJobs = async (request) => {
+  try {
+      let response = await operations.getJobsbyFilter(jobSchema, {
+        keyw: request.body.keyw,
+        location: request.body.location
+      });
+      return { status: 200, body: response };
+  } catch (err) {
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
+exports.filterJobsInSearch = async (request) => {
+  try {
+      let response = await operations.getJobsInSearch(jobSchema, {
+      });
+      return { status: 200, body: response };
+  } catch (err) {
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+

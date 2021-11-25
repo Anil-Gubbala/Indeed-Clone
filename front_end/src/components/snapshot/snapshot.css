@@ -1,0 +1,117 @@
+.componenttag {
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
+  color: #595959 !important;
+  font-size: 12px !important;
+  line-height: 1.5;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.subHeading {
+  color: #2d2d2d;
+  font-weight: 700;
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
+  /* margin-left: 15px !important; */
+  font-size: 1.75rem;
+}
+
+.ceo {
+  height: 230px;
+  width: 185px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: 50% 0;
+}
+
+.ceo1 {
+  -webkit-text-size-adjust: 100%;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  line-height: 1.15;
+  --swiper-navigation-size: 44px;
+  --swiper-theme-color: #007aff;
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  flex: 0 0 175px;
+  height: 230px;
+  margin-right: 1rem;
+  border-radius: 0.5rem;
+  background-size: cover;
+  background-position: 50% 0;
+  width: 175px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #d4d2d0;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  position: relative;
+  height: 107px !important;
+  -webkit-box-pack: justify;
+  box-sizing: border-box;
+  width: 147px !important;
+}
+
+.detailsBox {
+  display: flex;
+}
+
+.ulbox {
+  -webkit-text-size-adjust: 100%;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  line-height: 1.15;
+  --swiper-navigation-size: 44px;
+  --swiper-theme-color: #007aff;
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  list-style: none;
+  display: flex;
+  box-sizing: border-box;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  flex-grow: 1;
+  margin: -0.5rem;
+  padding: 0;
+  min-width: 346px;
+}
+
+.libox1 {
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
+}
+
+.libox2 {
+  margin-top: 10px;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
+  line-height: 1.5;
+  color: #2d2d2d;
+  font-weight: inherit;
+  font-size: 1rem;
+}
