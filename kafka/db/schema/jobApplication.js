@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const jobApplicationScehma = new Schema(
   {
@@ -11,7 +12,7 @@ const jobApplicationScehma = new Schema(
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
     companyId: { type: mongoose.Schema.Types.ObjectId, required: true },
     jobId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    details: Object,
+    status: { type: Number },
   },
   { _id: false },
   { collection: "jobApplication" }
