@@ -24,7 +24,7 @@ const reviews = sequelize.define("reviews", {
     primaryKey: true,
   },
   companyId: { type: types.STRING, allowNull: false },
-  userId: { type: types.STRING, allowNull: false },
+  userId: { type: types.INTEGER, allowNull: false },
   date: { type: types.DATE, allowNull: false },
   upVotes: { type: types.INTEGER, allowNull: false },
   downVotes: { type: types.INTEGER, allowNull: false },

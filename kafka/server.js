@@ -69,3 +69,5 @@ function handleTopicRequest(topicName, fname) {
 }
 
 handleTopicRequest("request-topic1", callFunction);
+
+handleTopicRequest("admin", callFunction);

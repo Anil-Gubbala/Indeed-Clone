@@ -9,7 +9,7 @@ const connector = mysql.createPool({
   multipleStatements: true,
 });
 
-const db = {
+const conn = {
   query: (query, values, callback) => {
     connector.query(query, values, (err, result) => {
       if (err) {
@@ -30,4 +30,4 @@ const db = {
 //   multipleStatements: true,
 // });
 
-module.exports = db;
+module.exports = conn;

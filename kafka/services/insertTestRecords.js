@@ -97,7 +97,7 @@ const getRandomCompany = () => {
 };
 
 const getRandomUser = () => {
-  const Array = ["u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8", "u9", "u10"];
+  const Array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const random = Math.floor(Math.random() * Array.length);
   return Array[random];
 };
