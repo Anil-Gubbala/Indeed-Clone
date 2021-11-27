@@ -1,9 +1,9 @@
-const { makeRequest } = require("../kafka/client");
+const { makeRequest } = require("./client");
 
 const topics = {
   request: "request-topic",
 };
-const kafkaRequest = (topic = topics.request, functionName, data, callback) => {
+const kafkaRequest = (topic, functionName, data, callback) => {
   makeRequest(topic, { functionName, data }, callback);
 };
 

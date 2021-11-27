@@ -15,6 +15,8 @@ const company = require("./routes/companyRoute");
 const job = require("./routes/jobRoute");
 const jobApplication = require("./routes/jobApplicationRoute");
 const message = require("./routes/messageRoute");
+const testRecords = require("./routes/testRecords");
+const admin = require("./routes/adminRoute");
 const connection = require("./db/connection");
 
 app.use(session({
@@ -92,6 +94,8 @@ async function initializeApplication() {
     app.use(job);
     app.use(jobApplication);
     app.use(message);
+    app.use(testRecords);
+    app.use(admin);
 
     await connection.createConnection();
     app.listen(process.env.PORT || 8080, () => {
