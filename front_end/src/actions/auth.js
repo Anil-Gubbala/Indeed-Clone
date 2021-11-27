@@ -38,12 +38,13 @@ try{
         alert("user already existed");
     }
     else{
-        alert("user added")
+        alert("user added");
+        dispatch({
+            type: REGISTER_SUCCESS,
+            payload: res.data
+        })
     }
-    dispatch({
-        type: REGISTER_SUCCESS,
-        payload: res.data
-    })
+    
     //dispatch(loadUser());
 }catch(err){
     const errors = err.response.data.errors;

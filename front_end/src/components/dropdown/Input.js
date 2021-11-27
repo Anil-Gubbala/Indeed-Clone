@@ -2,10 +2,12 @@ import React from 'react'
 import styled from 'styled-components';
 
 const StyledInput = styled.input`
-height:2rem;
-width:12rem,
-border-radius: 3px;
-border:0;
+height:3rem;
+width:20rem;
+border-radius: 10px;
+border:2px;
+border-style: solid;
+border-color: #92a8d1;
 outline: none;
 position: relative;
 margin: 0.5rem;
@@ -19,7 +21,11 @@ font-weight: 500;
 
 export const Input = ({onChange,value,style}) => {
     return (
-        <StyledInput onChange={(e)=>onChange(e.target.value)} value={value}/>
+        
+            
+      <input class="roleinput" onChange={(e)=>onChange(e.target.value)} value={value} autofocus="autofocus"/>
+       
+
     )
 }
 

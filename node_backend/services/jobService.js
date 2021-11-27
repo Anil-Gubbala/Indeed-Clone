@@ -60,7 +60,7 @@ exports.getJobs = async (request) => {
 exports.filterJobs = async (request) => {
   try {
       let response = await operations.getJobsbyFilter(jobSchema, {
-        keyw: request.body.keyw,
+        keyw: request.body.role,
         location: request.body.location
       });
       return { status: 200, body: response };

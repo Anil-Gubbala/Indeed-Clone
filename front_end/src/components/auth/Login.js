@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
 
-export const Login = ({login,  isAuthenticated}) => {
+export const Login = ({login,  isAuthenticated, details, state}) => {
     const [formData, setFormData] = useState({
         emailId: '',
         password: ''
@@ -21,6 +21,7 @@ export const Login = ({login,  isAuthenticated}) => {
         login({ emailId, password});
     }
     if (isAuthenticated) {
+        console.log(details[0].accountType);
         return <Redirect to="/dashboard" />;
       }
     return (
@@ -73,17 +74,17 @@ export const Login = ({login,  isAuthenticated}) => {
                                     </div>
                                     <hr class="my-4" />
                                     <div class="d-grid ">
-                                        <button class="btn btngoogle " type="button">
+                                        <button class="btn btnlogin " type="button">
                                             Sign in with Google
                                         </button>
                                     </div>
                                     <div class="d-grid ">
-                                        <button class="btn btngoogle " type="button">
+                                        <button class="btn btnlogin" type="button">
                                              Sign in with Apple
                                         </button>
                                     </div>
                                     <div class="d-grid">
-                                        <button class="btn btngoogle " type="button">
+                                        <button class="btn btnlogin" type="button">
                                              Sign in with Facebook
                                         </button>
                                     </div>
@@ -100,11 +101,12 @@ export const Login = ({login,  isAuthenticated}) => {
 
 Login.propTypes = {
     login: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
   };
   
   const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    details: state.auth
   });
 
 export default connect(mapStateToProps,{login})(Login);

@@ -1,8 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const session = require('express-session');
 const app = express();
 const cors = require("cors");
+var constraints = require("./kafka/config");
+var mysql = require('mysql');
 
 // const swaggerUI = require("swagger-ui-express");
 // const swaggerJsDoc = require("swagger-jsdoc");
@@ -16,6 +18,29 @@ const message = require("./routes/messageRoute");
 const testRecords = require("./routes/testRecords");
 const admin = require("./routes/adminRoute");
 const connection = require("./db/connection");
+
+app.use(session({
+  secret: 'mysql',
+  resave: false,
+  saveUninitialized: false,
+  duration: 60 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000
+}));
+
+var sqlconnection = mysql.createPool({
+ host: constraints.DB.host,
+ user:constraints.DB.username,
+ password: constraints.DB.password,
+ port: constraints.DB.port,
+ database: constraints.DB.database
+});
+
+sqlconnection.getConnection((err) => {
+  if(err){
+      throw 'Error occured ' + err.message;
+  }
+  console.log("pool created");
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

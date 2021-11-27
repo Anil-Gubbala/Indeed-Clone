@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import Navbar from '../layout/Navbar';
+import Navbar from '../navbar/navbar'
 import SearchableDropdown from '../dropdown/SearchableDropdown';
 import './Dashboard.css'
 import { DashboardPopup } from './DashboardPopup';
