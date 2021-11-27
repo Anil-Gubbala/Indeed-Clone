@@ -59,6 +59,10 @@ class Snapshot extends Component {
           </div>
           <div>
             <div className="subHeading">Jobs near you</div>
+            <div>You're seeing Google jobs close to San Jose, CA.</div>
+            <div className="nearJobs">
+              <div className="nearJobs1"></div>
+            </div>
           </div>
         </div>
       </>

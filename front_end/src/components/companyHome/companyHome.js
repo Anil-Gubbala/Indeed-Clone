@@ -8,6 +8,8 @@ import './companyHome.css';
 import google from '../../images/google.jpeg';
 import g from '../../images/g.jpeg';
 import Snapshot from '../snapshot/snapshot';
+import WhyJoinUs from '../whyjoinus/whyjoinus';
+import ReviewsTab from '../reviews/reviews';
 
 dotenv.config();
 
@@ -33,23 +35,23 @@ class companyHome extends React.Component {
       <>
         <div
           style={{
-            paddingLeft: '25%',
-            paddingRight: '25%',
+            paddingLeft: '20%',
+            paddingRight: '20%',
             position: 'absolute',
             width: '100%',
           }}
         >
-          <img src={google} style={{ marginTop: '-15px' }} alt="Company Image" />
+          <img src={google} alt="Company Image" />
           <div className="row" style={{ paddingBottom: '15px' }}>
             <div className="col-md-1" style={{ paddingLeft: '20px' }}>
               <img src={g} className="companyLogo" alt="Company Logo" />
             </div>
-            <div className="col-md-2 " style={{ paddingLeft: '45px' }}>
+            <div className="col-md-2 " style={{ paddingLeft: '25px' }}>
               <div className="row companytxt">Google</div>
               <div className="row"></div>
             </div>
           </div>
-          <div className="row" style={{ marginLeft: '10px' }}>
+          <div style={{ marginLeft: '10px' }}>
             <Tabs
               defaultActiveKey="1"
               onChange={callback}
@@ -59,8 +61,12 @@ class companyHome extends React.Component {
               <TabPane tab="Snapshot" key="1">
                 <Snapshot />
               </TabPane>
-              <TabPane tab="Why Join Us" key="2"></TabPane>
-              <TabPane tab="Reviews" key="3"></TabPane>
+              <TabPane tab="Why Join Us" key="2">
+                <WhyJoinUs />
+              </TabPane>
+              <TabPane tab="Reviews" key="3">
+                <ReviewsTab />
+              </TabPane>
               <TabPane tab="Salaries" key="4"></TabPane>
               <TabPane tab="Photos" key="5"></TabPane>
               <TabPane tab="Jobs" key="6"></TabPane>
