@@ -6,6 +6,7 @@ import { DashboardPopup } from './DashboardPopup';
 
 import axios from 'axios';
 import DashNav from '../navbar/DashNav';
+import DashLoginNav from '../navbar/DashLoginNav';
 
 
 const list = [
@@ -27,7 +28,7 @@ var list2=[{role: 'SDE'}]
 // ]
 
 
-export const Dashboard = (props) => {
+export const LandingPage = (props) => {
 
   const [cart, setCart] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -70,7 +71,7 @@ export const Dashboard = (props) => {
   return (
     <body>
      
-     <DashNav/>
+      <DashLoginNav/>
       <div>
         <SearchableDropdown list={roles} location={location} />
       </div>
