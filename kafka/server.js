@@ -2,7 +2,7 @@
 // var signin = require('./services/signin.js');
 const mongoose = require("mongoose");
 const connection = require("./Connection");
-const { callFunction } = require("./functionMap");
+const admin = require("./routes/admin");
 const { config } = require("./utils/config");
 const redisClient = require("./redis/redisConfig");
 const db = require("./db/sql/sequelizer");
@@ -33,11 +33,11 @@ function IsJsonString(str) {
   }
   return true;
 }
-const producer = connection.getProducer();
 
 function handleTopicRequest(topicName, fname) {
   // var topicName = 'root_topic';
   console.log("listening to : ", topicName);
+  const producer = connection.getProducer();
   const consumer = connection.getConsumer(topicName);
   // console.log("server is running ");
   consumer.on("message", (message) => {
@@ -48,7 +48,7 @@ function handleTopicRequest(topicName, fname) {
     }
     const data = JSON.parse(message.value);
 
-    fname(data.data, (err, res) => {
+    fname.handle_request(data.data, (err, res) => {
       // console.log(`after handle${res}`);
       const payloads = [
         {
@@ -68,6 +68,6 @@ function handleTopicRequest(topicName, fname) {
   });
 }
 
-handleTopicRequest("request-topic1", callFunction);
+handleTopicRequest("request-topic1", admin);
 
-handleTopicRequest("admin", callFunction);
+handleTopicRequest("admin", admin);
