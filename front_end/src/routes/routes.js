@@ -31,9 +31,6 @@ class Routes extends Component {
         <Route exact path="/salary">
           <SalaryBox />
         </Route>
-        <Route exact path="/jobs">
-          <SavedJobs />
-        </Route>
       </div>
     );
   }
