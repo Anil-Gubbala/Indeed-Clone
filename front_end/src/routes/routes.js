@@ -7,6 +7,10 @@ import companyHome from '../components/companyHome/companyHome';
 
 import NavBar from '../components/navbar/navbar';
 import AdminHome from '../components/admin/AdminHome';
+import CompanyReviews from '../components/reviews/companyReviews';
+import Profile from '../components/profile/profile';
+import SalaryBox from '../components/layout/SalariesBox';
+import SavedJobs from '../components/useraccount/myjobs';
 
 class Routes extends Component {
   render() {
@@ -18,6 +22,18 @@ class Routes extends Component {
         <Route exact path="/" component={NavBar} />
         <Route exact path="/" component={companyHome} />
         <Route exact path="/adminHome" component={AdminHome} />
+        <Route exact path="/reviews">
+          <CompanyReviews />
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+        <Route exact path="/salary">
+          <SalaryBox />
+        </Route>
+        <Route exact path="/jobs">
+          <SavedJobs />
+        </Route>
       </div>
     );
   }
