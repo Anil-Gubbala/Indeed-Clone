@@ -22,7 +22,7 @@ export const Login = ({login,  isAuthenticated, details, state}) => {
     }
     if (isAuthenticated) {
         console.log(details[0].accountType);
-        return <Redirect to="/dashboard" />;
+        return <Redirect to="/landing" />;
       }
     return (
 

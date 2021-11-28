@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import DashNav from '../navbar/DashNav';
 import $ from 'jquery';
 import Popper from 'popper.js';
 import axios from 'axios';
@@ -25,12 +26,28 @@ export const SearchableDropdown = ({list, location}) => {
     
       let details = cart.map(book => {
         return (
-          <tr>
-            <tr>Role: &nbsp; {book.role}</tr>
-            <tr>Location:       &nbsp;     {book.location.city}</tr>
-            
+          <>
+          <div class="Header">
+            <p>The Header div height is not fixed (But he can be if you want it to)</p>
+            <p>This Layout has been tested on: IE10, IE9, IE8, FireFox, Chrome, Safari, Opera. using Pure CSS 2.1 only</p>
+           
+        </div>
         
-          </tr>
+        <div class="Content">
+        
+            <div class="Wrapper">
+                
+                <div class="LeftContent">
+                <hr/>
+                    <p>
+                    {book.work}
+                    </p>
+                    <p>{book.why}</p>
+                    <p>{book.need}</p>
+                </div>
+            </div>
+        </div>
+        </>
         )
       })
 
@@ -177,8 +194,8 @@ export const SearchableDropdown = ({list, location}) => {
   </tr>
   <tr>
     <ul>
-      <li>You’ll take care of our guests, including check in/check out, billing, ensuring we collect correct guest data, and communicating any guest issues that arise.</li>
-      <li>You’ll take care of our guests, including check in/check out</li>
+      <li class="dashli">You’ll take care of our guests, including check in/check out, billing, ensuring we collect correct guest data, and communicating any guest issues that arise.</li>
+      <li class="dashli">You’ll take care of our guests, including check in/check out</li>
     </ul>
   </tr>
 </table>
@@ -210,33 +227,10 @@ export const SearchableDropdown = ({list, location}) => {
         <div class="dash-details">
 
         <div class="Container">
-        <div class="Header">
-            <p>The Header div height is not fixed (But he can be if you want it to)</p>
-            <p>This Layout has been tested on: IE10, IE9, IE8, FireFox, Chrome, Safari, Opera. using Pure CSS 2.1 only</p>
-           
-        </div>
-        
-        <div class="Content">
-        
-            <div class="Wrapper">
-                
-                <div class="LeftContent">
-                <hr/>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                </div>
-            </div>
-        </div>
+        {details}
     </div>
          
-      {details}
-      <DashboardPopup ></DashboardPopup>
+      
       </div>
       </div>
       </div>
