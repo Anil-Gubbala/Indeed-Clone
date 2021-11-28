@@ -70,10 +70,12 @@ export const login = formData => async dispatch =>{
         });
         console.log(res.data);
         if(res.data !== "failure"){{
-            dispatch({
+            localStorage.setItem("email",res.data[0].emailId);
+            localStorage.setItem("role",res.data[0].accountType);
+             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data
-            });
+             });
             //dispatch(loadUser());
             
          }}
