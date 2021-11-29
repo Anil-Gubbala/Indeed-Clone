@@ -26,6 +26,11 @@ const GetCompany = require("./routes/GetCompany")
 const edit = require("./routes/EditCompanyPage")
 const AddImg = require("./routes/AddImg")
 
+const postJob=require('./routes/postJob');
+const viewJobs=require('./routes/viewJobs');
+const viewApplicants=require('./routes/viewApplicants');
+const setApplicationStatus=require('./routes/setApplicationStatus');
+
 const connection = require("./db/connection");
 
 app.use(session({
@@ -113,6 +118,11 @@ async function initializeApplication() {
     app.use(AddCompany)
     app.use(GetCompany)
     app.use(AddImg)
+
+    app.use(postJob);
+    app.use(viewJobs);
+    app.use(viewApplicants);
+    app.use(setApplicationStatus);
 
     await connection.createConnection();
     app.listen(process.env.PORT || 8080, () => {
