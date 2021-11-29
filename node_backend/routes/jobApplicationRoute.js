@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userService = require("../services/jobApplicationService");
 
+
 //POST JOB APPLICATION
 router.post("/jobApplication", async (request, response) => {
   console.log(request.body);
