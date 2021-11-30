@@ -22,7 +22,12 @@ export const Login = ({login,  isAuthenticated, details, state}) => {
     }
     if (isAuthenticated) {
         console.log(details[0].accountType);
+        if(localStorage.getItem("role")=="jobseeker"){
         return <Redirect to="/landing" />;
+        }
+        else{
+            return <Redirect to="/company" />;
+        }
       }
     return (
 
