@@ -16,7 +16,7 @@ import JobsTab from "../jobsTab/jobsTab";
 dotenv.config();
 
 const { TabPane } = Tabs;
-class companyHome extends React.Component {
+class companyHomes extends React.Component {
   state = {};
 
   render() {
@@ -41,6 +41,7 @@ class companyHome extends React.Component {
             paddingRight: "25%",
             position: "absolute",
             width: "100%",
+            background: "white",
           }}
         >
           <img
@@ -86,10 +87,9 @@ class companyHome extends React.Component {
           </div>
         </div>
         <div className="horizontalRule"></div>
-        {/* <hr style={{ margin: '0px !important' }}></hr> */}
       </>
     );
   }
 }
 
-export default companyHome;
+export default companyHomes;

@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import Register from "../components/auth/Register";
 import Login from "../components/auth/Login";
 import { Dashboard } from "../components/dashboard/Dashboard";
-import companyHome from "../components/companyHome/companyHome";
+import companyHomes from "../components/companyHome/companyHome";
 
 import NavBar from "../components/navbar/navbar";
 import AdminHome from "../components/admin/AdminHome";
@@ -20,18 +20,19 @@ import EditCompanyPage from "../components/CompanyProfile/EditCompanyPage";
 import Employer from "../components/Employer/EmployerLanding";
 import PostJob from "../components/PostJob/PostJob";
 import Candidates from "../components/Candidates/Candidates";
+import Messages from "../components/messages/messages";
 
 class Routes extends Component {
   render() {
     return (
       <div>
         <Route path="/" component={NavBar} />
-        <Route exact path="/" component={companyHome} />
-        <Route exact path="/a" component={Messages} />
+        <Route exact path="/companyHomes" component={companyHomes} />
+        <Route exact path="/msg" component={Messages} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Dashboard} />
-        <Route exact path="/company" component={companyHome} />
+
         <Route exact path="/adminHome" component={AdminHome} />
         <Route exact path="/DashNav" component={DashNav} />
         <Route exact path="/landing" component={LandingPage} />

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
-import Toolbar from '@mui/material/Toolbar';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import ChatIcon from '@mui/icons-material/Chat';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import PersonIcon from '@mui/icons-material/Person';
-import './navbar.css';
+import React, { Component } from "react";
+import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
+import Toolbar from "@mui/material/Toolbar";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import ChatIcon from "@mui/icons-material/Chat";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import PersonIcon from "@mui/icons-material/Person";
+import "./navbar.css";
 
 class NavBar extends Component {
   constructor(props) {
@@ -22,13 +22,15 @@ class NavBar extends Component {
           <AppBar
             position="static"
             sx={{
-              minHeight: '40px',
-              left: '0px',
-              right: '0px',
-              background: 'white',
+              minHeight: "40px",
+              left: "0px",
+              right: "0px",
+              background: "white !important",
             }}
           >
-            <div style={{ display: 'flex', marginTop: '5px' }}>
+            <div
+              style={{ display: "flex", marginTop: "5px", background: "white" }}
+            >
               <div className="col-md-12">
                 <Toolbar>
                   <div className="row">
@@ -52,15 +54,27 @@ class NavBar extends Component {
                     </div>
                     {/* Tabs of Find Jobs, Compoany Reviews and Find Salaries */}
                     <div className="col-md-8"></div>
-                    <div className="col-md-2" style={{ marginTop: '5px' }}>
-                      <div className="col-md-6" style={{ color: 'black', display: 'flex' }}>
-                        <div className="col-md-2" style={{ paddingLeft: '45px' }}>
+                    <div className="col-md-2" style={{ marginTop: "5px" }}>
+                      <div
+                        className="col-md-6"
+                        style={{ color: "black", display: "flex" }}
+                      >
+                        <div
+                          className="col-md-2"
+                          style={{ paddingLeft: "45px" }}
+                        >
                           <ChatIcon />
                         </div>
-                        <div className="col-md-2" style={{ paddingLeft: '45px' }}>
+                        <div
+                          className="col-md-2"
+                          style={{ paddingLeft: "45px" }}
+                        >
                           <NotificationsIcon />
                         </div>
-                        <div className="col-md-2" style={{ paddingLeft: '45px' }}>
+                        <div
+                          className="col-md-2"
+                          style={{ paddingLeft: "45px" }}
+                        >
                           <PersonIcon />
                         </div>
                       </div>
@@ -70,7 +84,7 @@ class NavBar extends Component {
               </div>
             </div>
           </AppBar>
-          <hr style={{ marginBottom: '0px !important' }}></hr>
+          {/* <hr></hr> */}
         </Box>
       </>
     );
