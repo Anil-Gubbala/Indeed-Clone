@@ -1,4 +1,3 @@
-import { get } from 'jquery';
 import React, { useEffect, useState } from 'react';
 import {
   BarChart,
@@ -13,6 +12,7 @@ import {
 } from 'recharts';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import { get } from '../../utils/serverCall';
 
 function MostViewedCompanies() {
   const [date, setDate] = useState(new Date().toJSON().substring(0, 10));
@@ -21,7 +21,10 @@ function MostViewedCompanies() {
   const getMostViewedCompanies = (input) => {
     get('/getMostViewedCompanies', { date: input })
       .then((result) => {
-        const temp = result.map((each) => ({ name: each.name, count: each.views[input] }));
+        const temp = result.map((each) => ({
+          name: each.name,
+          count: each.views[input],
+        }));
         setData(temp);
         // setData(data);
       })
@@ -39,7 +42,13 @@ function MostViewedCompanies() {
   return (
     <>
       <FloatingLabel controlId="dob" label="Date of Birth" className="mb-3">
-        <Form.Control name="dob" type="date" required value={date} onChange={onDateChange} />
+        <Form.Control
+          name="dob"
+          type="date"
+          required
+          value={date}
+          onChange={onDateChange}
+        />
       </FloatingLabel>
       {/* <ResponsiveContainer width="100%" height="100%"> */}
       <BarChart
@@ -64,7 +73,12 @@ function MostViewedCompanies() {
           // label={{ value: 'random text', position: 'bottom', offset: 15 }}
         />
         <YAxis
-          label={{ value: 'No of Views', angle: -90, position: 'insideLeft', textAnchor: 'middle' }}
+          label={{
+            value: 'No of Views',
+            angle: -90,
+            position: 'insideLeft',
+            textAnchor: 'middle',
+          }}
         />
         <Tooltip />
         <Legend />
