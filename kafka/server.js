@@ -22,6 +22,11 @@ var changeMission = require("./services/changeMissionService")
 var changeRevenue = require("./services/changeRevenueService")
 var changeCEO = require("./services/changeCEOService")
 
+const postJob=require('./services/postJob');
+const viewJobs=require('./services/viewJobs');
+const viewApplicants=require('./services/viewApplicants');
+const setApplicationStatus=require('./services/setApplicationStatus');
+
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -103,3 +108,8 @@ handleTopicRequest("changeMission",changeMission);
 handleTopicRequest("changeRevenue",changeRevenue);
 handleTopicRequest("changeCEO",changeCEO);
 handleTopicRequest("GetCompany",GetCompany);
+
+handleTopicRequest("postJob",postJob)
+handleTopicRequest("viewJobs",viewJobs)
+handleTopicRequest("viewApplicants",viewApplicants)
+handleTopicRequest("setApplicationStatus",setApplicationStatus)

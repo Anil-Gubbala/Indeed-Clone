@@ -10,9 +10,12 @@ const jobApplicationScehma = new Schema(
       auto: true,
     },
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    userName:{ type: String, required: true },
     companyId: { type: mongoose.Schema.Types.ObjectId, required: true },
     jobId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    status: { type: Number },
+    resume: { type: String, required: true },
+    coverLetter: { type: String },
+    status: { type: String },
   },
   { _id: false },
   { collection: "jobApplication" }
