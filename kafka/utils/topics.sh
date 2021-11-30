@@ -24,3 +24,4 @@ bin/kafka-topics.sh --create --topic postJob --bootstrap-server localhost:9092
 bin/kafka-topics.sh --create --topic viewJobs --bootstrap-server localhost:9092
 bin/kafka-topics.sh --create --topic viewApplicants --bootstrap-server localhost:9092
 bin/kafka-topics.sh --create --topic setApplicationStatus --bootstrap-server localhost:9092
+
