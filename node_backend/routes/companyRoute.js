@@ -1,7 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const companyService = require("../services/companyService");
+var constraints = require("../kafka/config");
+var mysql = require('mysql');
 
+var sqlconnection = mysql.createPool({
+  host: constraints.DB.host,
+  user:constraints.DB.username,
+  password: constraints.DB.password,
+  port: constraints.DB.port,
+  database: constraints.DB.database
+ });
+
+ sqlconnection.getConnection((err) => {
+  if(err){
+      throw 'Error occured ' + err.message;
+  }
+  console.log("pool created");
+});
 //post company details
 router.post("/company", async (request, response) => {
   console.log(request.body);
@@ -47,5 +63,23 @@ router.get("/company", async (request, response) => {
 //     return response.status(code).json({ message });
 //   }
 // });
+
+
+router.get("/getrating", async (request, response) => {
+  const companyId=request.body.companyId;
+  try {
+    sqlconnection.query(`SELECT * FROM reviews WHERE companyId=?`,companyId
+    ,  function (error,results){
+         response.send(JSON.stringify(results));
+    });
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting user Details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
 
 module.exports = router;
