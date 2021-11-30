@@ -7,15 +7,16 @@ function ConnectionProvider() {
     this.client = new kafka.KafkaClient({
       kafkaHost: `${config.KAFKA_HOST}:${config.KAFKA_PORT}`,
     });
-    // this.client = new kafka.Client("localhost:2181");
     /* this.client.refreshMetadata([{topic: topic_name}], (err) => {
                 if (err) {
                     console.warn('Error refreshing kafka metadata', err);
                 }
             }); */
-    this.kafkaConsumerConnection = new kafka.Consumer(this.client, [
-      { topic: topicName, partition: 0 },
-    ]);
+    this.kafkaConsumerConnection = new kafka.Consumer(
+      this.client,
+      [{ topic: topicName, partition: 0 }],
+      { fetchMaxBytes: 5242880 }
+    );
     this.client.on("ready", () => {
       console.log("client ready!");
     });
@@ -29,6 +30,7 @@ function ConnectionProvider() {
       this.client = new kafka.KafkaClient({
         kafkaHost: `${config.KAFKA_HOST}:${config.KAFKA_PORT}`,
       });
+
       /* this.client.refreshMetadata([{topic: topic_name}], (err) => {
                 if (err) {
                     console.warn('Error refreshing kafka metadata', err);

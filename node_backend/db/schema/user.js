@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const userScehma = new Schema(
   {
@@ -18,6 +19,7 @@ const userScehma = new Schema(
     contact: { type: String },
     resumeLink: { type: String },
     appliedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: "job" }],
+    savedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: "job" }],
     companyId: { type: mongoose.Schema.Types.ObjectId, ref: "company" },
   },
   { _id: false },

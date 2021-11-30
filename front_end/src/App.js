@@ -1,15 +1,23 @@
-import React, { Component } from "react";
-import { BrowserRouter } from "react-router-dom";
-
-import Routes from "./routes/routes";
+import React, { Component, Fragment, useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
+import Routes from './routes/routes';
+import { loadUser } from './actions/auth';
+import setAuthToken from './utils/setAuthToken';
+import { LOGOUT } from './actions/types';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div>
-        <Routes />
-      </div>
-    </BrowserRouter>
+    <Provider store={store}>
+      <>
+        <BrowserRouter>
+          <div>
+            <Routes />
+          </div>
+        </BrowserRouter>
+      </>
+    </Provider>
   );
 }
 

@@ -1,0 +1,95 @@
+.body-profile{
+  margin-top:50px;
+  background-color: #EEEEEE
+}
+
+
+.info-profile{
+  padding:20px;
+  box-shadow: inset 1px 1px 1px 0 black, inset -1px -1px 1px black;
+  background: #ffff;
+  margin-bottom: 10px;
+  border-radius: 3%;
+  margin-left: 400px;
+}
+
+.heading-profile{
+  text-align: left;
+  font-weight: bolder;
+}
+
+.form-control{
+  width: 500px;
+  height: 40px;
+  border-style: block;
+  color: black;
+  border-radius: 5px;
+}
+
+.save-button{
+  border-radius: 100%;
+  font-weight: bold;
+  margin: 20px;
+}
+
+.textBox:hover{
+  border-color: blue;
+}
+
+
+.main-heading{
+  justify-content: center;
+  white-space: nowrap;
+  margin-right: 500px;
+}
+
+.circle {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  background-color: blue;
+  border-radius: 100%;
+
+}
+.name-details{
+  margin-right: 630px;
+}
+.first{
+    margin-left: 500px;
+    margin-top: 10px;
+    padding: 50px;
+    whiteSpace: nowrap;
+}
+
+.address{
+  width: 600px;
+  height:230px;
+}
+.name{
+  width: 600px;
+  height:200px;
+}
+
+.role{
+  width: 600px;
+  height:200px;
+}
+
+.address-hidden{
+  width: 600px;
+  height: 600px;
+}
+
+.role-hidden{
+  width: 600px;
+  height: 300px;
+}
+
+.name-hidden{
+  width: 600px;
+  height: 400px;
+}
+
+.main-heading{
+  margin-top:10px;
+}

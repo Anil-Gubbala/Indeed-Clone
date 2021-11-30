@@ -1,8 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const session = require('express-session');
 const app = express();
 const cors = require("cors");
+var constraints = require("./kafka/config");
+var mysql = require('mysql');
 
 // const swaggerUI = require("swagger-ui-express");
 // const swaggerJsDoc = require("swagger-jsdoc");
@@ -13,7 +15,46 @@ const company = require("./routes/companyRoute");
 const job = require("./routes/jobRoute");
 const jobApplication = require("./routes/jobApplicationRoute");
 const message = require("./routes/messageRoute");
+const testRecords = require("./routes/testRecords");
+const admin = require("./routes/adminRoute");
+const EditCompanyName = require("./routes/EditCompanyName");
+const EditCompanyRole = require("./routes/EditCompanyRole");
+const EditCompanyAddress = require("./routes/EditCompanyAddress");
+const Profile = require("./routes/Profile")
+const AddCompany = require("./routes/AddCompany")
+const GetCompany = require("./routes/GetCompany")
+const edit = require("./routes/EditCompanyPage")
+const AddImg = require("./routes/AddImg")
+
+const postJob=require('./routes/postJob');
+const viewJobs=require('./routes/viewJobs');
+const viewApplicants=require('./routes/viewApplicants');
+const setApplicationStatus=require('./routes/setApplicationStatus');
+
 const connection = require("./db/connection");
+
+app.use(session({
+  secret: 'mysql',
+  resave: false,
+  saveUninitialized: false,
+  duration: 60 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000
+}));
+
+var sqlconnection = mysql.createPool({
+ host: constraints.DB.host,
+ user:constraints.DB.username,
+ password: constraints.DB.password,
+ port: constraints.DB.port,
+ database: constraints.DB.database
+});
+
+sqlconnection.getConnection((err) => {
+  if(err){
+      throw 'Error occured ' + err.message;
+  }
+  console.log("pool created");
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -59,6 +100,7 @@ app.use((req, res, next) => {
 //   },
 //   apis: ["./routes/*.js"],
 // };
+app.use("/edit",edit)
 
 async function initializeApplication() {
   try {
@@ -67,6 +109,20 @@ async function initializeApplication() {
     app.use(job);
     app.use(jobApplication);
     app.use(message);
+    app.use(testRecords);
+    app.use(admin);
+    app.use(EditCompanyName);
+    app.use(EditCompanyRole);
+    app.use(EditCompanyAddress)
+    app.use(Profile)
+    app.use(AddCompany)
+    app.use(GetCompany)
+    app.use(AddImg)
+
+    app.use(postJob);
+    app.use(viewJobs);
+    app.use(viewApplicants);
+    app.use(setApplicationStatus);
 
     await connection.createConnection();
     app.listen(process.env.PORT || 8080, () => {
