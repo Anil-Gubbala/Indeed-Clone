@@ -1,0 +1,80 @@
+.bck {
+  background-color: rgb(246, 246, 246);
+  height: 2000px;
+  bottom: 0 !important;
+}
+
+.icon {
+  font-family: 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', Roboto, Noto,
+    sans-serif;
+  cursor: pointer;
+  color: rgb(89, 89, 89);
+  line-height: 1.5;
+  padding: 0.5rem;
+  margin: -0.5rem;
+}
+
+.icon1 {
+  font-family: 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', Roboto, Noto,
+    sans-serif;
+  cursor: pointer;
+  background-color: rgb(35, 126, 163) !important;
+  height: 1.875rem !important;
+  width: 1.875rem !important;
+  border-radius: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+  font-size: 0.875rem;
+  line-height: 2rem;
+}
+
+.icon2 {
+  font-family: 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', Roboto, Noto,
+    sans-serif;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 2rem;
+  fill: currentcolor;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: rgb(255, 255, 255);
+}
+
+.msgHeading {
+  color: #2d2d2d;
+  font-weight: 700;
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
+  font-size: 22px;
+}
+
+.inbox {
+  margin-top: 10px;
+  width: 100%;
+  height: 35px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.chat {
+}
+
+.chat:active {
+  background-color: #eef1fe;
+  border-left: 2px solid blue;
+}
+
+.hrPadding {
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+}

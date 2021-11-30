@@ -124,7 +124,7 @@ router.post("/user", async (request, response) => {
 router.get("/use", async (request, response) => {
   try {
     console.log(request.query);
-    const data = await userService.getUserDetails(request);
+    const data = await userService.getRating(request);
     console.log(data);
     response.status(data.status).json(data.body);
   } catch (err) {
@@ -160,10 +160,6 @@ router.get("/user", async (request, response) => {
     return response.status(code).json({ message });
   }
 });
-
-
-
-
 
 
 module.exports = router;
