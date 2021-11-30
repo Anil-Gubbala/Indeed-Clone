@@ -6,6 +6,26 @@ const admin = require("./routes/admin");
 const { config } = require("./utils/config");
 const redisClient = require("./redis/redisConfig");
 const db = require("./db/sql/sequelizer");
+var EditCompanyName = require("./services/EditCompanyName.js");
+var EditCompanyRole = require("./services/EditCompanyRole.js")
+var EditCompanyAddress = require("./services/EditCompanyAddress.js")
+var Profile = require("./services/Profile")
+var AddCompany = require("./services/AddCompany")
+var GetCompany = require("./services/GetCompany")
+var changeWebsite = require("./services/changeCompanyWebsiteService")
+var changeSize = require("./services/changeCompanySizeService")
+var changeType = require("./services/changeCompanyTypeService")
+var changeFounded = require("./services/changeFoundedService")
+var changeHeadquaters = require("./services/changeHeadquatersService")
+var changeIndustry = require("./services/changeIndustryService")
+var changeMission = require("./services/changeMissionService")
+var changeRevenue = require("./services/changeRevenueService")
+var changeCEO = require("./services/changeCEOService")
+
+const postJob=require('./services/postJob');
+const viewJobs=require('./services/viewJobs');
+const viewApplicants=require('./services/viewApplicants');
+const setApplicationStatus=require('./services/setApplicationStatus');
 
 const options = {
   useNewUrlParser: true,
@@ -71,3 +91,25 @@ function handleTopicRequest(topicName, fname) {
 handleTopicRequest("request-topic1", admin);
 
 handleTopicRequest("admin", admin);
+
+handleTopicRequest("Profile",Profile);
+handleTopicRequest("EditCompanyName",EditCompanyName);
+handleTopicRequest("EditCompanyName",EditCompanyName);
+handleTopicRequest("EditCompanyRole",EditCompanyRole);
+handleTopicRequest("EditCompanyAddress",EditCompanyAddress);
+handleTopicRequest("AddCompany",AddCompany);
+handleTopicRequest("changeWebsite",changeWebsite);
+handleTopicRequest("changeSize",changeSize);
+handleTopicRequest("changeType",changeType);
+handleTopicRequest("changeFounded",changeFounded);
+handleTopicRequest("changeHeadquaters",changeHeadquaters);
+handleTopicRequest("changeIndustry",changeIndustry);
+handleTopicRequest("changeMission",changeMission);
+handleTopicRequest("changeRevenue",changeRevenue);
+handleTopicRequest("changeCEO",changeCEO);
+handleTopicRequest("GetCompany",GetCompany);
+
+handleTopicRequest("postJob",postJob)
+handleTopicRequest("viewJobs",viewJobs)
+handleTopicRequest("viewApplicants",viewApplicants)
+handleTopicRequest("setApplicationStatus",setApplicationStatus)

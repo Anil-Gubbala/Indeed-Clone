@@ -17,6 +17,20 @@ const jobApplication = require("./routes/jobApplicationRoute");
 const message = require("./routes/messageRoute");
 const testRecords = require("./routes/testRecords");
 const admin = require("./routes/adminRoute");
+const EditCompanyName = require("./routes/EditCompanyName");
+const EditCompanyRole = require("./routes/EditCompanyRole");
+const EditCompanyAddress = require("./routes/EditCompanyAddress");
+const Profile = require("./routes/Profile")
+const AddCompany = require("./routes/AddCompany")
+const GetCompany = require("./routes/GetCompany")
+const edit = require("./routes/EditCompanyPage")
+const AddImg = require("./routes/AddImg")
+
+const postJob=require('./routes/postJob');
+const viewJobs=require('./routes/viewJobs');
+const viewApplicants=require('./routes/viewApplicants');
+const setApplicationStatus=require('./routes/setApplicationStatus');
+
 const connection = require("./db/connection");
 
 app.use(session({
@@ -86,6 +100,7 @@ app.use((req, res, next) => {
 //   },
 //   apis: ["./routes/*.js"],
 // };
+app.use("/edit",edit)
 
 async function initializeApplication() {
   try {
@@ -96,6 +111,18 @@ async function initializeApplication() {
     app.use(message);
     app.use(testRecords);
     app.use(admin);
+    app.use(EditCompanyName);
+    app.use(EditCompanyRole);
+    app.use(EditCompanyAddress)
+    app.use(Profile)
+    app.use(AddCompany)
+    app.use(GetCompany)
+    app.use(AddImg)
+
+    app.use(postJob);
+    app.use(viewJobs);
+    app.use(viewApplicants);
+    app.use(setApplicationStatus);
 
     await connection.createConnection();
     app.listen(process.env.PORT || 8080, () => {

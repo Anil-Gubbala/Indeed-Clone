@@ -17,11 +17,15 @@ const jobScehma = new Schema(
       state: { type: String },
       zip: { type: String },
     },
+    industry:{ type: String },
+    street:{ type: String },
+    country:{ type: String },
     salary: { type: String },
     type: { type: String },
     work: { type: String },
     why: { type: String },
-    need: {type: String}
+    need: {type: String},
+    what: { type: String },
   },
   { _id: false },
   { collection: "job" }
