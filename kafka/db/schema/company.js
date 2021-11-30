@@ -24,9 +24,11 @@ const companyScehma = new Schema(
     culture: { type: String },
     values: { type: String },
     image: { type: String },
-    views: {},
     reviews: { type: mongoose.Schema.Types.ObjectId, ref: "review" },
-    // instead use comple review
+    companyPicture:{type:String},
+    companyLogo:{type:String},
+    ceoImage:{type:String},
+    //instead use comple review
   },
   { _id: false },
   { collection: "company" }

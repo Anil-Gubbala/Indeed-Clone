@@ -1,0 +1,166 @@
+
+.employerLanding{
+    background-color: whitesmoke;
+    color: steelblue;
+    font-family: Avenir Next,Arial,Roboto,Noto,sans-serif;
+  }
+
+  .employerLandingNoJob{
+    background-color: white;
+    text-align: left;
+    
+    font-family: Noto Sans,Helvetica Neue,Helvetica,Arial,Liberation Sans,Roboto,Noto,sans-serif!important;
+  }
+
+  .column1 {
+    background-color:white;
+    float: left;
+    width: 64%;
+    padding: 10px;
+    height: 100%;
+    padding-bottom: 10%;
+    padding-left: 4%;
+  }
+
+  .column2 {
+    background-color: white;
+    padding-top: 10%;
+    float: left;
+    width: 29%;
+    padding-bottom: 10%;
+    height: 100%;
+    padding-right: 2%;
+  }
+
+
+  
+.employerLanding .joProp{
+      margin-left: 5%;
+    color: steelblue;
+    width: 86%;
+    height: auto;
+    border-radius: 1px;
+    border-radius: 6px;
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 3%;
+    text-align: left;
+    padding-top: 2%;
+
+}
+.EmpNav .rightside .links .btnpostJob{
+width:150px;
+  height: 35px;
+  background-color: rgb(9, 79, 136);
+  color: white;
+  font-weight: bold;
+  border-radius: 1px;
+  border-radius: 6px;
+  border-style:none;
+  border-color:blue;
+
+
+}
+
+.EmpNav{
+  background-color:white;
+  width: 100%;
+  height: 60px;
+  font-family: Avenir Next,Arial,Roboto,Noto,sans-serif;
+  display: flex;
+}
+
+.leftside{
+  flex: 50%;
+  display: flex;
+  align-items: flex-start;
+  align-items: center;
+}
+
+.EmpNav .leftside .links{
+  max-height: 80px;
+
+}
+
+.EmpNav .leftside .links .a{
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  margin-left: 30px;
+  font-weight: bold;
+  
+}
+
+.EmpNav .leftside .links .a:hover{
+color: rgb(6, 66, 156);
+}
+
+:active{
+  color: rgb(6, 66, 156);
+  }
+
+.EmpNav .leftside button{
+  display: none;
+}
+
+.EmpNav .rightside{
+  flex:50%;
+  display: flex;
+  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 25px;
+}
+
+.EmpNav .rightside .links .a{
+  text-decoration: none;
+  color:black;
+  font-size: 15px;
+  margin-left: 15px;
+  
+}
+
+.EmpNav .rightside .links .options{
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  margin-left: 15px;
+  background-color: black;
+  
+}
+
+.paginationButtons{
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+  margin-left: 8%;
+  
+}
+
+
+.paginationButtons a{
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid rgb(9, 79, 136);
+  color: white;
+  background-color: rgb(9, 79, 136);
+  cursor: pointer;
+}
+
+.paginationButtons a:hover{
+  color: white;
+  background-color: rgb(9, 79, 136)
+}
+.previousButton{
+  align-items: left;
+}
+
+.activeButton{
+  font-weight: bold;
+  color: white;
+}

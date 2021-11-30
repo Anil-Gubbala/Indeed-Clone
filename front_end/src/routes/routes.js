@@ -13,6 +13,13 @@ import CompanyReviews from '../components/reviews/companyReviews';
 import Profile from '../components/profile/profile';
 import SalaryBox from '../components/layout/SalariesBox';
 import SavedJobs from '../components/useraccount/myjobs';
+import ProfilePage from "../components/EmployerLanding/ProfilePage"
+import AddCompanyDetails from "../components/CompanyProfile/AddCompanyDetails"
+import EditCompanyPage from "../components/CompanyProfile/EditCompanyPage"
+
+import Employer from '../components/Employer/EmployerLanding';
+import PostJob from '../components/PostJob/PostJob';
+import Candidates from '../components/Candidates/Candidates';
 
 class Routes extends Component {
   render() {
@@ -25,6 +32,11 @@ class Routes extends Component {
         <Route exact path="/adminHome" component={AdminHome} />
         <Route exact path="/DashNav" component={DashNav} />
         <Route exact path="/landing" component={LandingPage} />
+
+        <Route exact path="/Candidates" component={Candidates} />
+        <Route exact path="/EmployerLanding" component={Employer} />
+        <Route exact path="/PostJob" component={PostJob} />
+        
         <Route exact path="/reviews">
           <CompanyReviews />
         </Route>
@@ -34,6 +46,9 @@ class Routes extends Component {
         <Route exact path="/salary">
           <SalaryBox />
         </Route>
+        <Route exact path="/employerprofile" component={ProfilePage} />
+        <Route exact path="/addcompany" component={AddCompanyDetails} />
+        <Route exact path="/editcompany" component={EditCompanyPage} />
       </div>
     );
   }
