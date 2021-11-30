@@ -56,4 +56,4 @@ const put = (path, data) =>
         throw 'Server Side Error Occured';
       }
     });
-export { get, post };
+export { get, post, put };
