@@ -49,7 +49,6 @@ exports.getCompanyDetails = async (request) => {
 //get company Photos
 exports.getCompanyPhotos = async (request) => {
   try {
-    // console.log(request.query);
     if (request.query.id) {
       let response = await operations.getAllDocumentsWithId(
         imageSchema,

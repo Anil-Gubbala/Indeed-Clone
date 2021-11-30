@@ -2,19 +2,19 @@ const express = require("express");
 const router = express.Router();
 const companyService = require("../services/companyService");
 var constraints = require("../kafka/config");
-var mysql = require('mysql');
+var mysql = require("mysql");
 
 var sqlconnection = mysql.createPool({
   host: constraints.DB.host,
-  user:constraints.DB.username,
+  user: constraints.DB.username,
   password: constraints.DB.password,
   port: constraints.DB.port,
-  database: constraints.DB.database
- });
+  database: constraints.DB.database,
+});
 
- sqlconnection.getConnection((err) => {
-  if(err){
-      throw 'Error occured ' + err.message;
+sqlconnection.getConnection((err) => {
+  if (err) {
+    throw "Error occured " + err.message;
   }
   console.log("pool created");
 });
@@ -65,6 +65,7 @@ router.get("/company", async (request, response) => {
 
 router.get("/photos", async (request, response) => {
   try {
+    console.log(request.query);
     const data = await companyService.getCompanyPhotos(request);
     response.status(data.status).json(data.body);
   } catch (err) {
@@ -91,14 +92,16 @@ router.post("/photos", async (request, response) => {
   }
 });
 
-
 router.get("/getrating", async (request, response) => {
-  const companyId=request.body.companyId;
+  const companyId = request.body.companyId;
   try {
-    sqlconnection.query(`SELECT * FROM reviews WHERE companyId=?`,companyId
-    ,  function (error,results){
-         response.send(JSON.stringify(results));
-    });
+    sqlconnection.query(
+      `SELECT * FROM reviews WHERE companyId=?`,
+      companyId,
+      function (error, results) {
+        response.send(JSON.stringify(results));
+      }
+    );
   } catch (err) {
     console.log(err);
     const message = err.message

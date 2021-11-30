@@ -7,6 +7,9 @@ import "./photosTab.css";
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
+import { get } from "../../utils/serverCall";
+import { post } from "../../utils/serverCall";
+import { put } from "../../utils/serverCall";
 
 const config = {
   bucketName: process.env.REACT_APP_BUCKET_NAME,
@@ -33,17 +36,10 @@ class PhotosTab extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(
-        process.env.REACT_APP_INDEED_BACKEND_URL +
-          "/photos?id=" +
-          "61960b7c79026b0aab6bef86" +
-          "&attributeName=companyId"
-      )
+    get("/photos?id=" + "61960b7c79026b0aab6bef86" + "&attributeName=companyId")
       .then((response) => {
-        console.log(response.data);
-        this.setState({ allImages: response.data });
-        console.log("success");
+        console.log(response);
+        this.setState({ allImages: response });
       })
       .catch((err) => {
         console.log(err);
@@ -334,30 +330,34 @@ class PhotosTab extends Component {
   renderPhotos = () => {
     return (
       <>
-        <div style={{ display: "contents" }}>
-          {this.state.allImages.map((image) => {
-            return (
-              <>
-                <img
-                  src={image.imageUrl}
-                  style={{
-                    width: "161px",
-                    height: "161px",
-                    borderRadius: "15px",
-                    marginRight: "15px",
-                    marginBottom: "15px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    this.setState({ selectedImage: image });
-                    this.handleImageOpen();
-                  }}
-                  alt="companyImage"
-                />
-              </>
-            );
-          })}
-        </div>
+        {this.state.allImages == undefined ? (
+          ""
+        ) : (
+          <div style={{ display: "contents" }}>
+            {this.state.allImages.map((image) => {
+              return (
+                <>
+                  <img
+                    src={image.imageUrl}
+                    style={{
+                      width: "161px",
+                      height: "161px",
+                      borderRadius: "15px",
+                      marginRight: "15px",
+                      marginBottom: "15px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      this.setState({ selectedImage: image });
+                      this.handleImageOpen();
+                    }}
+                    alt="companyImage"
+                  />
+                </>
+              );
+            })}
+          </div>
+        )}
       </>
     );
   };

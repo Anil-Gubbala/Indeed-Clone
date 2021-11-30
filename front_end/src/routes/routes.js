@@ -28,7 +28,7 @@ class Routes extends Component {
       <div>
         <Route path="/" component={NavBar} />
         <Route exact path="/companyHomes" component={companyHomes} />
-        <Route exact path="/msg" component={Messages} />
+        <Route exact path="/messages" component={Messages} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Dashboard} />

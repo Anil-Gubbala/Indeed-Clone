@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./snapshot.css";
 import ceo from "../../images/ceo.jpeg";
 import axios from "axios";
+import { get } from "../../utils/serverCall";
+import { post } from "../../utils/serverCall";
+import { put } from "../../utils/serverCall";
 
 class Snapshot extends Component {
   constructor(props) {
@@ -29,29 +32,27 @@ class Snapshot extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get("http://localhost:8080/company?id=" + "61960b7c79026b0aab6bef86")
+    get("/company?id=" + "61960b7c79026b0aab6bef86")
       .then((response) => {
-        console.log(response.data);
-        var mydate = new Date(response.data.founded);
+        var mydate = new Date(response.founded);
         this.setState({
-          about: response.data.about,
-          ceo: response.data.ceo,
-          companySize: response.data.companySize,
-          companyType: response.data.companyType,
-          culture: response.data.culture,
-          description: response.data.description,
-          founded: response.data.founded,
-          headquaters: response.data.headquaters,
-          image: response.data.image,
-          industry: response.data.industry,
-          location: response.data.location,
-          mission: response.data.mission,
-          name: response.data.name,
-          revenue: response.data.revenue,
-          values: response.data.values,
-          id: response.data._id,
-          website: response.data.website,
+          about: response.about,
+          ceo: response.ceo,
+          companySize: response.companySize,
+          companyType: response.companyType,
+          culture: response.culture,
+          description: response.description,
+          founded: response.founded,
+          headquaters: response.headquaters,
+          image: response.image,
+          industry: response.industry,
+          location: response.location,
+          mission: response.mission,
+          name: response.name,
+          revenue: response.revenue,
+          values: response.values,
+          id: response._id,
+          website: response.website,
         });
       })
       .catch((err) => {
