@@ -49,11 +49,13 @@ exports.getCompanyDetails = async (request) => {
 //get company Photos
 exports.getCompanyPhotos = async (request) => {
   try {
+    // console.log(request.query);
     if (request.query.id) {
-      let response = await operations.getAllDocumentsWithId(imageSchema, {
-        _id: request.query.id,
-        attributeName: request.query.name,
-      });
+      let response = await operations.getAllDocumentsWithId(
+        imageSchema,
+        request.query.id,
+        request.query.attributeName
+      );
 
       return { status: 200, body: response };
     }

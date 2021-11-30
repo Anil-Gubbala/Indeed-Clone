@@ -5,8 +5,11 @@ const messageService = require("../services/messageService");
 //POST CHAT MESSAGE TO DB
 router.post("/message", async (request, response) => {
   try {
+    console.log(request.body);
+
     const data = await messageService.saveMessage(request);
-    response.status(data.status).json(data.body);
+
+    return response.status(data.status).json(data.body);
   } catch (err) {
     console.log(err);
     const message = err.message ? err.message : "Error while Saving message";
@@ -19,7 +22,7 @@ router.post("/message", async (request, response) => {
 router.get("/message", async (request, response) => {
   try {
     const data = await messageService.getMessages(request);
-    response.status(data.status).json(data.body);
+    return response.status(data.status).json(data.body);
   } catch (err) {
     console.log(err);
     const message = err.message ? err.message : "Error while getting messages";

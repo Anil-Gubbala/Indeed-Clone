@@ -8,7 +8,7 @@ const { request } = require("express");
 exports.saveMessage = async (request) => {
   try {
     let response = {};
-    if (!request.body.chatId)
+    if (request.body.chatId == "")
       response = await operations.saveDocuments(messageScehma, request.body, {
         runValidators: false,
       });

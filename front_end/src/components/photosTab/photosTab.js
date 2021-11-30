@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import S3 from 'react-aws-s3';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import './photosTab.css';
-import axios from 'axios';
+import React, { Component } from "react";
+import { v4 as uuidv4 } from "uuid";
+import S3 from "react-aws-s3";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import "./photosTab.css";
+import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 const config = {
   bucketName: process.env.REACT_APP_BUCKET_NAME,
-  dirName: 'company',
-  region: 'us-east-2',
+  dirName: "company",
+  region: "us-east-2",
   accessKeyId: process.env.REACT_APP_ACCESS_ID,
   secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
 };
@@ -19,26 +21,29 @@ class PhotosTab extends Component {
     super(props);
     this.state = {
       file: null,
-      fileError: '',
+      fileError: "",
       openModel: false,
       ImageModel: false,
-      imageUrl: '',
-      caption: '',
-      location: '',
+      imageUrl: "",
+      caption: "",
+      location: "",
       allImages: [],
-      selectedImage: '',
+      selectedImage: "",
     };
   }
 
   componentDidMount() {
     axios
       .get(
-        'http://localhost:8080/photos?id=' + '61960b7c79026b0aab6bef86' + '&attributeName=companyId'
+        process.env.REACT_APP_INDEED_BACKEND_URL +
+          "/photos?id=" +
+          "61960b7c79026b0aab6bef86" +
+          "&attributeName=companyId"
       )
       .then((response) => {
         console.log(response.data);
         this.setState({ allImages: response.data });
-        console.log('success');
+        console.log("success");
       })
       .catch((err) => {
         console.log(err);
@@ -53,16 +58,20 @@ class PhotosTab extends Component {
     this.setState({ ImageModel: true });
   };
 
-  handleClose = () => this.setState({ openModel: false, ImageModel: false, file: null });
+  handleClose = () =>
+    this.setState({ openModel: false, ImageModel: false, file: null });
 
   fileSelected = (e) => {
     if (e.target == null) {
-      this.setState({ fileError: 'Select a file.' });
+      this.setState({ fileError: "Select a file." });
     } else {
-      if (e.target.files[0].type === 'image/png' || e.target.files[0].type === 'image/jpeg') {
+      if (
+        e.target.files[0].type === "image/png" ||
+        e.target.files[0].type === "image/jpeg"
+      ) {
         this.setState({ file: e.target.files[0] });
       } else {
-        this.setState({ fileError: 'Only jpeg and png are allowed' });
+        this.setState({ fileError: "Only jpeg and png are allowed" });
       }
     }
   };
@@ -73,29 +82,29 @@ class PhotosTab extends Component {
       .then((data) => {
         this.setState({ imageUrl: data.location });
         if (data.status === 204) {
-          console.log(' Customer image to S3 success');
+          console.log(" Customer image to S3 success");
           let details = {
-            companyId: '61960b7c79026b0aab6bef86',
+            companyId: "61960b7c79026b0aab6bef86",
             imageUrl: data.location,
             isVerified: false,
             caption: this.state.caption,
             location: this.state.location,
           };
           axios
-            .post('http://localhost:8080/photos', details)
+            .post("http://localhost:8080/photos", details)
             .then((response) => {
               console.log(response.data);
               this.setState({ openModel: false });
               let arr = this.state.allImages;
               arr.push(details);
               this.setState({ allImages: arr });
-              console.log('success');
+              console.log("success");
             })
             .catch((err) => {
               console.log(err);
             });
         } else {
-          console.log(' customer image to S3 fail');
+          console.log(" customer image to S3 fail");
         }
       })
       .catch((err) => {
@@ -108,22 +117,25 @@ class PhotosTab extends Component {
       <Modal open={this.state.openModel} onClose={this.handleClose}>
         <Box
           sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            bgcolor: 'white',
-            width: '450px',
-            boxShadow: '24',
-            borderRadius: '10px',
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "white",
+            width: "450px",
+            boxShadow: "24",
+            borderRadius: "10px",
           }}
         >
           <div>
-            <div style={{ display: 'flex', padding: '5px', marginTop: '15px' }}>
-              <div className="col-md-10" style={{ fontSize: '18px', fontWeight: '600' }}>
+            <div style={{ display: "flex", padding: "5px", marginTop: "15px" }}>
+              <div
+                className="col-md-10"
+                style={{ fontSize: "18px", fontWeight: "600" }}
+              >
                 Upload a photo
               </div>
-              <div className="col-md-2" style={{ textAlign: '-webkit-center' }}>
+              <div className="col-md-2" style={{ textAlign: "-webkit-center" }}>
                 <svg
                   width="24px"
                   height="24px"
@@ -142,11 +154,19 @@ class PhotosTab extends Component {
               </div>
             </div>
             <hr></hr>
-            <div style={{ padding: '10px', marginLeft: '10px', marginRight: '10px' }}>
+            <div
+              style={{
+                padding: "10px",
+                marginLeft: "10px",
+                marginRight: "10px",
+              }}
+            >
               <div>Select a photo of your workplace or company event.</div>
-              <div style={{ display: 'flex', fontSize: '14px', marginTop: '15px' }}>
+              <div
+                style={{ display: "flex", fontSize: "14px", marginTop: "15px" }}
+              >
                 <div>
-                  {' '}
+                  {" "}
                   <svg
                     focusable="false"
                     role="img"
@@ -160,7 +180,9 @@ class PhotosTab extends Component {
                 </div>
                 <div>Workplace or company events</div>
               </div>
-              <div style={{ display: 'flex', fontSize: '14px', marginTop: '15px' }}>
+              <div
+                style={{ display: "flex", fontSize: "14px", marginTop: "15px" }}
+              >
                 <div>
                   <svg
                     focusable="false"
@@ -179,23 +201,31 @@ class PhotosTab extends Component {
                 </div>
                 <div>No selfies</div>
               </div>
-              <div style={{ color: '#595959', fontSize: '12px', marginTop: '15px' }}>
-                By uploading this photograph, you represent that you are the owner of this
-                photograph and verify that you have the right and required permissions to post it to
-                Indeed.
+              <div
+                style={{
+                  color: "#595959",
+                  fontSize: "12px",
+                  marginTop: "15px",
+                }}
+              >
+                By uploading this photograph, you represent that you are the
+                owner of this photograph and verify that you have the right and
+                required permissions to post it to Indeed.
               </div>
             </div>
             {this.state.file == null ? (
-              ''
+              ""
             ) : (
               <>
-                <div style={{ marginLeft: '20px' }}>
+                <div style={{ marginLeft: "20px" }}>
                   <div>Photo location</div>
                   <input
                     className="inpmodal"
-                    onChange={(e) => this.setState({ location: e.target.value })}
+                    onChange={(e) =>
+                      this.setState({ location: e.target.value })
+                    }
                   ></input>
-                  <div style={{ marginTop: '10px' }}>Caption</div>
+                  <div style={{ marginTop: "10px" }}>Caption</div>
                   <input
                     className="inpmodal"
                     onChange={(e) => this.setState({ caption: e.target.value })}
@@ -206,19 +236,26 @@ class PhotosTab extends Component {
             <hr></hr>
             <div
               style={{
-                display: 'flex',
-                padding: '0px',
-                marginBottom: '20px',
-                textAlign: 'right',
+                display: "flex",
+                padding: "0px",
+                marginBottom: "20px",
+                textAlign: "right",
               }}
             >
               <div className="col-md-4"></div>
               {this.state.file == null ? (
-                <input type="file" onChange={(e) => this.fileSelected(e)}></input>
+                <input
+                  type="file"
+                  onChange={(e) => this.fileSelected(e)}
+                ></input>
               ) : (
                 <button
                   className="reviewButtons"
-                  style={{ paddingLeft: '20px', paddingRight: '20px', marginLeft: '30px' }}
+                  style={{
+                    paddingLeft: "20px",
+                    paddingRight: "20px",
+                    marginLeft: "30px",
+                  }}
                   onClick={this.submit}
                 >
                   Upload
@@ -236,22 +273,25 @@ class PhotosTab extends Component {
       <Modal open={this.state.ImageModel} onClose={this.handleClose}>
         <Box
           sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            bgcolor: 'white',
-            width: '600px',
-            boxShadow: '24',
-            borderRadius: '10px',
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "white",
+            width: "600px",
+            boxShadow: "24",
+            borderRadius: "10px",
           }}
         >
           <div>
-            <div style={{ display: 'flex', padding: '5px', marginTop: '15px' }}>
-              <div className="col-md-10" style={{ fontSize: '18px', fontWeight: '600' }}>
+            <div style={{ display: "flex", padding: "5px", marginTop: "15px" }}>
+              <div
+                className="col-md-10"
+                style={{ fontSize: "18px", fontWeight: "600" }}
+              >
                 Photo
               </div>
-              <div className="col-md-2" style={{ textAlign: '-webkit-center' }}>
+              <div className="col-md-2" style={{ textAlign: "-webkit-center" }}>
                 <svg
                   width="24px"
                   height="24px"
@@ -274,12 +314,12 @@ class PhotosTab extends Component {
               <img
                 src={this.state.selectedImage.imageUrl}
                 style={{
-                  width: '600px',
-                  height: '450px',
-                  marginRight: '15px',
-                  marginTop: '0px',
-                  marginBottom: '15px',
-                  cursor: 'pointer',
+                  width: "600px",
+                  height: "450px",
+                  marginRight: "15px",
+                  marginTop: "0px",
+                  marginBottom: "15px",
+                  cursor: "pointer",
                 }}
                 alt="Company image"
               ></img>
@@ -294,19 +334,19 @@ class PhotosTab extends Component {
   renderPhotos = () => {
     return (
       <>
-        <div style={{ display: 'contents' }}>
+        <div style={{ display: "contents" }}>
           {this.state.allImages.map((image) => {
             return (
               <>
                 <img
                   src={image.imageUrl}
                   style={{
-                    width: '161px',
-                    height: '161px',
-                    borderRadius: '15px',
-                    marginRight: '15px',
-                    marginBottom: '15px',
-                    cursor: 'pointer',
+                    width: "161px",
+                    height: "161px",
+                    borderRadius: "15px",
+                    marginRight: "15px",
+                    marginBottom: "15px",
+                    cursor: "pointer",
                   }}
                   onClick={() => {
                     this.setState({ selectedImage: image });
@@ -329,12 +369,12 @@ class PhotosTab extends Component {
         {this.imageModal()}
         <div>
           <div className="subHeading">Google Photos</div>
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: "center" }}>
             <button className="reviewButtons" onClick={this.handleOpen}>
               Upload a photo
             </button>
           </div>
-          <div style={{ marginTop: '20px' }}>{this.renderPhotos()}</div>
+          <div style={{ marginTop: "20px" }}>{this.renderPhotos()}</div>
         </div>
       </>
     );
