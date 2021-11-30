@@ -18,7 +18,21 @@ router.post("/company", async (request, response) => {
   }
 });
 
-//Get company by id or by emailid, password and account type
+// //Get company by id or by emailid, password and account type
+// router.get("/company", async (request, response) => {
+//   try {
+//     const data = await companyService.getCompanyDetails(request);
+//     response.status(data.status).json(data.body);
+//   } catch (err) {
+//     console.log(err);
+//     const message = err.message
+//       ? err.message
+//       : "Error while getting company Details";
+//     const code = err.statusCode ? err.statusCode : 500;
+//     return response.status(code).json({ message });
+//   }
+// });
+
 router.get("/company", async (request, response) => {
   try {
     const data = await companyService.getCompanyDetails(request);
@@ -33,19 +47,32 @@ router.get("/company", async (request, response) => {
   }
 });
 
-// //Get jobs in a company
-// router.get("/company/jobs", async (request, response) => {
-//   try {
-//     const data = await companyService.getCompanyJobs(request);
-//     response.status(data.status).json(data.body);
-//   } catch (err) {
-//     console.log(err);
-//     const message = err.message
-//       ? err.message
-//       : "Error while getting company Details";
-//     const code = err.statusCode ? err.statusCode : 500;
-//     return response.status(code).json({ message });
-//   }
-// });
+router.get("/photos", async (request, response) => {
+  try {
+    const data = await companyService.getCompanyPhotos(request);
+    response.status(data.status).json(data.body);
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting company photos";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
+router.post("/photos", async (request, response) => {
+  try {
+    const data = await companyService.postCompanyPhotos(request);
+    response.status(data.status).json(data.body);
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while daving company photos";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
 
 module.exports = router;

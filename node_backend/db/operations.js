@@ -32,9 +32,6 @@ const getDocument = async (modelObject, _id) => {
 
 const getAllDocumentsWithId = async (modelObject, id, attributeName) => {
   try {
-    // let query={
-    //   []
-    // }
     return await modelObject.find({
       [attributeName]: mongoose.Types.ObjectId(id),
     });

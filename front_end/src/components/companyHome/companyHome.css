@@ -45,3 +45,9 @@
   color: #2d2d2d;
   font-size: 22px;
 }
+
+.stick {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0;
+}

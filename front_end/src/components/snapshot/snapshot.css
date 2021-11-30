@@ -120,21 +120,11 @@
   border-style: solid;
   border-color: currentColor;
   box-sizing: border-box;
-  margin: 0;
-  min-width: 0;
-
-  margin-left: 50%;
-  transform: translateX(-50%);
 }
 
 .nearJobs1 {
   position: relative;
   background-color: #f3f2f1;
-  padding-top: 3rem;
-  padding-bottom: 120px;
-  margin-bottom: -120px;
-  padding-left: 3rem;
-  padding-right: 3rem;
-
-  border-radius: 0.5rem;
+  padding: 25px !important;
+  border-radius: 10px !important;
 }

@@ -1,0 +1,14 @@
+.uploadbtn {
+  font-size: 16px !important;
+  height: 48px !important;
+  line-height: 24px !important;
+  color: #262626;
+  border: 1px solid;
+  font-weight: 500;
+  padding: 8px 18px;
+  width: 400px !important;
+  padding: 8px 18px;
+  transition: all 0.4s ease !important;
+  user-select: none !important;
+  border-style: dotted;
+}

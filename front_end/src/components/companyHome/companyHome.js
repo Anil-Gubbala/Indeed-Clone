@@ -10,6 +10,8 @@ import g from '../../images/g.jpeg';
 import Snapshot from '../snapshot/snapshot';
 import WhyJoinUs from '../whyjoinus/whyjoinus';
 import ReviewsTab from '../reviews/reviews';
+import PhotosTab from '../photosTab/photosTab';
+import JobsTab from '../jobsTab/jobsTab';
 
 dotenv.config();
 
@@ -51,26 +53,32 @@ class companyHome extends React.Component {
               <div className="row"></div>
             </div>
           </div>
-          <div style={{ marginLeft: '10px' }}>
-            <Tabs
-              defaultActiveKey="1"
-              onChange={callback}
-              indicatorColor="secondary"
-              style={{ width: '100%' }}
-            >
-              <TabPane tab="Snapshot" key="1">
-                <Snapshot />
-              </TabPane>
-              <TabPane tab="Why Join Us" key="2">
-                <WhyJoinUs />
-              </TabPane>
-              <TabPane tab="Reviews" key="3">
-                <ReviewsTab />
-              </TabPane>
-              <TabPane tab="Salaries" key="4"></TabPane>
-              <TabPane tab="Photos" key="5"></TabPane>
-              <TabPane tab="Jobs" key="6"></TabPane>
-            </Tabs>
+          <div>
+            <div style={{ marginLeft: '10px' }}>
+              <Tabs
+                defaultActiveKey="1"
+                onChange={callback}
+                indicatorColor="secondary"
+                style={{ width: '100%' }}
+              >
+                <TabPane tab="Snapshot" key="1">
+                  <Snapshot />
+                </TabPane>
+                <TabPane tab="Why Join Us" key="2">
+                  <WhyJoinUs />
+                </TabPane>
+                <TabPane tab="Reviews" key="3">
+                  <ReviewsTab />
+                </TabPane>
+                <TabPane tab="Salaries" key="4"></TabPane>
+                <TabPane tab="Photos" key="5">
+                  <PhotosTab />
+                </TabPane>
+                <TabPane tab="Jobs" key="6">
+                  <JobsTab />
+                </TabPane>
+              </Tabs>
+            </div>
           </div>
         </div>
         <div className="horizontalRule"></div>
