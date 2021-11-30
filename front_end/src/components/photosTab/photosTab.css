@@ -1,0 +1,62 @@
+.reviewButtons {
+  background-color: #2557a7;
+  padding: 7px;
+  /* border-color: #f3f2f1 !important; */
+  text-decoration: none;
+  text-transform: none;
+
+  /* transition: all 0.4s ease !important; */
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid #d4d2d0;
+  outline: 0;
+  position: relative;
+  color: white;
+  font-weight: 700;
+}
+
+.iconyes {
+  -webkit-text-size-adjust: 100%;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  line-height: 1.15;
+  --swiper-theme-color: #007aff;
+  --swiper-navigation-size: 44px;
+  fill: currentcolor;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  display: block;
+
+  width: 1.125rem;
+  height: 1.125rem;
+  color: rgb(31, 102, 44);
+  margin-right: 0.25rem;
+}
+
+.iconno {
+  -webkit-text-size-adjust: 100%;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  line-height: 1.15;
+  --swiper-theme-color: #007aff;
+  --swiper-navigation-size: 44px;
+  fill: currentcolor;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  display: block;
+
+  width: 1.125rem;
+  height: 1.125rem;
+  color: rgb(169, 37, 43);
+  margin-right: 0.25rem;
+}
+
+.inpmodal {
+  margin-top: 5px;
+}

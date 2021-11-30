@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const companySchema = require("../db/schema/company").createModel();
 const jobSchema = require("../db/schema/job").createModel();
+const imageSchema = require("../db/schema/image").createModel();
 const operations = require("../db/operations");
 const { request } = require("express");
 
@@ -45,20 +46,37 @@ exports.getCompanyDetails = async (request) => {
   }
 };
 
-// //get jobs in a company
-// exports.getCompanyJobs = async (request) => {
-//   try {
-//     if (request.query.id) {
-//       let response = await operations.getAllDocumentsWithId(
-//         jobSchema,
-//         request.query.id,
-//         companyId
-//       );
-//       return { status: 200, body: response };
-//     }
-//   } catch (err) {
-//     const message = err.message ? err.message : "Error while fetching details";
-//     const code = err.statusCode ? err.statusCode : 500;
-//     return { status: code, body: { message } };
-//   }
-// };
+//get company Photos
+exports.getCompanyPhotos = async (request) => {
+  try {
+    if (request.query.id) {
+      let response = await operations.getAllDocumentsWithId(imageSchema, {
+        _id: request.query.id,
+        attributeName: request.query.name,
+      });
+
+      return { status: 200, body: response };
+    }
+  } catch (err) {
+    console.log(err);
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
+//post company Photos
+exports.postCompanyPhotos = async (request) => {
+  try {
+    response = await operations.saveDocuments(imageSchema, request.body, {
+      runValidators: false,
+    });
+
+    return { status: 200, body: response };
+  } catch (err) {
+    console.log(err);
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
