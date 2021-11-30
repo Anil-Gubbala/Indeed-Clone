@@ -70,7 +70,7 @@ class NavBar extends Component {
               </div>
             </div>
           </AppBar>
-          <hr></hr>
+          <hr style={{ marginBottom: '0px !important' }}></hr>
         </Box>
       </>
     );
