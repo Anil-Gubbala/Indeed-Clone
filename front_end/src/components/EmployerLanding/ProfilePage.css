@@ -1,16 +1,17 @@
 .body-profile{
   margin-top:50px;
-  background-color: #EEEEEE
+  background-color: #ffff;
+  font-size: 14px;
+  line-height: 1.5%;
 }
 
 
 .info-profile{
   padding:20px;
-  box-shadow: inset 1px 1px 1px 0 black, inset -1px -1px 1px black;
   background: #ffff;
-  margin-bottom: 10px;
-  border-radius: 3%;
-  margin-left: 400px;
+  margin-bottom: 2%;
+  margin-left: 30%;
+  border-radius: 1em;
 }
 
 .heading-profile{
@@ -19,8 +20,6 @@
 }
 
 .form-control{
-  width: 500px;
-  height: 40px;
   border-style: block;
   color: black;
   border-radius: 5px;
@@ -40,56 +39,64 @@
 .main-heading{
   justify-content: center;
   white-space: nowrap;
-  margin-right: 500px;
+  margin-left: -87%;
+
 }
 
 .circle {
   display: flex;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   background-color: blue;
   border-radius: 100%;
 
 }
 .name-details{
-  margin-right: 630px;
+  margin-right: 45%;
 }
 .first{
-    margin-left: 500px;
+    margin-left: 30%;
     margin-top: 10px;
     padding: 50px;
     whiteSpace: nowrap;
 }
 
 .address{
-  width: 600px;
-  height:230px;
+  width: 42%;
+  height:auto;
 }
 .name{
-  width: 600px;
-  height:200px;
+  width: 42%;
+  height:auto;
 }
 
 .role{
-  width: 600px;
-  height:200px;
+  width: 42%;
+  height:auto;
 }
 
 .address-hidden{
-  width: 600px;
-  height: 600px;
+  width: 42%;
+  height: auto;
 }
 
 .role-hidden{
-  width: 600px;
-  height: 300px;
+  width: 42%;
+  height: auto;
 }
 
 .name-hidden{
-  width: 600px;
-  height: 400px;
+  width: 42%;
+  height: auto;
 }
 
 .main-heading{
-  margin-top:10px;
+  margin-top:1%;
+}
+
+p{
+  font-weight: 500;
+}
+.shadow{
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
 }
