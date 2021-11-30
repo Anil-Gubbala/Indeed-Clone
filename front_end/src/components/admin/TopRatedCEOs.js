@@ -1,4 +1,3 @@
-import { get } from 'jquery';
 import React, { useEffect, useState } from 'react';
 import {
   BarChart,
@@ -11,6 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { get } from '../../utils/serverCall';
 
 function TopRatedCEOs() {
   const [data, setData] = useState([]);
@@ -55,7 +55,12 @@ function TopRatedCEOs() {
           // label={{ value: 'random text', position: 'bottom', offset: 15 }}
         />
         <YAxis
-          label={{ value: 'No of Views', angle: -90, position: 'insideLeft', textAnchor: 'middle' }}
+          label={{
+            value: 'No of Views',
+            angle: -90,
+            position: 'insideLeft',
+            textAnchor: 'middle',
+          }}
         />
         <Tooltip />
         <Legend />

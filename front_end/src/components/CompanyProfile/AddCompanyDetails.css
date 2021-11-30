@@ -77,14 +77,13 @@ color: rgb(37, 87, 167);
 }
 
 
-SVG{
+/* SVG{
  display:inline-block;
  height:2rem;
  line-height:1rem;
  font-size: 1.4rem;
- /* just for vertical alignment as svg don't have descenders like fonts */
  vertical-align:-0.2em;
- }
+ } */
 
 .SVG :hover{
   background-color: #98BAE7;
