@@ -4,7 +4,7 @@ export const isSignedIn = () => JSON.parse(localStorage.getItem(STORAGE.isSigned
 export const getAccountType = () => JSON.parse(localStorage.getItem(STORAGE.accountType));
 export const isAdmin = () => JSON.parse(localStorage.getItem(STORAGE.accountType)) === 'employer';
 export const isEmployer = () =>
-  JSON.parse(localStorage.getItem(STORAGE.accountType)) === 'customer';
+  JSON.parse(localStorage.getItem(STORAGE.accountType)) === 'jobseeker';
 export const isCustomer = () => JSON.parse(localStorage.getItem(STORAGE.accountType)) === 'admin';
 export const getEmailId = () => JSON.parse(localStorage.getItem(STORAGE.emailId));
 
