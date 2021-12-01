@@ -7,7 +7,9 @@ export const STORAGE = {
   accountType: 'accountType',
   emailId: 'emailId',
   token: 'token',
-  companyId: 'companyId'
+  companyId: 'companyId',
+  details: 'details',
+  userId: 'userId',
 };
 
 export default config;
