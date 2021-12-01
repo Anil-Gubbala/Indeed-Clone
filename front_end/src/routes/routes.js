@@ -11,6 +11,9 @@ import CompanyReviews from '../components/reviews/companyReviews';
 import Profile from '../components/profile/profile';
 import SalaryBox from '../components/layout/SalariesBox';
 import SavedJobs from '../components/useraccount/myjobs';
+import Salaries from '../components/Salaries/salaries';
+import SalaryLayout from '../components/layout/salarylayout';
+import AppliedJobs from '../components/useraccount/AppliedJobs';
 
 class Routes extends Component {
   render() {
@@ -29,7 +32,13 @@ class Routes extends Component {
           <Profile />
         </Route>
         <Route exact path="/salary">
-          <SalaryBox />
+          <Salaries />
+        </Route>
+        <Route exact path="/savedjobs">
+          <SavedJobs />
+        </Route>
+        <Route exact path="/appliedjobs">
+          <AppliedJobs />
         </Route>
       </div>
     );

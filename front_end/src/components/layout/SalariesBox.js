@@ -5,7 +5,7 @@ import StarIcon from '@material-ui/icons/Star';
 import useStyles from './companyBoxElements';
 import g from '../../images/g.jpeg';
 
-function SalaryBox() {
+function SalaryBox(props) {
   const classes = useStyles();
   const name = 'Google';
 
@@ -39,7 +39,11 @@ function SalaryBox() {
               <img src={g} alt={name} width="50px" style={{ marginLeft: '10px' }} />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div>Google</div>
+              <div>
+                <b>
+                  <u>{props.id}</u>
+                </b>
+              </div>
               <div
                 style={{
                   display: 'flex',
@@ -59,7 +63,7 @@ function SalaryBox() {
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div>$172,873</div>
+              <div>{props.avg}</div>
               <div>per year</div>
             </div>
           </div>

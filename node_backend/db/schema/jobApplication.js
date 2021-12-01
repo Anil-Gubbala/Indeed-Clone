@@ -11,8 +11,8 @@ const jobApplicationScehma = new Schema(
     },
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
     companyId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    jobId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    status: { type: Number },
+    jobId: { type: mongoose.Schema.Types.ObjectId, ref: "job" },
+    status: { type: String },
   },
   { _id: false },
   { collection: "jobApplication" }
