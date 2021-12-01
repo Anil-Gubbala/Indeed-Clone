@@ -36,6 +36,7 @@ const reviews = sequelize.define("reviews", {
   approval: { type: types.STRING, allowNull: false },
   prep: { type: types.STRING, allowNull: false },
   status: { type: types.INTEGER, allowNull: false, default: 0 }, // 0: not reviewed, 1: pass, 2: fail
+  featured: { type: types.STRING, allowNull: false, default: 0 },
 });
 
 db.reviews = reviews;
