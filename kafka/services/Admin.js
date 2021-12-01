@@ -25,7 +25,7 @@ const sql = {
   topCEO:
     "select  userId, count(*), users.firstname, users.lastname as total from indeed.reviews join indeed.users on reviews.userId = users._id  where status = 0 group by userId order by total desc",
   unFilteredReviews: "select * from indeed.reviews where status = 0",
-  flagReview: "update indeed.reviews set status = ? where _id = ?",
+  flagReview: "update indeed.reviews set status = ? where _id = ? limit 10",
 };
 
 const CompanySchema = require("../db/schema/company").createModel();

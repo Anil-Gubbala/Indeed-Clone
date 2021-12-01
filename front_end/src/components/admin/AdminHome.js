@@ -8,8 +8,13 @@ import TopRatedCompanies from "./TopRatedCompanies";
 import "antd/dist/antd.css";
 import { Tabs } from "antd";
 import ApproveReviews from "./ApproveReviews";
+import { isAdmin } from "../../utils/checkLogin";
+import { Redirect } from 'react-router-dom';
 
 function AdminHome() {
+  // if(! isAdmin()){
+  //   return <Redirect push to="/login" />;
+  // }
   const { TabPane } = Tabs;
   const tabChange = () => {};
   return (
