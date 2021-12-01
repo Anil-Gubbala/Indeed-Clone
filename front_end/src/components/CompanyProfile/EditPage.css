@@ -1,0 +1,81 @@
+
+
+.page-body-edit{
+  justify-content:left;
+  padding:3%;
+  line-height: 0.7rem;
+}
+
+.profile-page-edit{
+  width:100%;
+  background-color: #F9F9F9;
+}
+
+.image-btn{
+  border-radius: 25px;
+  height:auto;
+  width:10%;
+  margin: 20px;
+  border-style: solid;
+  border-color: blue;
+}
+
+.btn .btn-primary .btn-lg{
+  border-radius: 25px;
+}
+
+.info-profile-edit{
+  width: 55%;
+  height: auto;
+  box-shadow: inset 1px 1px 1px 0 lightgrey, inset -1px -1px 1px lightgrey;
+  background: #ffff;
+  border-radius: 1em;
+  margin-left: 400px;
+  margin-top: 3%;
+}
+
+.info-profile-title{
+  justify-content:left;
+  padding:2%;
+  margin-top: 3%;
+  background-color:white;
+  width: 55%;
+  height: 3%;
+  box-shadow: inset 1px 1px 1px 0 lightgrey, inset -1px -1px 1px lightgrey;
+  border-radius: 1em;
+  margin-left: 400px;
+}
+
+.heading{
+  text-align: left;
+  font-family: sans-serif;
+  margin: 10px;
+}
+
+
+.address-edit{
+  height:600px;
+}
+
+/* .shadow {
+   -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+} */
+
+.save-button{
+  text-align: left;
+}
+
+.error-msg-edit{
+  font-weight: bold;
+}
+
+.button-edit{
+  background-color: #0F52BA;
+  color: white;
+  border-radius: 25px;
+  width: 12%;
+  height: 40px;
+
+}

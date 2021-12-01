@@ -5,15 +5,11 @@ import './Dashboard.css'
 import { DashboardPopup } from './DashboardPopup';
 
 import axios from 'axios';
+import DashNav from '../navbar/DashNav';
 
 
 const list = [
-  { id: 1, data: 'amazon' },
-  { id: 2, data: 'google' },
-  { id: 3, data: 'linkedin' },
-  { id: 4, data: 'arizon' },
-  { id: 5, data: 'paypal' },
-  { id: 6, data: 'Roblox' }
+  { id: 1, data: 'amazon' }
 ]
 
 var list2=[{role: 'SDE'}]
@@ -68,8 +64,8 @@ export const Dashboard = (props) => {
 
   return (
     <body>
-      <Navbar />
-      
+     
+     <DashNav/>
       <div>
         <SearchableDropdown list={roles} location={location} />
       </div>

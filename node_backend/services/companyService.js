@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const companySchema = require("../db/schema/company").createModel();
 const jobSchema = require("../db/schema/job").createModel();
+const imageSchema = require("../db/schema/image").createModel();
 const operations = require("../db/operations");
 const { request } = require("express");
 
@@ -46,6 +47,42 @@ exports.getCompanyDetails = async (request) => {
   }
 };
 
+//get company Photos
+exports.getCompanyPhotos = async (request) => {
+  try {
+    if (request.query.id) {
+      let response = await operations.getAllDocumentsWithId(
+        imageSchema,
+        request.query.id,
+        request.query.attributeName
+      );
+
+      return { status: 200, body: response };
+    }
+  } catch (err) {
+    console.log(err);
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
+//post company Photos
+exports.postCompanyPhotos = async (request) => {
+  try {
+    response = await operations.saveDocuments(imageSchema, request.body, {
+      runValidators: false,
+    });
+
+    return { status: 200, body: response };
+  } catch (err) {
+    console.log(err);
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
 // get company details based on name and/or location
 exports.getCompanyDetails_nameloc = async (request) => {
   try {
@@ -74,3 +111,6 @@ exports.getCompanyDetails_nameloc = async (request) => {
     return { status: code, body: { message } };
   }
 };
+
+
+

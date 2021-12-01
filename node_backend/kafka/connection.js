@@ -7,7 +7,6 @@ function ConnectionProvider() {
     this.client = new kafka.KafkaClient({
       kafkaHost: `${config.KAFKA_HOST}:${config.KAFKA_PORT}`,
     });
-    // this.client = new kafka.Client("localhost:2181");
     /* this.client.refreshMetadata([{topic: topic_name}], (err) => {
                 if (err) {
                     console.warn('Error refreshing kafka metadata', err);
@@ -31,6 +30,7 @@ function ConnectionProvider() {
       this.client = new kafka.KafkaClient({
         kafkaHost: `${config.KAFKA_HOST}:${config.KAFKA_PORT}`,
       });
+
       /* this.client.refreshMetadata([{topic: topic_name}], (err) => {
                 if (err) {
                     console.warn('Error refreshing kafka metadata', err);

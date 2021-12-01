@@ -1,0 +1,107 @@
+html{height: 100%;}
+/* body{
+    margin: 0cm;
+    padding: 0cm;
+    color: black;
+    height: 100%;
+    background-color: white;
+
+  } */
+
+  .postAJob .joProp{
+      margin-left: 2%;
+      margin-top: 20px;
+    width: 60%;
+    height: auto;
+      border-radius: 1px;
+      border-radius: 6px;
+      background-color:white;
+      box-shadow: rgba(0,0,0,0.35) 0px 5px 15px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+  }
+
+  .postAJob .joProp .label{
+      text-align: left;
+      font-style: italic;
+      color: steelblue;
+font-size: 20px;
+font-weight: bold;
+
+
+  }
+  .postAJob .joProp .input{
+      width: 100%;
+      height: 30px;
+
+
+  }
+
+  .employerLanding{
+    background-color: white;
+  }
+.Nav{
+    background-color:black;
+    width: 100%;
+    height: 70px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+  }
+
+  .Nav .leftside{
+    flex: 50%;
+    display: flex;
+    align-items: flex-start;
+    align-items: center;
+  }
+
+  .Nav .leftside .links{
+    max-height: 80px;
+
+  }
+
+  .Nav .leftside .links .a{
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+    margin-left: 30px;
+
+  }
+
+  .Nav .leftside button{
+    display: none;
+  }
+
+  .Nav .rightside{
+    flex:50%;
+    display: flex;
+    align-items: flex-start;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 25px;
+  }
+
+  .Nav .rightside .links .a{
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+    margin-left: 15px;
+
+  }
+
+  .Nav .rightside .links .options{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    margin-left: 15px;
+    background-color: black;
+
+  }
+
+@media only screen and(max-width: 1000px){
+
+  .Nav .leftside .links .a{
+    font-size: 5px;
+  }
+}

@@ -1,7 +1,7 @@
 
 .dash-details{
 width: 700px;
-  height: 400px;
+  height: 500px;
  position: sticky;
  bottom:30px;
  right:50px;
@@ -44,9 +44,9 @@ width: 700px;
     border-radius: 20px;
 }
 
-body{
+/* body{
     font-family: 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+} */
 
 
 
@@ -111,16 +111,16 @@ font-weight: 500;
 
 
 
-*
+/* *
 {
     margin: 0;
     padding: 0;
-}
+} */
 
-html, body, .Container
+/* html, body, .Container
 {
     height: 100%;
-}
+} */
 
     .Container:before
     {
@@ -163,7 +163,7 @@ html, body, .Container
 
 .LeftContent
 {
-    margin-top: 100px;
+    margin-top: 270px;
     margin-bottom: 70px;
     background-color: white;
     overflow: auto;
@@ -176,3 +176,19 @@ html, body, .Container
     margin-left: 10px;
 }
 
+
+.dashli{
+    margin-left: 20px;
+}
+
+.dashmargin{
+    margin-left: 60px;
+}
+
+.lovesymbol{
+    margin-left: 20px;
+}
+
+.popupdet{
+    margin-left: 50px;
+}

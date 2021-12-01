@@ -1,6 +1,6 @@
 .componenttag {
-  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
-    sans-serif;
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans,
+    Roboto, Noto, sans-serif;
   color: #595959 !important;
   font-size: 12px !important;
   line-height: 1.5;
@@ -11,8 +11,8 @@
 .subHeading {
   color: #2d2d2d;
   font-weight: 700;
-  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
-    sans-serif;
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans,
+    Roboto, Noto, sans-serif;
   /* margin-left: 15px !important; */
   font-size: 1.75rem;
 }
@@ -27,9 +27,10 @@
 
 .ceo1 {
   -webkit-text-size-adjust: 100%;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif,
-    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+    Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   line-height: 1.15;
   --swiper-navigation-size: 44px;
   --swiper-theme-color: #007aff;
@@ -69,9 +70,10 @@
 
 .ulbox {
   -webkit-text-size-adjust: 100%;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif,
-    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+    Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   line-height: 1.15;
   --swiper-navigation-size: 44px;
   --swiper-theme-color: #007aff;
@@ -98,8 +100,8 @@
   margin-bottom: 0.5rem;
   font-weight: 700;
   color: #2d2d2d;
-  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
-    sans-serif;
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans,
+    Roboto, Noto, sans-serif;
 }
 
 .libox2 {
@@ -108,10 +110,24 @@
   border-width: 0;
   border-style: solid;
   border-color: currentColor;
-  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
-    sans-serif;
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans,
+    Roboto, Noto, sans-serif;
   line-height: 1.5;
   color: #2d2d2d;
   font-weight: inherit;
   font-size: 1rem;
+}
+
+.nearJobs {
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  box-sizing: border-box;
+}
+
+.nearJobs1 {
+  position: relative;
+  background-color: #f3f2f1;
+  padding: 25px !important;
+  border-radius: 10px !important;
 }

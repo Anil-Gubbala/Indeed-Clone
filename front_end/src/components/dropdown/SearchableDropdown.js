@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import DashNav from '../navbar/DashNav';
 import $ from 'jquery';
 import Popper from 'popper.js';
 import axios from 'axios';
@@ -22,15 +23,43 @@ export const SearchableDropdown = ({list, location}) => {
         setCart([el]);
     
       }
+
+      const apply = () => {
+      
+      };
     
-      let details = cart.map(book => {
+      let details = cart.map(jobdetails => {
         return (
-          <tr>
-            <tr>Role: &nbsp; {book.role}</tr>
-            <tr>Location:       &nbsp;     {book.location.city}</tr>
+          <body>
+          <div class="Header">
+          <img src="https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/8af1f1544e551bf42990ae60c8e5ccd8" alt="company" width="670" height="100"/>
+            <p>{jobdetails.role}</p>
+            <p>{jobdetails.companyId.name}</p>
             
+            <a><button type="button" class="btn btn-primary">Apply Now</button></a>
+            <button type="button" class="btn btn-primary lovesymbol">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+</svg>
+            </button>
+            
+        </div>
         
-          </tr>
+        <div class="Content">
+        
+            <div class="Wrapper">
+                
+                <div class="LeftContent">
+                <hr/>
+                    
+                    <p>{jobdetails.work}</p>
+                    <p>{jobdetails.why}</p>
+                    <p>{jobdetails.need}</p>
+
+                </div>
+            </div>
+        </div>
+        </body>
         )
       })
 
@@ -58,7 +87,7 @@ export const SearchableDropdown = ({list, location}) => {
         setJobList(r.data);
     }
     return (
-        <body>
+        <>
             
             <div style={{display: 'flex', flexDirection: 'column', padding: '1rem', alignItems:'center',position:'relative'}}>
                 <form onSubmit={e => onSubmit(e)} class="form-inline">
@@ -107,21 +136,21 @@ export const SearchableDropdown = ({list, location}) => {
                 />
                 <hr></hr>
             </div>
-            <div class="row">
+            <div class="row dashmargin">
         <div class="col-4">
       <ul class="dash-ul">
         {jobList.map(country => (
-          <div class="dash-button" >
+          <div class="dash-button">
 
-            <li class="col-5 stunt" key={country.role.trim()}>
+            <li class="col-5 stunt" key={country.role.trim()}  onClick={() => addToPopup(country)}>
               <div >
-                <div class="maincard">
-                  <div class="card yash">
+                <div class="maincard" >
+    <div class="card yash">
                    
 
   <table>
   <tr>
-    <th onClick={() => addToPopup(country)} style={{width:'95%'}}>{country.role}    &nbsp; &nbsp; Guest Service Worker, California</th>
+    <th  style={{width:'95%'}}>{country.role}    &nbsp; &nbsp; Guest Service Worker, California</th>
     <th class="innerDiv">
     
     
@@ -154,12 +183,17 @@ export const SearchableDropdown = ({list, location}) => {
     
   </tr>
   <tr>
+    <td>{country.companyId.name}</td>
+    <td></td>
+    
+  </tr>
+  <tr>
     <td>{country.location.city}</td>
     <td></td>
     
   </tr>
   <tr>
-    <td>California, CA 95126</td>
+    <td>{country.location.state}, {country.location.zip}</td>
     <td></td>
     
   </tr>
@@ -177,8 +211,8 @@ export const SearchableDropdown = ({list, location}) => {
   </tr>
   <tr>
     <ul>
-      <li>You’ll take care of our guests, including check in/check out, billing, ensuring we collect correct guest data, and communicating any guest issues that arise.</li>
-      <li>You’ll take care of our guests, including check in/check out</li>
+      <li class="dashli">You’ll take care of our guests, including check in/check out, billing, ensuring we collect correct guest data, and communicating any guest issues that arise.</li>
+      <li class="dashli">You’ll take care of our guests, including check in/check out</li>
     </ul>
   </tr>
 </table>
@@ -206,41 +240,18 @@ export const SearchableDropdown = ({list, location}) => {
 
       
       </div>
-      <div class="col-6">
+      <div class="col-6 popupdet">
         <div class="dash-details">
 
         <div class="Container">
-        <div class="Header">
-            <p>The Header div height is not fixed (But he can be if you want it to)</p>
-            <p>This Layout has been tested on: IE10, IE9, IE8, FireFox, Chrome, Safari, Opera. using Pure CSS 2.1 only</p>
-           
-        </div>
-        
-        <div class="Content">
-        
-            <div class="Wrapper">
-                
-                <div class="LeftContent">
-                <hr/>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                    <p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p><p>this will scroll</p>
-                </div>
-            </div>
-        </div>
+        {details}
     </div>
          
-      {details}
-      <DashboardPopup ></DashboardPopup>
+      
       </div>
       </div>
       </div>
-        </body>
+        </>
     )
 }
 

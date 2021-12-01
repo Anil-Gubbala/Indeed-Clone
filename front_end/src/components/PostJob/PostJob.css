@@ -1,0 +1,90 @@
+html{height: 100%;}
+/* body{
+    height: 100%;
+    background-color:#faf9f8;
+    font-family: Avenir Next,Arial,Roboto,Noto,sans-serif;
+    display: block;
+    
+  } */
+
+  .coloumn1 {
+    float: left;
+    width: 15%;
+    padding: 10px;
+    height: 100%;
+  }
+
+  .coloumn2 {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 100%;
+    text-align: center;
+  }
+
+  .coloumn3 {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    margin-left: 4%;
+    position:inherit;
+    height: 100%;
+    text-align: left;
+  }
+
+.btnpostJob{
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 20%;
+  height: 30px;
+  background-color: rgb(9, 79, 136);
+  color: white;
+  font-weight: bold;
+  border-radius: 1px;
+  border-radius: 6px;
+  border-style:none;
+  border-color:blue;
+
+
+}
+
+
+
+
+.joProp{
+
+  margin-top: 25px;
+  padding-bottom: 20%;
+width: 100%;
+height: auto;
+  border-radius: 1px;
+  border-radius: 6px;
+  background-color:white;
+
+  padding: 15px;
+}
+
+.label{
+      text-align: left;
+     
+color: rgb(9, 79, 136);
+font-size: 15px;
+font-weight: bold;
+margin-bottom: 5%;
+font-family: Avenir Next,Arial,Roboto,Noto,sans-serif
+
+
+  }
+.input{
+      width: 95%;
+      height: 30px;
+      border-radius: 10px;
+      border-style:inset ;
+margin-bottom: 7%;    
+  }
+
+.image{
+  width: 350px;
+  height: 150px;
+}
+  

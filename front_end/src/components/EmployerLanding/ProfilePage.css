@@ -1,0 +1,102 @@
+.body-profile{
+  margin-top:50px;
+  background-color: #ffff;
+  font-size: 14px;
+  line-height: 1.5%;
+}
+
+
+.info-profile{
+  padding:20px;
+  background: #ffff;
+  margin-bottom: 2%;
+  margin-left: 30%;
+  border-radius: 1em;
+}
+
+.heading-profile{
+  text-align: left;
+  font-weight: bolder;
+}
+
+.form-control{
+  border-style: block;
+  color: black;
+  border-radius: 5px;
+}
+
+.save-button{
+  border-radius: 100%;
+  font-weight: bold;
+  margin: 20px;
+}
+
+.textBox:hover{
+  border-color: blue;
+}
+
+
+.main-heading{
+  justify-content: center;
+  white-space: nowrap;
+  margin-left: -87%;
+
+}
+
+.circle {
+  display: flex;
+  width: 70px;
+  height: 70px;
+  background-color: blue;
+  border-radius: 100%;
+
+}
+.name-details{
+  margin-right: 45%;
+}
+.first{
+    margin-left: 30%;
+    margin-top: 10px;
+    padding: 50px;
+    whiteSpace: nowrap;
+}
+
+.address{
+  width: 42%;
+  height:auto;
+}
+.name{
+  width: 42%;
+  height:auto;
+}
+
+.role{
+  width: 42%;
+  height:auto;
+}
+
+.address-hidden{
+  width: 42%;
+  height: auto;
+}
+
+.role-hidden{
+  width: 42%;
+  height: auto;
+}
+
+.name-hidden{
+  width: 42%;
+  height: auto;
+}
+
+.main-heading{
+  margin-top:1%;
+}
+
+p{
+  font-weight: 500;
+}
+.shadow{
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
+}

@@ -22,7 +22,7 @@ router.get("/getMostViewedCompanies", (req, res) => {
   kafkaRequest(
     "admin",
     "getMostViewedCompanies",
-    { date: new Date() },
+    { date: req.query.date },
     (err, result) => {
       if (err) {
         res.status(500).send({});
@@ -34,13 +34,18 @@ router.get("/getMostViewedCompanies", (req, res) => {
 });
 
 router.get("/getReviewsCountByDay", (req, res) => {
-  kafkaRequest("admin", "getReviewsCountByDay", {}, (err, result) => {
-    if (err) {
-      res.status(500).send({});
-    } else {
-      res.status(200).send(result);
+  kafkaRequest(
+    "admin",
+    "getReviewsCountByDay",
+    { start: req.query.start, end: req.query.end },
+    (err, result) => {
+      if (err) {
+        res.status(500).send({});
+      } else {
+        res.status(200).send(result);
+      }
     }
-  });
+  );
 });
 
 router.get("/getMostReviewedCompanies", (req, res) => {

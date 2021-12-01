@@ -1,7 +1,7 @@
 const {
   insertTestReviews,
   getAllReviews,
-} = require("./services/insertTestRecords");
+} = require("../services/insertTestRecords");
 
 const {
   updateView,
@@ -16,7 +16,11 @@ const {
   getUnfilteredImages,
   flagReview,
   flagImage,
-} = require("./services/Admin");
+} = require("../services/Admin");
+
+const {
+  getPassword, registerUser
+} = require("../services/account");
 
 const functionMap = {
   // import and add your functions here
@@ -36,9 +40,10 @@ const functionMap = {
   getUnfilteredImages,
   flagReview,
   flagImage,
+  getPassword, registerUser
 };
 
-const callFunction = (msg, callback) => {
+const handle_request = (msg, callback) => {
   const fn = functionMap[msg.functionName];
   if (!fn) {
     console.log(`${msg.functionName} not exists`);
@@ -47,4 +52,4 @@ const callFunction = (msg, callback) => {
   }
 };
 
-module.exports = { callFunction };
+exports.handle_request = handle_request;

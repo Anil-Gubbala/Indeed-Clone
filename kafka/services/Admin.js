@@ -73,18 +73,18 @@ const getMostViewedCompanies = (msg, callback) => {
 };
 
 const getReviewsCountByDay = (msg, callback) => {
-  conn.query(
-    sql.reviewesPerDay,
-    [msg.data.start, msg.data.end],
-    (err, result) => {
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, result);
-      }
+  let { start, end } = msg.data;
+  start = new Date(start).toJSON().substring(0, 10);
+  end = new Date(end).toJSON().substring(0, 10);
+  conn.query(sql.reviewesPerDay, [start, end], (err, result) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, result);
     }
-  );
+  });
 };
+
 const getMostReviewedCompanies = (msg, callback) => {
   conn.query(sql.top10ReviewedCompanies, (err, result) => {
     if (err) {
@@ -95,7 +95,9 @@ const getMostReviewedCompanies = (msg, callback) => {
         resultMap[each.companyId] = each.total;
       });
       // resultMap = { "61960b7c79026b0aab6bef86": 10 };
-      CompanySchema.find({ _id: { $in: Object.keys(resultMap) } })
+      const keys = Object.keys(resultMap);
+      // keys = keys.map((each) => mongoose.Types.ObjectId(each));
+      CompanySchema.find({ _id: { $in: keys } })
         .select(["name"])
         .then((res) => {
           const resMap = [];
