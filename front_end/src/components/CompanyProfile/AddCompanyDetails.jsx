@@ -1,13 +1,26 @@
 import React,{useState} from "react"
-import Axios from "axios"
+import { post } from '../../utils/serverCall';
 import "./AddCompanyDetails.css"
 import NavBar from "./../navbar/employerNavBar"
 import {Row,Col} from "react-bootstrap"
-
+import { Grid,TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const AddCompanyDetails = () => {
 
+  const useStyle = makeStyles(theme =>({
+    root:{
+      '& .MuiFormControl-root': {
+        width:"190%",
+        padding:"0",
+        margin:theme.spacing(0.1)
+      }
+    }
+  }))
 
+
+const classes = useStyle();
 const [website, setWebsite] = useState("");
 const [size, setSize] = useState("");
 const [type, setType] = useState("");
@@ -20,6 +33,19 @@ const [ceo, setCEO] = useState("");
 const [companyPicture,setCompanyPicture]=useState("");
 const [ceoImage,setCeoImage]=useState("");
 const [companyLogo,setCompanyLogo]=useState("");
+
+const[websiteErr,setWebsiteErr]=useState("");
+const[sizeErr,setSizeErr]=useState("");
+const[typeErr,setTypeErr]=useState("");
+const[revenueErr,setRevenueErr]=useState("");
+const[headquatersErr,setHeadquatersErr]=useState("");
+const[industryErr,setIndustryErr]=useState("");
+const[foundedErr,setFoundedErr]=useState("");
+const[missionErr,setMissionErr]=useState("");
+const[ceoErr,setCeoErr]=useState("");
+
+const[addCompanyStatus,setAddCompanyStatus]=useState("");
+
 
 const handleCompanyImgChange = (e) =>{
   if(e.target.files && e.target.files.length > 0){
@@ -46,6 +72,8 @@ const handleLogoChange = (e) =>{
 }
 
 const handleAddCompanyDetails = () =>{
+  const isValid=formValidation();
+  if(isValid){
   const formData1 = new FormData();
   const formData2 = new FormData();
   const formData3 = new FormData();
@@ -55,24 +83,24 @@ const handleAddCompanyDetails = () =>{
   console.log("image here",companyPicture);
   console.log("image here",ceoImage);
   console.log("image here",companyLogo);
-  Axios.post("http://localhost:8080/AddImg", formData1)
-    .then((response) =>{
-      console.log("formData1",response.data.imagePath);
-      setCompanyPicture(response.data.imagePath);
-      const imagePath1 = response.data.imagePath;
-  Axios.post("http://localhost:8080/AddImg", formData2)
-      .then((response) =>{
-        console.log("formData2",response.data.imagePath);
-        setCeoImage(response.data.imagePath);
-        const imagePath2 = response.data.imagePath;
-  Axios.post("http://localhost:8080/AddImg", formData3)
-      .then((response) =>{
-        console.log("formData3",response.data.imagePath);
-        setCompanyLogo(response.data.imagePath);
-        const imagePath3 = response.data.imagePath;
-  Axios.post("http://localhost:8080/AddCompany",{
-    _id:"61962f8b97ef3ba02f04e4d3",
-    website:website,
+  post ("/AddImg", formData1)
+    .then((result) =>{
+      console.log("formData1",result.imagePath);
+      setCompanyPicture(result.imagePath);
+      const imagePath1 = result.imagePath;
+  post("/AddImg", formData2)
+      .then((result) =>{
+        console.log("formData2",result.imagePath);
+        setCeoImage(result.imagePath);
+        const imagePath2 = result.imagePath;
+  post("/AddImg", formData3)
+      .then((result) =>{
+        console.log("formData3",result.imagePath);
+        setCompanyLogo(result.imagePath);
+        const imagePath3 = result.imagePath;
+  post("/AddCompany",{
+    _id:"61962f8b97ef3ba02f04e4d2",
+    website:website.toLowerCase(),
     companySize:size,
     companyType:type,
     revenue:revenue,
@@ -87,18 +115,96 @@ const handleAddCompanyDetails = () =>{
 
   }).then((response) =>{
     console.log("Added to DB!")
-  })
-  })
-  })
+    })
+    })
+    })
   }).catch(err =>{
     console.log(err);
   })
+  }
+}
+
+const formValidation = () =>{
+  setAddCompanyStatus("");
+  setWebsiteErr("");
+  setSizeErr("");
+  setTypeErr("");
+  setRevenueErr("");
+  setHeadquatersErr("");
+  setIndustryErr("");
+  setMissionErr("");
+  setFoundedErr("");
+  setCeoErr("");
+  const websiteErr="";
+  const sizeErr="";
+  const typeErr="";
+  const revenueErr="";
+  const headquatersErr="";
+  const industryErr="";
+  const foundedErr="";
+  const missionErr="";
+  const ceoErr="";
+  let isValid=true;
+
+  var websiteExp = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+  var regexweb= new RegExp(websiteExp);
+  if(website==="" || (website.search(regexweb) == -1)) {
+    isValid=false;
+    setWebsiteErr("Please enter a valid URL");
+  }
+  var sizeExp = /^\d+$/
+  var regSize = new RegExp(sizeExp);
+    if(size==="" || (size.search(regSize) == -1)) {
+      isValid=false;
+      setSizeErr("Please enter a valid Company Size");
+    }
+  var typeExp= /^[a-zA-Z][a-zA-Z ]*$/;
+  var regType = new RegExp(typeExp);
+  if(type==="" || (type.search(regType) == -1)){
+    isValid=false;
+    setTypeErr("Please enter a valid Type");
+  }
+
+  if(revenue===""){
+    isValid=false;
+    setRevenueErr("Please enter the revenue");
+  }
+  if(headquaters==""){
+    isValid=false;
+    setHeadquatersErr("Please enter a valid headquaters");
+  }
+  if(industry==""){
+    isValid=false;
+    setIndustryErr("Please enter a valid industry");
+  }
+  if(mission==""){
+    isValid=false;
+    setMissionErr("Please enter a valid mission");
+  }
+  if(founded==""){
+    isValid=false;
+    setFoundedErr("Please enter a valid year");
+  }
+  if(ceo==""){
+    isValid=false;
+    setCeoErr("Please enter a valid name");
+  }
+
+  if(isValid==false){
+    setAddCompanyStatus("Failed to add Company Details!");
+  }
+  else{
+    setAddCompanyStatus("Company Details added to profile successfully!")
+  }
+  return isValid;
+
 }
 
   return(
-  <div className="body">
+  <div className="body-add">
   <NavBar />
-  <div className="page-body-add-image shadow">
+  <form className={classes.root}>
+  <div className="page-body-add-image shadow-add">
   <Row>
   <Col>
   <h2><strong>Provide Company Details</strong></h2>
@@ -108,155 +214,236 @@ const handleAddCompanyDetails = () =>{
   </Col>
   </Row>
   </div>
-  <div className="page-body-add shadow">
+  <div className="page-body-add shadow-add">
         <h6 className="heading-add"><span style={{color:"red"}}>*</span>Required Fields</h6>
         <h6 className="heading-add">Your Company's Website<span style={{color:"red"}}>*</span></h6>
-          <input
-          type="text"
-          name="website"
-          className="form-control"
-          onChange={
-            (e) =>{
-              setWebsite(e.target.value);
-            }
-          }
-          />
-          <h6 className="heading-add">Your Company's Size:<span style={{color:"red"}}>*</span></h6>
-          <input
-          type="text"
-          name="size"
-          className="form-control"
-          onChange={
-            (e) =>{
-              setSize(e.target.value);
-            }
-          }
-          />
+        <Grid container>
+          <Grid item xs={6}>
+            <TextField
+            variant="outlined"
+            name="website"
+            size="small"
+            fullWidth
+            required
+            onChange={
+              (e) =>{
+                setWebsite(e.target.value);
+                }
+              }
+              />
+              <div className="error-msg" style={{color:"red"}}>{websiteErr}</div>
+            </Grid>
+            </Grid>
+            <h6 className="heading-add">Your Company's Size<span style={{color:"red"}}>*</span></h6>
+            <Grid container>
+            <Grid item xs={6}>
+              <TextField
+              variant="outlined"
+              name="size"
+              size="small"
+              fullWidth
+              required
+              onChange={
+                (e) =>{
+                  setSize(e.target.value);
+                  }
+                }
+                />
+              <div className="error-msg" style={{color:"red"}}>{sizeErr}</div>
+              </Grid>
+            </Grid>
           <h6 className="heading-add">Your Company's Type<span style={{color:"red"}}>*</span></h6>
-          <input
-          type="text"
-          name="type"
-          className="form-control"
-          onChange ={
-            (e) => {
-              setType(e.target.value);
-            }
-          }
-          />
-            <h6 className="heading-add">Revenue<span style={{color:"red",margin:"10px"}}>*</span></h6>
-            <input
-            type="text"
-            name="revenue"
-            className="form-control"
-            onChange={
-              (e) =>{
-                setRevenue(e.target.value);
-              }
-            }
-            />
-            <h6 className="heading-add">Headquaters<span style={{color:"red"}}>*</span></h6>
-            <input
-            type="text"
-            name="headquaters"
-            className="form-control"
-            onChange={
-              (e) =>{
-                setHeadquaters(e.target.value);
-              }
-            }
-            />
-            <h6 className="heading-add">Industry<span style={{color:"red"}}>*</span></h6>
-            <input
-            type="text"
-            name="industry"
-            className="form-control"
-            onChange={
-              (e) =>{
-                setIndustry(e.target.value);
-              }
-            }
-            />
-            <h6 className="heading-add">Founded<span style={{color:"red"}}>*</span></h6>
-            <input
-            type="date"
-            name="founded"
-            className="form-control"
-            onChange={
-              (e) =>{
-                setFounded(e.target.value);
-              }
-            }
-            />
+          <Grid container>
+            <Grid item xs={6}>
+              <TextField
+              variant="outlined"
+              name="type"
+              size="small"
+              fullWidth
+              required
+              onChange={
+                (e) =>{
+                  setType(e.target.value);
+                  }
+                }
+                />
+                <div className="error-msg" style={{color:"red"}}>{typeErr}</div>
+              </Grid>
+            </Grid>
+          <h6 className="heading-add">Revenue<span style={{color:"red",margin:"10px"}}>*</span></h6>
+          <Grid container>
+            <Grid item xs={6}>
+              <TextField
+              variant="outlined"
+              size="small"
+              name="revenue"
+              onChange={
+                (e) =>{
+                    setRevenue(e.target.value);
+                  }
+                }
+                />
+                <div className="error-msg" style={{color:"red"}}>{revenueErr}</div>
+              </Grid>
+            </Grid>
+          <h6 className="heading-add">Headquaters<span style={{color:"red"}}>*</span></h6>
+          <Grid container>
+            <Grid item xs={6}>
+              <TextField
+              variant="outlined"
+              size="small"
+              name="headquaters"
+              onChange={
+                (e) =>{
+                  setHeadquaters(e.target.value);
+                  }
+                }
+                />
+                <div className="error-msg" style={{color:"red"}}>{headquatersErr}</div>
+              </Grid>
+            </Grid>
+          <h6 className="heading-add">Industry<span style={{color:"red"}}>*</span></h6>
+          <Grid container>
+            <Grid item xs={6}>
+              <TextField
+              variant="outlined"
+              size="small"
+              name="industry"
+              onChange={
+                (e) =>{
+                  setIndustry(e.target.value);
+                  }
+                }
+                />
+                <div className="error-msg" style={{color:"red"}}>{industryErr}</div>
+              </Grid>
+            </Grid>
+          <h6 className="heading-add">Founded<span style={{color:"red"}}>*</span></h6>
+          <Grid container>
+            <Grid item xs={6}>
+              <TextField
+              variant="outlined"
+              name="founded"
+              size="small"
+              type="date"
+              onChange={
+                (e) =>{
+                  setFounded(e.target.value);
+                  }
+                }
+                />
+                <div className="error-msg" style={{color:"red"}}>{foundedErr}</div>
+              </Grid>
+            </Grid>
             <h6 className="heading-add">Mission&Vission<span style={{color:"red"}}>*</span></h6>
-            <textarea
-            name="mission"
-            className="form-control"
-            rows="4"
-            onChange={
-              (e)=>{
-                setMission(e.target.value);
-              }
-            }
-            >
-            </textarea>
+            <Grid container>
+              <Grid item xs={6}>
+                <TextField
+                variant="outlined"
+                name="mission"
+                size="small"
+                multiline
+                rows={4}
+                rowsMax={6}
+                onChange={
+                  (e) =>{
+                    setMission(e.target.value);
+                    }
+                  }
+                  />
+                  <div className="error-msg" style={{color:"red"}}>{missionErr}</div>
+                </Grid>
+              </Grid>
             <h6 className="heading-add">CEO's Name<span style={{color:"red"}}>*</span></h6>
-            <input
-            type="text"
-            name="ceo"
-            className="form-control"
-            onChange={
-              (e) =>{
-                setCEO(e.target.value);
-              }
-            }
-            />
+            <Grid container>
+              <Grid item xs={6}>
+                <TextField
+                variant="outlined"
+                size="small"
+                name="ceo"
+                onChange={
+                  (e) =>{
+                    setCEO(e.target.value);
+                    }
+                  }
+                  />
+                  <div className="error-msg" style={{color:"red"}}>{ceoErr}</div>
+                </Grid>
+              </Grid>
             <h6 className="heading-add">Company Image<span style={{color:"red"}}>*</span></h6>
-            <input
-            type="file"
-            name="companyPicture"
-            className="form-control"
-            onChange={
-              (e) =>{
-                handleCompanyImgChange(e);
-              }
-            }
-            />
-            <h6 className="heading-add">CEO's Image<span style={{color:"red"}}>*</span></h6>
-            <input
-            type="file"
-            name="ceoImage"
-            className="form-control"
-            onChange={
-              (e) =>{
-                handleCEOImgChange(e);
-              }
-            }
-            />
-            <h6 className="heading-add">Company Logo<span style={{color:"red"}}>*</span></h6>
-            <input
-            type="file"
-            name="companyLogo"
-            className="form-control"
-            onChange={
-              (e) =>{
-                handleLogoChange(e);
-              }
-            }
-            />
+            <Grid container>
+              <Grid item xs={6}>
+                <TextField
+                variant="outlined"
+                type="file"
+                size="medium"
+                name="companyPicture"
+                onChange={
+                  (e) =>{
+                    handleCompanyImgChange(e);
+                    }
+                  }
+                  />
+                </Grid>
+              </Grid>
+          <h6 className="heading-add">CEO's Image<span style={{color:"red"}}>*</span></h6>
+          <Grid container>
+              <Grid item xs={6}>
+                <TextField
+                variant="outlined"
+                name="ceoImage"
+                size="medium"
+                type="file"
+                onChange={
+                  (e) =>{
+                    handleCEOImgChange(e);
+                    }
+                  }
+                  />
+                </Grid>
+              </Grid>
+              <h6 className="heading-add">Company Logo<span style={{color:"red"}}>*</span></h6>
+              <Grid container>
+                  <Grid item xs={6}>
+                    <TextField
+                    variant="outlined"
+                    name="companyLogo"
+                    size="medium"
+                    type="file"
+                    onChange={
+                      (e) =>{
+                        handleLogoChange(e);
+                        }
+                      }
+                      />
+                    </Grid>
+              </Grid>
             </div>
-
-            <div className="page-body-add-btn shadow">
+            <div className="page-body-add-btn shadow-add">
+            <Row>
+            <Col>
             <button type="button" className="btn btn-outline-secondary btn-lg back" style={{borderRadius:"0.5rem",color:"#193498"}}>
-            <span>
-              <svg className="SVG" xmlns="http://www.w3.org/2000/svg" focusable="false" role="img" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" class=" css-dgdn9t">
-              <path d="M14.112 18.002c.2.2.52.204.716.008l.707-.707a.507.507 0 00-.009-.716L10.94 12l4.587-4.587c.2-.2.205-.521.01-.716l-.708-.708a.507.507 0 00-.716.01l-5.648 5.647c-.1.1-.148.234-.143.367.002.124.05.247.143.34l.001.001a.758.758 0 00.008.008l5.64 5.64z">
-              </path>
-              </svg>
-              <strong>Back</strong></span>
+              <ArrowBackIosIcon/><strong>Back</strong>
             </button>
-            <button type="button" className="btn btn-lg" style={{margin:"30px",borderRadius:"0.5rem",position:"absolute",marginLeft:"400px",backgroundColor:"#193498",color:"white",top:"1600px"}} onClick={handleAddCompanyDetails}><strong>Save And Continue</strong></button>
+            </Col>
+            <Col style={{marginLeft:"30%"}}>
+            <button type="button" className="btn btn-lg" style={{margin:"30px",borderRadius:"0.5rem",backgroundColor:"#193498",color:"white",margin:"0"}} onClick={handleAddCompanyDetails}><strong>Save And Continue</strong>
+            </button>
+            </Col>
+            </Row>
+            {addCompanyStatus=="Failed to add Company Details!" ?
+            <div className="alert">
+            <span className="error-msg closebtn" style={{padding:"0"}}>{addCompanyStatus}</span>
             </div>
-
+             : addCompanyStatus=="Company Details added to profile successfully!" ?
+            <div className="alert-good">
+            <div className="error-msg closebtn" style={{textAlign:"left",padding:"0"}}>{addCompanyStatus}</div>
+            </div>
+            :
+            <div></div>
+            }
+            </div>
+            </form>
     </div>
 );
 }

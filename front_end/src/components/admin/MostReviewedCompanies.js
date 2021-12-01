@@ -1,4 +1,3 @@
-import { get } from 'jquery';
 import React, { useEffect, useState } from 'react';
 import {
   BarChart,
@@ -13,6 +12,7 @@ import {
 } from 'recharts';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import { get } from '../../utils/serverCall';
 
 function MostReviewedCompanies() {
   const [data, setData] = useState([]);
@@ -57,7 +57,12 @@ function MostReviewedCompanies() {
           // label={{ value: 'random text', position: 'bottom', offset: 15 }}
         />
         <YAxis
-          label={{ value: 'No of Views', angle: -90, position: 'insideLeft', textAnchor: 'middle' }}
+          label={{
+            value: 'No of Views',
+            angle: -90,
+            position: 'insideLeft',
+            textAnchor: 'middle',
+          }}
         />
         <Tooltip />
         <Legend />

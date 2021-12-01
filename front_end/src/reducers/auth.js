@@ -27,6 +27,7 @@ import {
           user: payload
         };
       case REGISTER_SUCCESS:
+        return state;
       case LOGIN_SUCCESS:
         return {
           ...state,

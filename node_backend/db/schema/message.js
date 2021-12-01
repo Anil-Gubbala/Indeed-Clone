@@ -9,9 +9,15 @@ const messageScehma = new Schema(
       required: true,
       auto: true,
     },
-    employerId: mongoose.Schema.Types.ObjectId,
-    seekerId: mongoose.Schema.Types.ObjectId,
-    message: Array,
+    employerId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    seekerId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    message: [
+      {
+        msg: { type: String },
+        sentby: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+        time: { type: Date },
+      },
+    ],
   },
   { _id: false },
   { collection: "message" }

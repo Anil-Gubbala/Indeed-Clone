@@ -18,6 +18,10 @@ const {
   flagImage,
 } = require("../services/Admin");
 
+const {
+  getPassword, registerUser
+} = require("../services/account");
+
 const functionMap = {
   // import and add your functions here
   insertTestReviews,
@@ -36,6 +40,7 @@ const functionMap = {
   getUnfilteredImages,
   flagReview,
   flagImage,
+  getPassword, registerUser
 };
 
 const handle_request = (msg, callback) => {

@@ -44,9 +44,9 @@ width: 700px;
     border-radius: 20px;
 }
 
-body{
+/* body{
     font-family: 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+} */
 
 
 
@@ -111,16 +111,16 @@ font-weight: 500;
 
 
 
-*
+/* *
 {
     margin: 0;
     padding: 0;
-}
+} */
 
-html, body, .Container
+/* html, body, .Container
 {
     height: 100%;
-}
+} */
 
     .Container:before
     {

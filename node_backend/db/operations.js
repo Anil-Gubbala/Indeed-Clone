@@ -32,13 +32,13 @@ const getDocument = async (modelObject, _id) => {
 
 const getJobDocuments = async (modelObject, _id) => {
   try {
-    return modelObject.find()
-    .populate({
-      path: 'companyId',
-      select: '-_id'
-    })
-    .lean()
-    
+    return modelObject
+      .find()
+      .populate({
+        path: "companyId",
+        select: "-_id",
+      })
+      .lean();
   } catch (error) {
     console.log("Error while retreiving data by ID:" + error);
     throw new Error(error);
@@ -47,9 +47,6 @@ const getJobDocuments = async (modelObject, _id) => {
 
 const getAllDocumentsWithId = async (modelObject, id, attributeName) => {
   try {
-    // let query={
-    //   []
-    // }
     return await modelObject.find({
       [attributeName]: mongoose.Types.ObjectId(id),
     });
@@ -63,7 +60,7 @@ const getUserDocumentByDetails = async (modelObject, details) => {
   try {
     return await modelObject.findOne({
       emailId: details.emailId,
-      password: details.password
+      password: details.password,
     });
   } catch (error) {
     console.log("Error while retreiving data by details:" + error);
@@ -80,26 +77,27 @@ const getDocuments = async (modelObject, details) => {
   }
 };
 
-
 const getJobsbyFilter = async (modelObject, details) => {
   try {
-    
-    var obj = modelObject.find()
-    .populate({
-      path: 'companyId',
-      select: '-_id'
-    })
-    .lean()
+    var obj = modelObject
+      .find()
+      .populate({
+        path: "companyId",
+        select: "-_id",
+      })
+      .lean();
 
-    return await obj.find(
-      
-    {
-      $and: 
-    [
-     { $or : [ { "companyId.name" : { $regex : new RegExp(details.keyw, "i") } } ,{ "role" : { $regex : new RegExp(details.keyw, "i") } }]},
-     { "location.city" : { $regex : new RegExp(details.location, "i") } },
-    ]
-      });
+    return await obj.find({
+      $and: [
+        {
+          $or: [
+            { "companyId.name": { $regex: new RegExp(details.keyw, "i") } },
+            { role: { $regex: new RegExp(details.keyw, "i") } },
+          ],
+        },
+        { "location.city": { $regex: new RegExp(details.location, "i") } },
+      ],
+    });
   } catch (error) {
     console.log("Error while retreiving data by details:" + error);
     throw new Error(error);
@@ -108,8 +106,7 @@ const getJobsbyFilter = async (modelObject, details) => {
 
 const getJobsInSearch = async (modelObject, details) => {
   try {
-    return await modelObject.find(
-      {},{"role":1, "location.city":1 ,_id:0});
+    return await modelObject.find({}, { role: 1, "location.city": 1, _id: 0 });
   } catch (error) {
     console.log("Error while retreiving data by details:" + error);
     throw new Error(error);
@@ -127,7 +124,6 @@ const updateDocumentArrayAttribute = async (modelObject, _id, message) => {
     throw new Error(error);
   }
 };
-
 
 module.exports.getUserDocumentByDetails = getUserDocumentByDetails;
 module.exports.getAllDocumentsWithId = getAllDocumentsWithId;

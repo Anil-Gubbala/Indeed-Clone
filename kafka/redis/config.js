@@ -1,5 +1,5 @@
 module.exports = {
   redisPort: 6379,
-  redisHost: "localhost",
-  redisPass: "secure-redis",
+  redisHost: '18.119.28.164',
+  redisPass: 'secure-redis',
 };

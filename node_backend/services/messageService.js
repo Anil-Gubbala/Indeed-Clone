@@ -4,11 +4,12 @@ dotenv.config();
 const messageScehma = require("../db/schema/message").createModel();
 const operations = require("../db/operations");
 const { request } = require("express");
+const mongoose = require("mongoose");
 
 exports.saveMessage = async (request) => {
   try {
     let response = {};
-    if (!request.body.chatId)
+    if (request.body.chatId == "")
       response = await operations.saveDocuments(messageScehma, request.body, {
         runValidators: false,
       });
@@ -17,9 +18,6 @@ exports.saveMessage = async (request) => {
         messageScehma,
         request.body.chatId,
         request.body.message
-        // {
-        //   runValidators: false,
-        // }
       );
     }
     return { status: 200, body: response };
@@ -31,16 +29,54 @@ exports.saveMessage = async (request) => {
 };
 
 //GET CHAT MESSAGES
+// exports.getMessages = async (request) => {
+//   try {
+//     if (request.query.id) {
+//       let response = await operations.getAllDocumentsWithId(
+//         messageScehma,
+//         request.query.id,
+//         request.query.attr
+//       );
+//       return { status: 200, body: response };
+//     }
+//   } catch (err) {
+//     const message = err.message ? err.message : "Error while fetching details";
+//     const code = err.statusCode ? err.statusCode : 500;
+//     return { status: code, body: { message } };
+//   }
+// };
+
 exports.getMessages = async (request) => {
   try {
     if (request.query.id) {
-      let response = await operations.getAllDocumentsWithId(
+      let response = await operations.getDocument(
         messageScehma,
-        request.query.id,
-        request.query.attr
+        request.query.id
       );
       return { status: 200, body: response };
     }
+  } catch (err) {
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
+//GET CHATS
+exports.getChats = async (request) => {
+  try {
+    console.log(request.query);
+    let response = await messageScehma
+      .find({
+        $or: [
+          { employerId: mongoose.Types.ObjectId(request.query.id) },
+          { seekerId: mongoose.Types.ObjectId(request.query.id) },
+        ],
+      })
+      .populate("employerId")
+      .populate("seekerId");
+
+    return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
     const code = err.statusCode ? err.statusCode : 500;
