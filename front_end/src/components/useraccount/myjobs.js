@@ -1,5 +1,6 @@
 import { Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import timeDifference from '../../utils/timeDifference';
@@ -8,44 +9,20 @@ import useStyles from './myjobsElements';
 
 function SavedJobs(props) {
   const classes = useStyles();
-  const { saved_jobs, applied_job, id } = '{},{}';
-  //= useSelector((state) => state.login.loggedUser);
-  const jobKeys = Object.keys(saved_jobs).reverse();
-  const applied = Object.keys(applied_job).reverse();
-  const [ignored] = '0';
+  const [savedjobs, setSavedJobs] = useState([]);
+  const [Appliedjobs, setAppliedJobs] = useState([]);
 
-  // const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
-
-  // const dispatch = useDispatch();
-
-  // console.log(loggedUser)
-  // const [open, setOpen] = useState(false);
-  // const [jobId, setJobId] = useState('');
-
-  // const removeFromSaved = ({ jobkey }) => {
-  //   delete saved_jobs[jobkey];
-  //   dispatch(makeSaveJobRequest({ user_id: id, saved_jobs }));
-  //   forceUpdate();
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  //   setJobId('');
-  // };
-
-  // const handleOpen = (id) => {
-  //   setJobId(id);
-  //   setOpen(true);
-  // };
-
-  // const handleApply = () => {
-  //   console.log(jobId);
-  //   applied_job[jobId] = { ...saved_jobs[jobId], dateSaved: new Date().getTime() };
-  //   delete saved_jobs[jobId];
-  //   dispatch(makeApplyRequest({ user_id: id, saved_jobs, applied_job }));
-  //   setOpen(false);
-  //   forceUpdate();
-  // };
+  useEffect(() => {
+    axios
+      .get(`/jobApplicationstatus`, { params: { id: '61765e2cac3f02c79a885221' } })
+      .then((response) => {
+        setSavedJobs(response.data.Savedjobs);
+        setAppliedJobs(response.data.Appliedjobs);
+        console.log(response.data);
+        console.log(savedjobs);
+        console.log(Appliedjobs);
+      });
+  }, []);
 
   return (
     <Container style={{ padding: '100px 10vw', display: 'flex' }}>
@@ -54,19 +31,22 @@ function SavedJobs(props) {
           My Jobs
         </Typography>
         <ul style={{ display: 'flex', marginBottom: '20px' }}>
-          <NavLink
-            to="/savedjobs"
-            activeStyle={{
-              color: '#0145E3',
-              textDecoration: 'underline',
-            }}
-            style={{
-              fontSize: '25px',
-              marginRight: '30px',
-            }}
-          >
-            Saved
-          </NavLink>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <NavLink
+              to="/savedjobs"
+              activeStyle={{
+                color: '#0145E3',
+                textDecoration: 'underline',
+              }}
+              style={{
+                fontSize: '25px',
+                marginRight: '30px',
+              }}
+            >
+              Saved
+              <span className="count countdisplay"> {savedjobs.length}</span>
+            </NavLink>
+          </div>
           <NavLink
             to="/appliedjobs"
             style={{
@@ -74,18 +54,21 @@ function SavedJobs(props) {
             }}
           >
             Applied
+            <span className="count countdisplay"> {Appliedjobs.length}</span>
           </NavLink>
         </ul>
-        {ignored ? null : null}
         <Box>
-          {jobKeys.map((key) => (
+          {savedjobs?.map((key) => (
             <Box style={{ display: 'flex' }} key={key}>
               <Box style={{ width: '500px' }}>
                 <Typography variant="h5" style={{ fontSize: '18px', marginBottom: '15px' }}>
-                  {saved_jobs[key].jobTitle}
+                  {key.jobId.jobTitle}
                 </Typography>
-                <Box style={{ marginBottom: '15px', fontWeight: '600', color: 'grey' }}>
-                  {saved_jobs[key].companyName} | {saved_jobs[key].location}
+                <Box style={{ marginBottom: '2px', fontWeight: '600', color: 'grey' }}>
+                  {key.jobId.companyName}
+                </Box>
+                <Box style={{ marginBottom: '2px', fontWeight: '600', color: 'grey' }}>
+                  {key.jobId.location.city} , {key.jobId.location.state}
                 </Box>
                 <Box
                   style={{
@@ -95,43 +78,23 @@ function SavedJobs(props) {
                     color: 'grey',
                   }}
                 >
-                  Saved {timeDifference(saved_jobs[key].dateSaved)}
+                  Saved today
+                  {/* Saved {timeDifference(savedjobs[key].dateSaved)} */}
                 </Box>
               </Box>
               <Box style={{ display: 'flex' }}>
-                <Button
-                  className={classes.applyButton}
-                  onClick={() => handleOpen(key)}
-                  disabled={!!applied_job[key]}
-                >
-                  {applied_job[key] ? 'I applied' : 'Apply now'}
-                </Button>
+                <Button className={classes.applyButton}>Apply now</Button>
                 <Button className={classes.updateButton}>Update status</Button>
-              </Box>
-              <Box
-                onClick={() => {
-                  removeFromSaved({ jobkey: key });
-                }}
-                style={{
-                  cursor: 'pointer',
-                  width: '40px',
-                  height: '40px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <span>X</span>
               </Box>
             </Box>
           ))}
         </Box>
-        <ApplyModal
+        {/* <ApplyModal
           open={open}
           handleClose={() => handleClose()}
-          jobId={jobId}
+          // jobId={jobId}
           handleApply={() => handleApply()}
-        />
+        /> */}
       </Box>
     </Container>
   );

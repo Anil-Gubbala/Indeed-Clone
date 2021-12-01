@@ -73,3 +73,169 @@ h3 {
   margin-inline-end: 0px;
   font-weight: bold;
 }
+
+.icl {
+  --base-padding: 1rem;
+  --background-color: #fff;
+  --base-line-height: 1em;
+  --base-spacing: 8px;
+  --darker-font: #2d2d2d;
+  --lighter-font: #6f6f6f;
+  --light-gray: #ececec;
+  --success-green: #008040;
+  letter-spacing: 0;
+  box-sizing: border-box;
+  margin: 0.25rem 0px 1rem;
+  color: rgb(45, 45, 45);
+  font-weight: 700;
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', Roboto, Noto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.icl-body {
+  --base-padding: 1rem;
+  --background-color: #fff;
+  --base-line-height: 1em;
+  --base-spacing: 8px;
+  --darker-font: #2d2d2d;
+  --lighter-font: #6f6f6f;
+  --light-gray: #ececec;
+  --success-green: #008040;
+  color: #000;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.38;
+  box-sizing: border-box;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.meta-flex {
+  --base-padding: 1rem;
+  --background-color: #fff;
+  --base-line-height: 1em;
+  --base-spacing: 8px;
+  --darker-font: #2d2d2d;
+  --lighter-font: #6f6f6f;
+  --light-gray: #ececec;
+  --success-green: #008040;
+  color: #000;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.38;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+.pdf {
+  --base-padding: 1rem;
+  --background-color: #fff;
+  --base-line-height: 1em;
+  --base-spacing: 8px;
+  --darker-font: #2d2d2d;
+  --lighter-font: #6f6f6f;
+  --light-gray: #ececec;
+  --success-green: #008040;
+  color: #000;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.38;
+  box-sizing: border-box;
+  flex-basis: 0%;
+  flex-grow: 1;
+  word-break: break-all;
+}
+.name {
+  --base-padding: 1rem;
+  --background-color: #fff;
+  --base-line-height: 1em;
+  --base-spacing: 8px;
+  --darker-font: #2d2d2d;
+  --lighter-font: #6f6f6f;
+  --light-gray: #ececec;
+  --success-green: #008040;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.38;
+  word-break: break-all;
+  box-sizing: border-box;
+  display: block;
+  color: #2d2d2d;
+  margin-bottom: 4px;
+}
+.time {
+  --base-padding: 1rem;
+  --background-color: #fff;
+  --base-line-height: 1em;
+  --base-spacing: 8px;
+  --darker-font: #2d2d2d;
+  --lighter-font: #6f6f6f;
+  --light-gray: #ececec;
+  --success-green: #008040;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.38;
+  word-break: break-all;
+  box-sizing: border-box;
+  display: block;
+  color: #595959;
+  margin-bottom: 4px;
+}
+.public {
+  --base-padding: 1rem;
+  --background-color: #fff;
+  --base-line-height: 1em;
+  --base-spacing: 8px;
+  --darker-font: #2d2d2d;
+  --lighter-font: #6f6f6f;
+  --light-gray: #ececec;
+  --success-green: #008040;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.38;
+  word-break: break-all;
+  box-sizing: border-box;
+  display: block;
+  color: #595959;
+  margin-bottom: 4px;
+}
+
+.dots {
+  --base-padding: 1rem;
+  --background-color: #fff;
+  --base-line-height: 1em;
+  --base-spacing: 8px;
+  --darker-font: #2d2d2d;
+  --lighter-font: #6f6f6f;
+  --light-gray: #ececec;
+  --success-green: #008040;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  right: -12px;
+  top: 0;
+}

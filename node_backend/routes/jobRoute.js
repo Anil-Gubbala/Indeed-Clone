@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router();
 const jobService = require("../services/jobService");
 
@@ -80,4 +81,17 @@ router.get("/getjobinsearch", async (request, response) => {
   }
 });
 
+router.get("/jobsearch", async (request, response) => {
+  try {
+    const data = await jobService.getJobDetails_search(request);
+    response.status(data.status).json(data.body);
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while Searching job Details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
 module.exports = router;

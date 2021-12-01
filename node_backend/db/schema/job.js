@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const jobScehma = new Schema(
   {
@@ -20,7 +21,7 @@ const jobScehma = new Schema(
     industry:{ type: String },
     street:{ type: String },
     country:{ type: String },
-    salary: { type: String },
+    salary: { type: Number },
     type: { type: String },
     work: { type: String },
     why: { type: String },

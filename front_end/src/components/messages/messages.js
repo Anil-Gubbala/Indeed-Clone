@@ -29,6 +29,7 @@ class Messages extends Component {
   }
 
   sendMessage = (chat) => {
+    console.log();
     if (this.state.typedmsg == "") this.setState({ error: "Enter Message" });
     else {
       let details = {
@@ -41,10 +42,22 @@ class Messages extends Component {
           time: "2016-05-18T16:00:00Z",
         },
       };
+      let m = {
+        sentby: "617741c6e129e6cc95ec54d2",
+        msg: this.state.typedmsg,
+        time: "2016-05-18T16:00:00Z",
+      };
       post("/message", details)
         .then((response) => {
-          this.setState({ chats: response });
-          console.log(response);
+          let arr = [];
+          for (let c of this.state.chats) {
+            if (c._id == chat._id) {
+              c.message.push(m);
+            }
+            arr.push(c);
+          }
+          console.log(arr);
+          this.setState({ typedmsg: "" });
         })
         .catch((err) => {
           console.log(err);
@@ -53,6 +66,7 @@ class Messages extends Component {
   };
 
   selectMessage = (chat) => {
+    chat.message.sort((a, b) => a.time.localeCompare(b.time));
     this.setState({ selectedChat: chat });
   };
 
@@ -104,7 +118,7 @@ class Messages extends Component {
                           {" "}
                           <div
                             aria-hidden="true"
-                            class="icon chat"
+                            className="icon chat"
                             style={{ padding: "15px", margin: "0px" }}
                             onClick={() => this.selectMessage(chat)}
                           >
@@ -191,6 +205,7 @@ class Messages extends Component {
                   marginLeft: "30px",
                   borderRadius: "10px",
                   position: "relative",
+                  padding: "25px",
                   border: "1px solid #e5e4e2",
                 }}
               >
@@ -211,13 +226,124 @@ class Messages extends Component {
                         {this.state.selectedChat == "" ? (
                           ""
                         ) : (
-                          <div
-                            className="scrlmessages"
-                            style={{ padding: "20px" }}
-                          >
-                            {this.state.selectedChat.message.map((msg) => {
-                              return <div>{JSON.stringify(msg)}</div>;
-                            })}
+                          <div>
+                            <div style={{ padding: "20px" }}>
+                              <div className="scrlmessages">
+                                {/* {console.log("***")}
+                                {console.log(this.state.selectedChat)} */}
+                                {this.state.selectedChat.message.map((msg) => {
+                                  console.log(msg);
+                                  let dt = new Date(msg.time)
+                                    .toDateString()
+                                    .substr(4, 15);
+                                  let time = new Date(msg.time)
+                                    .toTimeString()
+                                    .substring(0, 8);
+                                  return (
+                                    <div style={{ marginBottom: "15px" }}>
+                                      {msg.sentby ==
+                                      "617741c6e129e6cc5ec54d2" ? (
+                                        <>
+                                          <div style={{ display: "flex" }}>
+                                            <div
+                                              aria-hidden="true"
+                                              className="personl"
+                                            >
+                                              <div class="personl1">
+                                                <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  focusable="false"
+                                                  role="img"
+                                                  fill="currentColor"
+                                                  viewBox="0 0 18 18"
+                                                  aria-hidden="true"
+                                                  class="personl2"
+                                                >
+                                                  <path d="M9 9a3 3 0 100-6 3 3 0 100 6zm0 1.5c-2.003 0-6 1.005-6 3v1a.5.5 0 00.5.5h11a.5.5 0 00.5-.5v-1c0-1.995-3.998-3-6-3z"></path>
+                                                </svg>
+                                              </div>
+                                            </div>
+                                            <div
+                                              style={{
+                                                marginLeft: "10px",
+                                                fontWeight: "500",
+                                              }}
+                                            >
+                                              You &nbsp;•&nbsp;
+                                              <label
+                                                style={{ color: "#A9A9A9" }}
+                                              >
+                                                {time + " " + dt}
+                                              </label>
+                                            </div>
+                                          </div>
+                                          <div
+                                            style={{
+                                              marginLeft: "38px",
+                                              marginTop: "5px",
+                                            }}
+                                          >
+                                            {msg.msg}
+                                          </div>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <div style={{ display: "flex" }}>
+                                            <div
+                                              aria-hidden="true"
+                                              class="cmpl1"
+                                            >
+                                              <div
+                                                data-cy="participant-avatar"
+                                                class="cmpl2"
+                                              >
+                                                <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  focusable="false"
+                                                  role="img"
+                                                  fill="currentColor"
+                                                  viewBox="0 0 18 18"
+                                                  aria-hidden="true"
+                                                  class="cmpl3"
+                                                >
+                                                  <path
+                                                    fill-rule="evenodd"
+                                                    d="M3.5 3a.5.5 0 00-.5.5v11a.5.5 0 00.5.5H5v-4h3v4h6.5a.5.5 0 00.5-.5v-6a.5.5 0 00-.5-.5H11V3.5a.5.5 0 00-.5-.5h-7zM5 8.1a.25.25 0 01.25-.25h3.5A.25.25 0 019 8.1v.8a.25.25 0 01-.25.25h-3.5A.25.25 0 015 8.9v-.8zm4-3a.25.25 0 00-.25-.25h-3.5A.25.25 0 005 5.1v.8c0 .138.112.25.25.25h3.5A.25.25 0 009 5.9v-.8z"
+                                                    clip-rule="evenodd"
+                                                  ></path>
+                                                </svg>
+                                              </div>
+                                            </div>
+                                            <div
+                                              style={{
+                                                marginLeft: "10px",
+                                                fontWeight: "500",
+                                              }}
+                                            >
+                                              Recruiter &nbsp;•&nbsp;
+                                              <label
+                                                style={{ color: "#A9A9A9" }}
+                                              >
+                                                {time + " " + dt}
+                                              </label>
+                                            </div>
+                                            <br />
+                                          </div>
+                                          <div
+                                            style={{
+                                              marginLeft: "38px",
+                                              marginTop: "5px",
+                                            }}
+                                          >
+                                            {msg.msg}
+                                          </div>
+                                        </>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
                           </div>
                         )}
                       </div>
@@ -225,8 +351,9 @@ class Messages extends Component {
                       <div
                         style={{
                           bottom: "0%",
-                          position: "absolute",
+                          // position: "absolute",
                           width: "100%",
+                          background: "white",
                         }}
                       >
                         {this.state.error == "" ? (
@@ -237,10 +364,11 @@ class Messages extends Component {
                           </div>
                         )}
                         <textarea
+                          value={this.state.typedmsg}
                           style={{
                             width: "100%",
                             height: "100px",
-                            borderColor: "#2d2d2d",
+                            borderColor: "#D3D3D3",
                           }}
                           onChange={(e) =>
                             this.setState({
