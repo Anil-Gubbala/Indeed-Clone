@@ -10,6 +10,7 @@ import{
     LOGOUT
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
+import { setLogin } from '../utils/checkLogin';
 
 export const loadUser = () =>async dispatch => {
     if(localStorage.token){
@@ -70,8 +71,9 @@ export const login = formData => async dispatch =>{
         });
         console.log(res.data);
         if(res.data !== "failure"){{
-            localStorage.setItem("email",res.data.user.emailId);
-            localStorage.setItem("role",res.data.user.accountType);
+            // localStorage.setItem("email",res.data.user.emailId);
+            // localStorage.setItem("role",res.data.user.accountType);
+             setLogin(res.data);
              dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data.user
