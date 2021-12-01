@@ -215,7 +215,7 @@ const getUnfilteredImages = (msg, callback) => {
   callback(null, {});
 };
 const flagReview = (msg, callback) => {
-  conn.query(sql.flagReview, [msg.data.status, msg.data.id], (err, result) => {
+  conn.query(sql.flagReview, [msg.data.status, msg.data._id], (err, result) => {
     if (err) {
       callback(err, null);
     } else {
