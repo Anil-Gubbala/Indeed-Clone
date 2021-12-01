@@ -84,19 +84,13 @@ router.post("/user", async (request, response) => {
                 sqlconnection.query(`Insert into users(emailId,password,accountType) values(?,?,?)`,[
                     emailId,password,accountType],  function(error,results){
                   if(error){
-                        response.writeHead(200, {
-                             'Content-Type': 'text-plain'
-                          });
-                         //response.send(error.code);
+                        
                          response.send("failure");
                      }else{
-                          response.writeHead(200,{
-                             'Content-Type': 'text/plain'
-                         });
-                         console.log(results);
+                          
                          
                         
-                         res.send(JSON.stringify(results));
+                         response.send(JSON.stringify(results));
 
                          //response.end("success");
                      }

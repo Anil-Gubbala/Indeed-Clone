@@ -3,7 +3,7 @@ import './Candidates.css';
 import Navbar from'../EmpNavbar/EmpNavbar';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
-import EmpNav from '../EmployerLanding/Empnav'
+import EmpNav from '../Employer/Empnav'
 import image from '../images/find.jpg'
 
 function Candidates(){
