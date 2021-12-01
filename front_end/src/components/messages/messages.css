@@ -81,8 +81,10 @@
 }
 
 .scrlmessages {
+  height: 600px;
   overflow: auto;
   background: #fff;
+  scroll-snap-type: y proximity;
 }
 
 .chatSendbtn {
@@ -102,4 +104,98 @@
   font-weight: 700;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.personl {
+  --reach-menu-button: 1;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial,
+    "Liberation Sans", Roboto, Noto, sans-serif;
+  line-height: 1.5;
+  padding: 0.5rem;
+  margin: -0.5rem;
+}
+
+.personl1 {
+  --reach-menu-button: 1;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial,
+    "Liberation Sans", Roboto, Noto, sans-serif;
+  cursor: default;
+  background-color: rgb(118, 118, 118) !important;
+  height: 1.5rem !important;
+  line-height: 1.5rem !important;
+  width: 1.5rem !important;
+  border-radius: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+  font-size: 0.875rem;
+}
+
+.personl2 {
+  --reach-menu-button: 1;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial,
+    "Liberation Sans", Roboto, Noto, sans-serif;
+  cursor: default;
+  line-height: 1.5rem !important;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.875rem;
+  fill: currentcolor;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: inherit;
+}
+
+.cmpl1 {
+  --reach-menu-button: 1;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial,
+    "Liberation Sans", Roboto, Noto, sans-serif;
+  line-height: 1.5;
+  padding: 0.5rem;
+  margin: -0.5rem;
+}
+
+.cmpl2 {
+  --reach-menu-button: 1;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial,
+    "Liberation Sans", Roboto, Noto, sans-serif;
+  cursor: default;
+  background-color: rgb(199, 66, 137) !important;
+  height: 1.5rem !important;
+  line-height: 1.5rem !important;
+  width: 1.5rem !important;
+  border-radius: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+  font-size: 0.875rem;
+}
+
+.cmpl3 {
+  --reach-menu-button: 1;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial,
+    "Liberation Sans", Roboto, Noto, sans-serif;
+  cursor: default;
+  line-height: 1.5rem !important;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.875rem;
+  fill: currentcolor;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: inherit;
 }
