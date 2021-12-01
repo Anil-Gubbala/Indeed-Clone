@@ -1,12 +1,11 @@
 import { STORAGE } from './consts';
 
 export const isSignedIn = () => JSON.parse(localStorage.getItem(STORAGE.isSignedIn));
-export const getAccountType = () => JSON.parse(localStorage.getItem(STORAGE.accountType));
-export const isAdmin = () => JSON.parse(localStorage.getItem(STORAGE.accountType)) === 'employer';
-export const isEmployer = () =>
-  JSON.parse(localStorage.getItem(STORAGE.accountType)) === 'jobseeker';
-export const isCustomer = () => JSON.parse(localStorage.getItem(STORAGE.accountType)) === 'admin';
-export const getEmailId = () => JSON.parse(localStorage.getItem(STORAGE.emailId));
+export const getAccountType = () => localStorage.getItem(STORAGE.accountType);
+export const isAdmin = () => localStorage.getItem(STORAGE.accountType) === 'admin';
+export const isEmployer = () => localStorage.getItem(STORAGE.accountType) === 'employer';
+export const isJobSeeker = () => localStorage.getItem(STORAGE.accountType) === 'jobseeker';
+export const getEmailId = () => localStorage.getItem(STORAGE.emailId);
 
 
 export const setLogin = (info) => {
