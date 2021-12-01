@@ -21,7 +21,7 @@ export const Login = ({login,  isAuthenticated, details, state}) => {
         login({ emailId, password});
     }
     if (isAuthenticated) {
-        console.log(details[0].accountType);
+        console.log(details.accountType);
         if(localStorage.getItem("role")=="jobseeker"){
         return <Redirect to="/landing" />;
         }
