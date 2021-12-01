@@ -1,5 +1,5 @@
-const crypto = require("crypto");
-const conn = require("./connection");
+const crypto = require('crypto');
+const conn = require('./connection');
 
 const TIMEOUT = 800000; // time to wait for response in ms
 let self;
@@ -13,7 +13,7 @@ function IsJsonString(str) {
   return true;
 }
 
-const responseTopic = "responseTopic10";
+const responseTopic = 'responseTopic10';
 
 function KafkaRPC() {
   self = this;
@@ -26,14 +26,14 @@ function KafkaRPC() {
 KafkaRPC.prototype.makeRequest = function (topicName, content, callback) {
   self = this;
   // generate a unique correlation id for this call
-  const correlationId = crypto.randomBytes(16).toString("hex");
-
+  const correlationId = crypto.randomBytes(16).toString('hex');
+  console.log('new request to : ', topicName);
   // create a timeout for what should happen if we don't get a response
   const tId = setTimeout(
     (corrId) => {
       // if this ever gets called we didn't get a response in a
       // timely fashion
-      console.log("timeout");
+      console.log('timeout');
       callback(new Error(`timeout ${corrId}`));
       // delete the entry from hash
       delete self.requests[corrId];
@@ -87,7 +87,7 @@ KafkaRPC.prototype.setupResponseQueue = function (producer, topicName, next) {
 
   // subscribe to messages
   const consumer = self.connection.getConsumer(responseTopic);
-  consumer.on("message", (message) => {
+  consumer.on('message', (message) => {
     // console.log("msg received");
     if (!IsJsonString(message.value)) {
       return;

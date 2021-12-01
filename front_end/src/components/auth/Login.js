@@ -5,6 +5,7 @@ import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import { isJobSeeker } from '../../utils/checkLogin';
 
 
 export const Login = ({login,  isAuthenticated, details, state}) => {
@@ -21,8 +22,8 @@ export const Login = ({login,  isAuthenticated, details, state}) => {
         login({ emailId, password});
     }
     if (isAuthenticated) {
-        console.log(details[0].accountType);
-        if(localStorage.getItem("role")=="jobseeker"){
+        console.log(details.accountType);
+        if(isJobSeeker()){
         return <Redirect to="/landing" />;
         }
         else{
