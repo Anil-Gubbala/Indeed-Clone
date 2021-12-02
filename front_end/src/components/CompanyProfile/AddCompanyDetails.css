@@ -2,6 +2,18 @@
   background-color:#EEEEEE;
   margin-top:0;
   padding-top: 0;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, "Liberation Sans", Roboto, Noto, sans-serif;
+}
+
+.title-add{
+  font-size: 1.35rem;
+  line-height: 1.6;
+  font-weight: 800;
+}
+
+.title-main-add{
+  font-size: 1.75rem;
+  line-height: 1.5;
 }
 
 .page-body-add{
@@ -18,6 +30,19 @@
   margin-left: 400px;
 }
 
+.page-body-logo{
+  justify-content:left;
+  padding:60px;
+  margin-top: 50px;
+  background-color:white;
+  width: 100%;
+  height: 5%;
+  box-shadow: inset 1px 1px 1px 0 lightgrey, inset -1px -1px 1px lightgrey;
+  background: #ffff;
+  margin-bottom: 8px;
+  border-radius: 1em;
+}
+
 .page-body-add-image{
   justify-content:left;
   padding:2%;
@@ -27,7 +52,6 @@
   width: 55%;
   height: 10%;
   box-shadow: inset 1px 1px 1px 0 lightgrey, inset -1px -1px 1px lightgrey;
-  background: #F7F7F7;
   border-radius: 1em;
   margin-left: 400px;
 }
@@ -54,14 +78,14 @@
 }
 
 
-.SVG :hover{
-  background-color: #98BAE7;
-}
-
 .heading-add{
   text-align: left;
-  font-weight: bolder;
   margin-left: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.5;
+  display: inline-block;
 }
 .error-msg{
   font-weight: bold;
@@ -73,12 +97,12 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
-/* .alert {
+.alert-bad {
   padding: 20px;
   background-color: #f44336;
   color: white;
   margin-top: 2%;
-} */
+}
 
 .alert-good {
   padding: 20px;

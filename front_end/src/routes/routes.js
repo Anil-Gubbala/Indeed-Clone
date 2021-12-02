@@ -14,9 +14,11 @@ import Salaries from '../components/Salaries/salaries';
 import AppliedJobs from '../components/useraccount/AppliedJobs';
 import DashNav from "../components/navbar/DashNav";
 import { LandingPage } from "../components/dashboard/LandingPage";
+
 import ProfilePage from "../components/EmployerLanding/ProfilePage";
 import AddCompanyDetails from "../components/CompanyProfile/AddCompanyDetails";
 import EditCompanyPage from "../components/CompanyProfile/EditCompanyPage";
+import employerReviews from "../components/CompanyProfile/employerReviews";
 
 import Employer from "../components/Employer/EmployerLanding";
 import PostJob from "../components/PostJob/PostJob";
@@ -61,6 +63,7 @@ class Routes extends Component {
         <Route exact path="/employerprofile" component={ProfilePage} />
         <Route exact path="/addcompany" component={AddCompanyDetails} />
         <Route exact path="/editcompany" component={EditCompanyPage} />
+        <Route exact path="/employerreviews" component={employerReviews} />
       </div>
     );
   }
