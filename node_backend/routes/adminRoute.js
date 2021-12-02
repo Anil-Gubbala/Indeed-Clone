@@ -131,7 +131,8 @@ router.put("/flagReview", (req, res) => {
 });
 
 router.put("/flagImage", (req, res) => {
-  kafkaRequest("admin", "flagImage", {}, (err, result) => {
+  const {_id, approved} = req.body;
+  kafkaRequest("admin", "flagImage", {status:approved ? 1:2, _id}, (err, result) => {
     if (err) {
       res.status(500).send({});
     } else {
