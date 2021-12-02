@@ -11,6 +11,7 @@ import ApproveReviews from "./ApproveReviews";
 import { isAdmin } from "../../utils/checkLogin";
 import { Redirect } from 'react-router-dom';
 import Analytics from "./Analytics";
+import ApproveImages from "./ApproveImages";
 
 function AdminHome() {
   // if(! isAdmin()){
@@ -38,7 +39,7 @@ function AdminHome() {
               <ApproveReviews></ApproveReviews>
             </TabPane>
             <TabPane tab="Approve Pictures" key="2">
-              {/* <ReviewsTab /> */}
+              <ApproveImages></ApproveImages>
             </TabPane>
             <TabPane tab="Analytics" key="3">
               <Analytics></Analytics>

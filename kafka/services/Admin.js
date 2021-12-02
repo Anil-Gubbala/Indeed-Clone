@@ -19,10 +19,12 @@ const sql = {
 const CompanySchema = require("../db/schema/company").createModel();
 const UserSchema = require("../db/schema/user").createModel();
 const ApplicationSchema = require("../db/schema/jobApplication").createModel();
+const ImageSchema = require("../db/schema/image").createModel();
 
-const getDate = (date = new Date()) =>{
-
-  return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toJSON().substring(0, 10)
+const getDate = (date = new Date()) => {
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    .toJSON()
+    .substring(0, 10);
 };
 
 const updateView = (msg, callback) => {
@@ -33,16 +35,13 @@ const updateView = (msg, callback) => {
   views[key] = 1;
   console.log(views);
   let checkExist = {};
-  checkExist[key] = {"$exists":"true"}
-
-
+  checkExist[key] = { $exists: "true" };
 
   // CompanySchema.findOne({[key]:{$exists:true}}).lean().then((result)=>{
   //   console.log(result);
   // }).catch((err1)=>{
   //   callback(err1, null);
   // })
-
 
   CompanySchema.findOneAndUpdate(
     { _id: msg.data._id },
@@ -238,9 +237,17 @@ const getUnfilteredReviews = (msg, callback) => {
   });
   // callback(null, {});
 };
+
 const getUnfilteredImages = (msg, callback) => {
-  callback(null, {});
+  ImageSchema.find({ isVerified: 0 })
+    .then((result) => {
+      callback(null, result);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
 };
+
 const flagReview = (msg, callback) => {
   conn.query(sql.flagReview, [msg.data.status, msg.data._id], (err, result) => {
     if (err) {
@@ -250,8 +257,18 @@ const flagReview = (msg, callback) => {
     }
   });
 };
+
 const flagImage = (msg, callback) => {
-  callback(null, {});
+  ImageSchema.findOneAndUpdate(
+    { _id: msg.data._id },
+    { isVerified: msg.data.status }
+  )
+    .then((result) => {
+      callback(null, result);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
 };
 
 module.exports = {
