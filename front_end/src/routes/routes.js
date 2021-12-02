@@ -22,6 +22,8 @@ import Employer from "../components/Employer/EmployerLanding";
 import PostJob from "../components/PostJob/PostJob";
 import Candidates from "../components/Candidates/Candidates";
 import Messages from "../components/messages/messages";
+import Analytics from '../components/Analytics/Analytics';
+import Statistics from '../components/Analytics/Statistics';
 
 class Routes extends Component {
   render() {
@@ -42,6 +44,8 @@ class Routes extends Component {
         <Route exact path="/Candidates" component={Candidates} />
         <Route exact path="/EmployerLanding" component={Employer} />
         <Route exact path="/PostJob" component={PostJob} />
+        <Route exact path="/Analytics" component={Analytics} />
+        <Route exact path="/Statistics" component={Statistics} />
 
         <Route exact path="/reviews">
           <CompanyReviews />

@@ -11,6 +11,7 @@ const jobScehma = new Schema(
     // get company name, location, reviews other details from company schema
     jobTitle: { type: String, required: true },
     companyId: { type: mongoose.Schema.Types.ObjectId, ref: "company" },
+    companyName: { type: String, required: true },
     role: { type: String },
     location: {
       city: { type: String },
@@ -24,8 +25,8 @@ const jobScehma = new Schema(
     type: { type: String },
     work: { type: String },
     why: { type: String },
-    what: { type: String },
     need:{ type: String },
+    date: {type: Date},
   },
   { _id: false },
   { collection: "job" }
