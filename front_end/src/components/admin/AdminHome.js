@@ -10,6 +10,7 @@ import { Tabs } from "antd";
 import ApproveReviews from "./ApproveReviews";
 import { isAdmin } from "../../utils/checkLogin";
 import { Redirect } from 'react-router-dom';
+import Analytics from "./Analytics";
 
 function AdminHome() {
   // if(! isAdmin()){
@@ -40,7 +41,7 @@ function AdminHome() {
               {/* <ReviewsTab /> */}
             </TabPane>
             <TabPane tab="Analytics" key="3">
-              {/* <Snapshot /> */}
+              <Analytics></Analytics>
             </TabPane>
           </Tabs>
         </div>

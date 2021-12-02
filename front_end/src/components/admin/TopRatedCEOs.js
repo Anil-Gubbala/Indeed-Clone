@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import {
   BarChart,
@@ -33,6 +34,9 @@ function TopRatedCEOs() {
   return (
     <>
       {/* <ResponsiveContainer width="100%" height="100%"> */}
+      <Typography variant="h6" gutterBottom component="div">
+        Top rated ceo's
+      </Typography>
       <BarChart
         width={500}
         height={300}
@@ -41,7 +45,7 @@ function TopRatedCEOs() {
           top: 5,
           right: 30,
           left: 20,
-          bottom: 5,
+          bottom: 30,
         }}
       >
         <CartesianGrid vertical />
@@ -56,9 +60,9 @@ function TopRatedCEOs() {
         />
         <YAxis
           label={{
-            value: 'No of Views',
+            value: 'Avg ratings',
             angle: -90,
-            position: 'insideLeft',
+            position: 'insideBottomLeft',
             textAnchor: 'middle',
           }}
         />

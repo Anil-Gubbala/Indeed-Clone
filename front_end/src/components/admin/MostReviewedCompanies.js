@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -9,16 +9,17 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
-import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import { get } from '../../utils/serverCall';
+} from "recharts";
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import { get } from "../../utils/serverCall";
+import { Typography } from "@mui/material";
 
 function MostReviewedCompanies() {
   const [data, setData] = useState([]);
 
   const getMostReviewedCompanies = () => {
-    get('/getMostReviewedCompanies', {})
+    get("/getMostReviewedCompanies", {})
       .then((result) => {
         console.log(result);
         // const temp = result.map((each) => ({ name: each.name, count: each.views[input] }));
@@ -35,6 +36,9 @@ function MostReviewedCompanies() {
   return (
     <>
       {/* <ResponsiveContainer width="100%" height="100%"> */}
+      <Typography variant="h6" gutterBottom component="div">
+        Most reviewed companies
+      </Typography>
       <BarChart
         width={500}
         height={300}
@@ -43,12 +47,12 @@ function MostReviewedCompanies() {
           top: 5,
           right: 30,
           left: 20,
-          bottom: 5,
+          bottom: 30,
         }}
       >
         <CartesianGrid vertical />
         <XAxis
-          dataKey="date"
+          dataKey="name"
           textAnchor="end"
           sclaeToFit="true"
           verticalAnchor="start"
@@ -58,16 +62,16 @@ function MostReviewedCompanies() {
         />
         <YAxis
           label={{
-            value: 'No of Views',
+            value: "No of reviews",
             angle: -90,
-            position: 'insideLeft',
-            textAnchor: 'middle',
+            position: "insideBottomLeft",
+            textAnchor: "middle",
           }}
         />
         <Tooltip />
         <Legend />
-        <Bar dataKey="count" fill="#82ca9d" />
-      </BarChart>{' '}
+        <Bar dataKey="total" fill="#82ca9d" />
+      </BarChart>{" "}
     </>
     // </ResponsiveContainer>
   );
