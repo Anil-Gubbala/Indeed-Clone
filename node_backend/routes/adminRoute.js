@@ -7,7 +7,7 @@ router.post("/updateView", (req, res) => {
   kafkaRequest(
     "admin",
     "updateView",
-    { _id: "61960b7c79026b0aab6bef86", date: new Date() },
+    { _id: req.body.id, date: new Date() },
     (err, result) => {
       if (err) {
         res.status(500).send({});

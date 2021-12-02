@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -9,17 +9,21 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
-import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import { get } from '../../utils/serverCall';
+} from "recharts";
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import { get } from "../../utils/serverCall";
+import { Typography } from "@mui/material";
 
 function MostViewedCompanies() {
-  const [date, setDate] = useState(new Date().toJSON().substring(0, 10));
+  const getDate = (date = new Date()) =>{
+    return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toJSON().substring(0, 10)
+  };
+  const [date, setDate] = useState(getDate());
   const [data, setData] = useState([]);
 
   const getMostViewedCompanies = (input) => {
-    get('/getMostViewedCompanies', { date: input })
+    get("/getMostViewedCompanies", { date: input })
       .then((result) => {
         const temp = result.map((each) => ({
           name: each.name,
@@ -41,7 +45,15 @@ function MostViewedCompanies() {
   };
   return (
     <>
-      <FloatingLabel controlId="dob" label="Date of Birth" className="mb-3">
+      <Typography variant="h6" gutterBottom component="div">
+        Most viewed companies
+      </Typography>
+      <FloatingLabel
+        style={{ width: "fit-content" }}
+        controlId="dob"
+        label="Date of Birth"
+        className="mb-3"
+      >
         <Form.Control
           name="dob"
           type="date"
@@ -59,7 +71,7 @@ function MostViewedCompanies() {
           top: 5,
           right: 30,
           left: 20,
-          bottom: 5,
+          bottom: 30,
         }}
       >
         <CartesianGrid vertical />
@@ -74,16 +86,16 @@ function MostViewedCompanies() {
         />
         <YAxis
           label={{
-            value: 'No of Views',
+            value: "No of Views",
             angle: -90,
-            position: 'insideLeft',
-            textAnchor: 'middle',
+            position: "insideBottomLeft",
+            textAnchor: "middle",
           }}
         />
         <Tooltip />
         <Legend />
         <Bar dataKey="count" fill="#82ca9d" />
-      </BarChart>{' '}
+      </BarChart>{" "}
     </>
     // </ResponsiveContainer>
   );
