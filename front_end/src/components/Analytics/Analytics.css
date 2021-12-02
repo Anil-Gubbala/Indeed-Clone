@@ -1,0 +1,94 @@
+html{
+    height: 100%;
+}
+
+
+.analytics{
+    
+    background-color: whitesmoke;
+    color: steelblue;
+    font-family: Avenir Next,Arial,Roboto,Noto,sans-serif;
+    height: 100%;
+  }
+
+  .analyticsNoJob{
+    background-color: white;
+    text-align: left;
+    font-family: Noto Sans,Helvetica Neue,Helvetica,Arial,Liberation Sans,Roboto,Noto,sans-serif!important;
+  }
+
+  .column1 {
+    background-color:white;
+    float: left;
+    width: 64%;
+    padding: 10px;
+    height: 100%;
+    padding-bottom: 10%;
+    padding-top: 5%;
+    padding-left: 4%;
+  }
+
+  .column2 {
+    background-color: white;
+    padding-top: 1%;
+    float: left;
+    width: 29%;
+    padding-bottom: 10%;
+    height: 100%;
+    padding-right: 2%;
+  }
+
+
+  
+.analytics .joProp{
+      margin-left: 5%;
+    color: steelblue;
+    width: 86%;
+    height: auto;
+    border-radius: 1px;
+    border-radius: 6px;
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 3%;
+    text-align: left;
+    padding-top: 2%;
+    color: black;
+
+}
+
+
+.paginationButtons{
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+  margin-left: 8%;
+  
+}
+
+
+.paginationButtons a{
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid rgb(9, 79, 136);
+  color: white;
+  background-color: rgb(9, 79, 136);
+  cursor: pointer;
+}
+
+.paginationButtons a:hover{
+  color: white;
+  background-color: rgb(9, 79, 136)
+}
+.previousButton{
+  align-items: left;
+}
+
+.activeButton{
+  font-weight: bold;
+  color: white;
+}

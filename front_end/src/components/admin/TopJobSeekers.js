@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import {
   BarChart,
@@ -33,6 +34,9 @@ function TopJobSeekers() {
   return (
     <>
       {/* <ResponsiveContainer width="100%" height="100%"> */}
+      <Typography variant="h6" gutterBottom component="div">
+        Top job seekers
+      </Typography>
       <BarChart
         width={500}
         height={300}
@@ -41,12 +45,12 @@ function TopJobSeekers() {
           top: 5,
           right: 30,
           left: 20,
-          bottom: 5,
+          bottom: 30,
         }}
       >
         <CartesianGrid vertical />
         <XAxis
-          dataKey="date"
+          dataKey="name"
           textAnchor="end"
           sclaeToFit="true"
           verticalAnchor="start"
@@ -56,15 +60,15 @@ function TopJobSeekers() {
         />
         <YAxis
           label={{
-            value: 'No of Views',
+            value: 'No of accepted reviews',
             angle: -90,
-            position: 'insideLeft',
+            position: 'insideBottomLeft',
             textAnchor: 'middle',
           }}
         />
         <Tooltip />
         <Legend />
-        <Bar dataKey="count" fill="#82ca9d" />
+        <Bar dataKey="total" fill="#82ca9d" />
       </BarChart>{' '}
     </>
     // </ResponsiveContainer>

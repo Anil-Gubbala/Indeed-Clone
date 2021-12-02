@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const dotenv = require("dotenv");
+
 dotenv.config();
 const jobSchema = require("../db/schema/job").createModel();
 const operations = require("../db/operations");
@@ -30,11 +31,11 @@ exports.saveJobDetails = async (request) => {
   }
 };
 
-//get job details
+// get job details
 exports.getJobDetails = async (request) => {
   try {
     if (request.query.id) {
-      let response = await operations.getDocument(jobSchema, {
+      const response = await operations.getDocument(jobSchema, {
         _id: request.query.id,
       });
       return { status: 200, body: response };
@@ -48,7 +49,7 @@ exports.getJobDetails = async (request) => {
 
 exports.getJobs = async (request) => {
   try {
-    let response = await operations.getJobDocuments(jobSchema, {});
+    const response = await operations.getJobDocuments(jobSchema, {});
     return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
@@ -59,7 +60,7 @@ exports.getJobs = async (request) => {
 
 exports.filterJobs = async (request) => {
   try {
-    let response = await operations.getJobsbyFilter(jobSchema, {
+    const response = await operations.getJobsbyFilter(jobSchema, {
       keyw: request.body.role,
       location: request.body.location,
     });
@@ -73,7 +74,7 @@ exports.filterJobs = async (request) => {
 
 exports.filterJobsInSearch = async (request) => {
   try {
-    let response = await operations.getJobsInSearch(jobSchema, {});
+    const response = await operations.getJobsInSearch(jobSchema, {});
     return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
@@ -82,13 +83,37 @@ exports.filterJobsInSearch = async (request) => {
   }
 };
 
-exports.jobByCompanyId = async (request) => {
+exports.getJobDetails_search = async (request) => {
   try {
-    let response = await operations.getAllDocumentsWithId(
-      jobSchema,
-      request.query.id,
-      "companyId"
-    );
+    const { title, location } = request.query;
+    const averagesalary = await jobSchema.aggregate([
+      {
+        $match: {
+          $and: [{ jobTitle: title }, { "location.city": location }],
+        },
+      },
+      { $group: { _id: null, avg: { $avg: "$salary" } } },
+    ]);
+
+    console.log(`averagesalary${averagesalary}`);
+    const top5com = await jobSchema
+      .aggregate([
+        {
+          $match: {
+            $and: [{ jobTitle: title }, { "location.city": location }],
+          },
+        },
+        { $group: { _id: "$companyName", avg: { $avg: "$salary" } } },
+      ])
+      .limit(5)
+      .sort({ avg: -1 });
+
+    console.log(`top 5 companies${top5com}`);
+    const response = {
+      averagesalary,
+      top5companies: top5com,
+    };
+    console.log(response);
     return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";

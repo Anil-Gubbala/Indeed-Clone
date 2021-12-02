@@ -5,22 +5,27 @@ import Login from "../components/auth/Login";
 import { Dashboard } from "../components/dashboard/Dashboard";
 import companyHomes from "../components/companyHome/companyHome";
 
-import NavBar from "../components/navbar/navbar";
-import AdminHome from "../components/admin/AdminHome";
+import NavBar from '../components/navbar/navbar';
+import AdminHome from '../components/admin/AdminHome';
+import CompanyReviews from '../components/reviews/companyReviews';
+import Profile from '../components/profile/profile';
+import SavedJobs from '../components/useraccount/myjobs';
+import Salaries from '../components/Salaries/salaries';
+import AppliedJobs from '../components/useraccount/AppliedJobs';
 import DashNav from "../components/navbar/DashNav";
 import { LandingPage } from "../components/dashboard/LandingPage";
-import CompanyReviews from "../components/reviews/companyReviews";
-import Profile from "../components/profile/profile";
-import SalaryBox from "../components/layout/SalariesBox";
-import SavedJobs from "../components/useraccount/myjobs";
+
 import ProfilePage from "../components/EmployerLanding/ProfilePage";
 import AddCompanyDetails from "../components/CompanyProfile/AddCompanyDetails";
 import EditCompanyPage from "../components/CompanyProfile/EditCompanyPage";
+import employerReviews from "../components/CompanyProfile/employerReviews";
 
 import Employer from "../components/Employer/EmployerLanding";
 import PostJob from "../components/PostJob/PostJob";
 import Candidates from "../components/Candidates/Candidates";
 import Messages from "../components/messages/messages";
+import Analytics from '../components/Analytics/Analytics';
+import Statistics from '../components/Analytics/Statistics';
 
 class Routes extends Component {
   render() {
@@ -41,6 +46,8 @@ class Routes extends Component {
         <Route exact path="/Candidates" component={Candidates} />
         <Route exact path="/EmployerLanding" component={Employer} />
         <Route exact path="/PostJob" component={PostJob} />
+        <Route exact path="/Analytics" component={Analytics} />
+        <Route exact path="/Statistics" component={Statistics} />
 
         <Route exact path="/reviews">
           <CompanyReviews />
@@ -49,11 +56,18 @@ class Routes extends Component {
           <Profile />
         </Route>
         <Route exact path="/salary">
-          <SalaryBox />
+          <Salaries />
+        </Route>
+        <Route exact path="/savedjobs">
+          <SavedJobs />
+        </Route>
+        <Route exact path="/appliedjobs">
+          <AppliedJobs />
         </Route>
         <Route exact path="/employerprofile" component={ProfilePage} />
         <Route exact path="/addcompany" component={AddCompanyDetails} />
         <Route exact path="/editcompany" component={EditCompanyPage} />
+        <Route exact path="/employerreviews" component={employerReviews} />
       </div>
     );
   }

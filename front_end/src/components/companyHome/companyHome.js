@@ -13,12 +13,21 @@ import ReviewsTab from "../reviews/reviews";
 import PhotosTab from "../photosTab/photosTab";
 import JobsTab from "../jobsTab/jobsTab";
 import SalaryTab from "../salaryTab/salaryTab";
+import { post } from "../../utils/serverCall";
 
 dotenv.config();
 
 const { TabPane } = Tabs;
 class companyHomes extends React.Component {
   state = {};
+
+  componentDidMount() {
+    post("/updateView", { id: "61960b7c79026b0aab6bef86" })
+      .then((response) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   render() {
     function callback(key) {

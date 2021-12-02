@@ -1,11 +1,12 @@
 const _ = require("lodash");
 const dotenv = require("dotenv");
+
 dotenv.config();
 const userSchema = require("../db/schema/user").createModel();
 const operations = require("../db/operations");
 const { request } = require("express");
 
-//save or update user details
+// save or update user details
 exports.saveUserDetails = async (request) => {
   try {
     let response = {};
@@ -27,22 +28,63 @@ exports.saveUserDetails = async (request) => {
   }
 };
 
-//get user details
+// get user details
 exports.getUserDetails = async (request) => {
   try {
     if (request.query.id) {
-      let response = await operations.getDocument(userSchema, {
+      const response = await operations.getDocument(userSchema, {
         _id: request.query.id,
       });
       return { status: 200, body: response };
     }
     if (request.query.emailId) {
-      let response = await operations.getUserDocumentByDetails(userSchema, {
+      const response = await operations.getUserDocumentByDetails(userSchema, {
         emailId: request.query.emailId,
-        password: request.query.password
+        password: request.query.password,
       });
       return { status: 200, body: response };
     }
+  } catch (err) {
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
+// update user details
+exports.updateUserDetails = async (request) => {
+  try {
+    const response = await userSchema.findOneAndUpdate(
+      { emailId: request.body.details.emailId },
+      {
+        $set: {
+          firstname: request.body.details.firstname,
+          lastname: request.body.details.lastname,
+          emailId: request.body.details.emailId,
+          contact: request.body.details.contact,
+        },
+      }
+    );
+    return { status: 200, body: response };
+  } catch (err) {
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
+// update resume
+exports.updateresume = async (request) => {
+  try {
+    console.log(request.body);
+    const response = await userSchema.findOneAndUpdate(
+      {
+        userId: request.body.id,
+      },
+      { $set: { resumeLink: request.body.resumeLink } }
+    );
+
+    return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
     const code = err.statusCode ? err.statusCode : 500;

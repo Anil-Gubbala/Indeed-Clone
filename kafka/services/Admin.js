@@ -1,44 +1,48 @@
 const mongoose = require("mongoose");
 const conn = require("../db/sql/sqlConnector.js");
 
-const sqlSample = {
-  reviewesPerDay:
-    "select Date(date) as dateOnly, count(*) as total FROM indeed.reviews WHERE date  between  '2021-11-15' and '2021-11-25' group by dateOnly ;",
-  top10ReviewedCompanies:
-    "select  companyId, count(*) as total from indeed.reviews group by companyId order by total DESC  limit 5 ",
-  top10RatedCompanies:
-    "select  companyId, AVG(rating) as total from indeed.reviews group by companyId order by total DESC  limit 5 ",
-  topUsers:
-    "select  userId, count(*) as total from indeed.reviews where status = 0 group by userId order by total desc",
-  topCEO: "similar to company",
-};
-
 const sql = {
   reviewesPerDay:
     "select Date(date) as dateOnly, count(*) as total FROM indeed.reviews WHERE date  between  ? and ? group by dateOnly ;",
   top10ReviewedCompanies:
-    "select  companyId, count(*) as total from indeed.reviews group by companyId order by total DESC  limit 5 ",
+    "select  companyId, count(*) as total from indeed.reviews where status = 1 group by companyId order by total DESC  limit 5 ",
   top10RatedCompanies:
-    "select  companyId, AVG(rating) as total from indeed.reviews group by companyId order by total DESC  limit 5 ",
+    "select  companyId, AVG(rating) as total from indeed.reviews where status = 1 group by companyId order by total DESC  limit 5 ",
   topUsers:
-    "select  userId, count(*) as total from indeed.reviews join indeed.users on  where status = 0 group by userId order by total desc",
+    "select  userId, count(*) as total from indeed.reviews where status = 1 group by userId order by total desc limit 5",
   topCEO:
-    "select  userId, count(*), users.firstname, users.lastname as total from indeed.reviews join indeed.users on reviews.userId = users._id  where status = 0 group by userId order by total desc",
+    "select  companyId, AVG(approval) as total from indeed.reviews where status = 1 group by companyId order by total DESC  limit 10",
   unFilteredReviews: "select * from indeed.reviews where status = 0",
-  flagReview: "update indeed.reviews set status = ? where _id = ?",
+  flagReview: "update indeed.reviews set status = ? where _id = ? limit 10",
 };
 
 const CompanySchema = require("../db/schema/company").createModel();
+const UserSchema = require("../db/schema/user").createModel();
 const ApplicationSchema = require("../db/schema/jobApplication").createModel();
+const ImageSchema = require("../db/schema/image").createModel();
+
+const getDate = (date = new Date()) => {
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    .toJSON()
+    .substring(0, 10);
+};
 
 const updateView = (msg, callback) => {
   console.log(msg);
-  let date = new Date();
-
-  date = date.toJSON().substring(0, 10);
+  let date = getDate();
   const views = {};
-  views[`views.${date}`] = 1;
+  const key = `views.${date}`;
+  views[key] = 1;
   console.log(views);
+  let checkExist = {};
+  checkExist[key] = { $exists: "true" };
+
+  // CompanySchema.findOne({[key]:{$exists:true}}).lean().then((result)=>{
+  //   console.log(result);
+  // }).catch((err1)=>{
+  //   callback(err1, null);
+  // })
+
   CompanySchema.findOneAndUpdate(
     { _id: msg.data._id },
     // { $set: { "views.date": new Date() }, $inc: { "views.count": 1 } },
@@ -54,16 +58,18 @@ const updateView = (msg, callback) => {
 };
 
 const getMostViewedCompanies = (msg, callback) => {
-  let date = new Date(msg.data.date);
-  date = date.toJSON().substring(0, 10);
+  let date = msg.data.date;
+  // let date = getDate(new Date(msg.data.date));
+  // date = date.toJSON().substring(0, 10);
   const sort = {};
-  sort[`views.${date}`] = -1;
+  const key = `views.${date}`;
+  sort[key] = -1;
   const filter = {};
-  filter[`views.${date}`] = { $gte: 0 };
+  filter[key] = { $gte: 1 };
   CompanySchema.find(filter)
     .sort(sort)
-    .select(["_id", "name", `views.${date}`])
-    .limit(5)
+    .select(["_id", "name", key])
+    .limit(10)
     .then((result) => {
       callback(null, result);
     })
@@ -74,8 +80,8 @@ const getMostViewedCompanies = (msg, callback) => {
 
 const getReviewsCountByDay = (msg, callback) => {
   let { start, end } = msg.data;
-  start = new Date(start).toJSON().substring(0, 10);
-  end = new Date(end).toJSON().substring(0, 10);
+  start = new Date(start);
+  end = new Date(end);
   conn.query(sql.reviewesPerDay, [start, end], (err, result) => {
     if (err) {
       callback(err, null);
@@ -150,7 +156,27 @@ const getTopJobSeekers = (msg, callback) => {
     if (err) {
       callback(err, null);
     } else {
-      callback(null, result);
+      const resultMap = {};
+      result.forEach((each) => {
+        resultMap[each.userId] = each.total;
+      });
+      // resultMap = { "61960b7c79026b0aab6bef86": 10 };
+      UserSchema.find({ _id: { $in: Object.keys(resultMap) } })
+        .select(["name"])
+        .then((res) => {
+          const resMap = [];
+          res.forEach((each) => {
+            const temp = {};
+            temp._id = each._id;
+            temp.name = each.firstName;
+            temp.total = resultMap[each._id];
+            resMap.push(temp);
+          });
+          callback(null, resMap);
+        })
+        .catch((err) => {
+          callback(err, null);
+        });
     }
   });
 };
@@ -163,7 +189,7 @@ const getTopRatedCEOs = (msg, callback) => {
       result.forEach((each) => {
         resultMap[each.companyId] = each.total;
       });
-      resultMap = { "61960b7c79026b0aab6bef86": 10 };
+      // resultMap = { "61960b7c79026b0aab6bef86": 10 };
       CompanySchema.find({ _id: { $in: Object.keys(resultMap) } })
         .select(["ceo"])
         .then((res) => {
@@ -211,11 +237,19 @@ const getUnfilteredReviews = (msg, callback) => {
   });
   // callback(null, {});
 };
+
 const getUnfilteredImages = (msg, callback) => {
-  callback(null, {});
+  ImageSchema.find({ isVerified: 0 })
+    .then((result) => {
+      callback(null, result);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
 };
+
 const flagReview = (msg, callback) => {
-  conn.query(sql.flagReview, [msg.data.status, msg.data.id], (err, result) => {
+  conn.query(sql.flagReview, [msg.data.status, msg.data._id], (err, result) => {
     if (err) {
       callback(err, null);
     } else {
@@ -223,8 +257,18 @@ const flagReview = (msg, callback) => {
     }
   });
 };
+
 const flagImage = (msg, callback) => {
-  callback(null, {});
+  ImageSchema.findOneAndUpdate(
+    { _id: msg.data._id },
+    { isVerified: msg.data.status }
+  )
+    .then((result) => {
+      callback(null, result);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
 };
 
 module.exports = {

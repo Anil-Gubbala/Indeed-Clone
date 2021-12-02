@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Redirect, useHistory } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
+
 import RoomIcon from '@mui/icons-material/Room';
 import { Container, FormHelperText, Grid, InputAdornment, Typography } from '@material-ui/core';
 import { TextField } from '@mui/material';
@@ -9,41 +10,32 @@ import SearchIcon from '@material-ui/icons/Search';
 import CompanyBox from '../layout/CompanyBox';
 // import { searchCompany, getCompanyReviews } from '../../Redux/CompanyReviews/action';
 import { SearchButton, useStyles } from './companyreviewstyles';
+import ReviewBox from '../layout/reviewsBox';
 
 function CompanyReviews() {
   const classes = useStyles();
   const [companies, setCompanies] = useState([]);
-  const [query, setQuery] = useState('');
-  //   const isSearching = useSelector((state) => state.companies.isSearching);
-  //   const dispatch = useDispatch();
   const history = useHistory();
+  const defaultValues = {
+    name: '',
+    location: '',
+  };
+  const [details, setDetails] = useState(defaultValues);
 
-  //   const { isAuth } = useSelector((state) => state.login);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .get('/companySearch', { params: { name: details.name, location: details.location } })
+      .then((res) => {
+        console.log(res);
+        setCompanies(res.data);
+      });
+  };
 
-  //   const onTextChange = (e) => {
-  //     setQuery(e.target.value);
-  //   };
+  const handleCompanyClick = (id) => {
+    history.push(`/reviews?id=${id}`);
+  };
 
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     dispatch(searchCompany(query));
-  //   };
-
-  //   const handleCompanyClick = (id) => {
-  //     dispatch(getCompanyReviews(id));
-  //     history.push(`/reviews?id=${id}`);
-  //   };
-
-  //   useEffect(() => {
-  //     axios
-  //       .get('https://indeed-mock-server.herokuapp.com/companies')
-  //       .then((res) => {
-  //         setCompanies(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }, []);
-
-  // eslint-disable-next-line no-nested-ternary
   return (
     <Container className={classes.container} maxWidth="xl">
       <Grid container className={classes.boxSearch}>
@@ -65,17 +57,16 @@ function CompanyReviews() {
               Discover millions of company reviews
             </Typography>
           </Grid>
-          <form style={{ display: 'flex' }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex' }}>
             <Grid item direction="column">
-              {/* <Typography variant="p">Company name or job Title </Typography> */}
               <TextField
                 className={classes.outlinedInput}
-                required
                 type="text"
                 variant="outlined"
-                placeholder="Company name or job Title"
-                value={query}
-                // onChange={onTextChange}
+                placeholder="Company name"
+                onChange={(e) => {
+                  setDetails({ ...details, name: e.target.value });
+                }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -84,15 +75,14 @@ function CompanyReviews() {
                   ),
                 }}
               />
-              {/* <Typography variant="p">City, state, or zip (optional)</Typography> */}
               <TextField
                 className={classes.outlinedInput}
-                required
                 type="text"
                 variant="outlined"
-                placeholder="City, state or zip(optional)"
-                value={query}
-                // onChange={onTextChange}
+                placeholder="location"
+                onChange={(e) => {
+                  setDetails({ ...details, location: e.target.value });
+                }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -116,15 +106,26 @@ function CompanyReviews() {
       <Grid className={classes.companiesHiring} item container xl={9} lg={9} md={9} sm={11} xs={12}>
         <Grid item container>
           <Grid item>
-            <Typography style={{ paddingTop: '15px' }} variant="h5">
+            <Typography style={{ paddingTop: '15px' }} variant="h4">
               Popular Companies
             </Typography>
+            <div>Based on reviews and recent job openings on Indeed</div>
           </Grid>
         </Grid>
-        <Grid container style={{ width: '1000px' }}>
-          {/* {companies.map((item) => ( */}
-          <CompanyBox />
-          {/* ))} */}
+        <Grid container style={{ maxWidth: '1000px' }}>
+          <div>
+            {companies.map((item) => (
+              <ReviewBox
+                key={item._id}
+                // logo={item.logo}
+                name={item.name}
+                description={item.description}
+                // rating={item.ratings}
+                id={item._id}
+                // handleClick={handleCompanyClick}
+              />
+            ))}
+          </div>
         </Grid>
       </Grid>
       <Grid

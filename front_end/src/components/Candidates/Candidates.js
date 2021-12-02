@@ -3,7 +3,7 @@ import './Candidates.css';
 import Navbar from'../EmpNavbar/EmpNavbar';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
-import EmpNav from '../Employer/Empnav'
+import EmpNav from '../EmployerLanding/Empnav'
 import image from '../images/find.jpg'
 
 function Candidates(){
@@ -56,13 +56,13 @@ return (
     
     <div className="candidates">
         <div className="leftside">
-        <Link to={"/ApplicantProfile"} 
+    
+        <Link to={"/prrofile"} 
         onClick={()=>{localStorage.setItem('userId',d._id)}}
-        style={{color:"rgb(9, 79, 136)"}} ><h3>{d.userName}</h3></Link>
+         ><h3 style={{color:"steelblue"}}>{d.userName}</h3></Link>
         <p>
         <a href={d.resume} download="Resume" style={{color:"black", fontSize:"13px"}}>Resume</a></p>
-        <p>
-        <a href={d.coverLetter} download="Resume" style={{color:"black", fontSize:"13px"}}>CoverLetter</a></p>
+        
         <p>Status: {d.status}</p>
         
         <div className="rightside">

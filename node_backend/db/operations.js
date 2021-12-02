@@ -82,8 +82,8 @@ const getJobsbyFilter = async (modelObject, details) => {
     var obj = modelObject
       .find()
       .populate({
-        path: "companyId",
-        select: "-_id",
+        path: "companyId"
+        //select: "-_id",
       })
       .lean();
 

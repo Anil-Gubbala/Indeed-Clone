@@ -27,6 +27,7 @@ const companyScehma = new Schema(
     reviews: { type: mongoose.Schema.Types.ObjectId, ref: "review" },
     companyPicture:{type:String},
     companyLogo:{type:String},
+    views:{},
     ceoImage:{type:String},
     //instead use comple review
   },
