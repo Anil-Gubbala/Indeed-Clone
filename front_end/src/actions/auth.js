@@ -40,6 +40,7 @@ try{
     }
     else{
         alert("user added");
+        localStorage.setItem("register","done");
         dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data

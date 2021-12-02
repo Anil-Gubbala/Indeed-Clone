@@ -21,6 +21,8 @@ var changeIndustry = require("./services/changeIndustryService")
 var changeMission = require("./services/changeMissionService")
 var changeRevenue = require("./services/changeRevenueService")
 var changeCEO = require("./services/changeCEOService")
+var empReviews = require("./services/getEmployerReviewsService")
+var featured = require("./services/markAsFeaturedService.js")
 
 const postJob=require('./services/postJob');
 const viewJobs=require('./services/viewJobs');
@@ -108,6 +110,8 @@ handleTopicRequest("changeMission",changeMission);
 handleTopicRequest("changeRevenue",changeRevenue);
 handleTopicRequest("changeCEO",changeCEO);
 handleTopicRequest("GetCompany",GetCompany);
+handleTopicRequest("empReviews",empReviews);
+handleTopicRequest("featured",featured);
 
 handleTopicRequest("postJob",postJob)
 handleTopicRequest("viewJobs",viewJobs)

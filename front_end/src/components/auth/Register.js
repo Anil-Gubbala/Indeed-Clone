@@ -7,8 +7,10 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Navbar from '../layout/Navbar';
+import { isJobSeeker } from '../../utils/checkLogin';
 
 export const Register = ({register,  isAuthenticated}) => {
+    var redirect = useState("yes");
     const [formData, setFormData] = useState({
         emailId: '',
         password: '',
@@ -24,11 +26,15 @@ export const Register = ({register,  isAuthenticated}) => {
         //register(formData);
         register({ emailId, password, accountType });
         //await axios.post('/user',formData);
+        redirect = "yes";
     }
 
-    if (isAuthenticated) {
-        return <Redirect to="/login" />;
-      }
+      if(redirect === "yes"){
+          
+          return <Redirect to="/login" />;
+      }  
+        
+      
 
     return (
          
