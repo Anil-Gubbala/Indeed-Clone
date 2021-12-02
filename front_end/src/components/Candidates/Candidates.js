@@ -57,13 +57,12 @@ return (
     <div className="candidates">
         <div className="leftside">
     
-        <Link to={"/ApplicantProfile"} 
+        <Link to={"/prrofile"} 
         onClick={()=>{localStorage.setItem('userId',d._id)}}
          ><h3 style={{color:"steelblue"}}>{d.userName}</h3></Link>
         <p>
         <a href={d.resume} download="Resume" style={{color:"black", fontSize:"13px"}}>Resume</a></p>
-        <p>
-        <a href={d.coverLetter} download="Resume" style={{color:"black", fontSize:"13px"}}>CoverLetter</a></p>
+        
         <p>Status: {d.status}</p>
         
         <div className="rightside">

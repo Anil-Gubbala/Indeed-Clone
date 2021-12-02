@@ -19,16 +19,6 @@ function EmployerLanding(){
 
     }
 
-    /*const applyJob=(jobId)=>{
-        console.log("Appling");
-        Axios.post("http://localhost:3001/applyJob",
-        {companyId: "1", userId:"3",jobId:jobId,status:"Applied"}).then((response)=>{
-
-          console.log("Applied");
-         
-        });
-    }*/
-
     const displayJobs= jobsPosted.slice(pagesVisited, pagesVisited+jobPerPage)
     .map(function (d, idx) {
         if(d.Date.slice(0,4)=="2020"){
