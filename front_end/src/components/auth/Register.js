@@ -7,6 +7,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Navbar from '../layout/Navbar';
+import { isJobSeeker } from '../../utils/checkLogin';
 
 export const Register = ({register,  isAuthenticated}) => {
     const [formData, setFormData] = useState({
@@ -27,7 +28,12 @@ export const Register = ({register,  isAuthenticated}) => {
     }
 
     if (isAuthenticated) {
-        return <Redirect to="/login" />;
+        if(localStorage.getItem("role")==="employer"){
+            return <Redirect to="/landing" />;
+            }
+            else{
+                return <Redirect to="/company" />;
+            }
       }
 
     return (

@@ -40,9 +40,11 @@ try{
     }
     else{
         alert("user added");
+        localStorage.setItem("email",formData.emailId);
+        localStorage.setItem("role",formData.accountType);
         dispatch({
             type: REGISTER_SUCCESS,
-            payload: res.data
+            payload: res.data.user
         })
     }
     
