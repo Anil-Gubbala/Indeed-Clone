@@ -12,6 +12,7 @@ import WhyJoinUs from "../whyjoinus/whyjoinus";
 import ReviewsTab from "../reviews/reviews";
 import PhotosTab from "../photosTab/photosTab";
 import JobsTab from "../jobsTab/jobsTab";
+import SalaryTab from "../salaryTab/salaryTab";
 
 dotenv.config();
 
@@ -75,7 +76,9 @@ class companyHomes extends React.Component {
                 <TabPane tab="Reviews" key="3">
                   <ReviewsTab />
                 </TabPane>
-                <TabPane tab="Salaries" key="4"></TabPane>
+                <TabPane tab="Salaries" key="4">
+                  <SalaryTab />
+                </TabPane>
                 <TabPane tab="Photos" key="5">
                   <PhotosTab />
                 </TabPane>

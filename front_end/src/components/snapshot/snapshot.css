@@ -48,6 +48,9 @@
   background-position: 50% 0;
   width: 175px;
 }
+.space20 {
+  margin-top: 20px;
+}
 
 .box {
   display: flex;
@@ -130,4 +133,95 @@
   background-color: #f3f2f1;
   padding: 25px !important;
   border-radius: 10px !important;
+}
+
+.hpy1 {
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.15;
+  --swiper-navigation-size: 44px;
+  --swiper-theme-color: #007aff;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  border-radius: 0.5rem;
+  margin-left: 2rem;
+  padding: 1.5rem 2rem;
+  border: 1px solid #d4d2d0;
+}
+
+.bigtxt {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.leftm50 {
+  margin-left: 50px;
+}
+
+.hpy2 {
+  -webkit-text-size-adjust: 100%;
+  --swiper-navigation-size: 44px;
+  --swiper-theme-color: #007aff;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  margin: 0 0 0.5rem;
+  color: #2d2d2d;
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: Noto Sans, Helvetica Neue, Helvetica, Arial, Liberation Sans,
+    Roboto, Noto, sans-serif;
+  line-height: 1.5;
+}
+
+.hpy3 {
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.15;
+  --swiper-navigation-size: 44px;
+  --swiper-theme-color: #007aff;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  display: flex;
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0 0 0.5rem;
+}
+
+.hpy4 {
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.15;
+  --swiper-navigation-size: 44px;
+  --swiper-theme-color: #007aff;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  display: flex;
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+}
+
+.happybtn {
+  background-color: #2557a7 !important;
+  padding: 7px;
+  /* border-color: #f3f2f1 !important; */
+  text-decoration: none;
+  text-transform: none;
+
+  /* transition: all 0.4s ease !important; */
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid #d4d2d0;
+  outline: 0;
+  position: relative;
+  color: white;
+  font-weight: 700;
 }
