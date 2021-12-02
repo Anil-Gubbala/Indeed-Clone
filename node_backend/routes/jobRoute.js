@@ -80,4 +80,19 @@ router.get("/getjobinsearch", async (request, response) => {
   }
 });
 
+router.get("/jobbycompanyid", async (request, response) => {
+  try {
+    console.log(request.query);
+    const data = await jobService.jobByCompanyId(request);
+    response.status(data.status).json(data.body);
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting user Details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
 module.exports = router;

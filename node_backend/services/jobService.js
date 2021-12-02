@@ -48,8 +48,8 @@ exports.getJobDetails = async (request) => {
 
 exports.getJobs = async (request) => {
   try {
-      let response = await operations.getJobDocuments(jobSchema, {});
-      return { status: 200, body: response };
+    let response = await operations.getJobDocuments(jobSchema, {});
+    return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
     const code = err.statusCode ? err.statusCode : 500;
@@ -59,11 +59,11 @@ exports.getJobs = async (request) => {
 
 exports.filterJobs = async (request) => {
   try {
-      let response = await operations.getJobsbyFilter(jobSchema, {
-        keyw: request.body.role,
-        location: request.body.location
-      });
-      return { status: 200, body: response };
+    let response = await operations.getJobsbyFilter(jobSchema, {
+      keyw: request.body.role,
+      location: request.body.location,
+    });
+    return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
     const code = err.statusCode ? err.statusCode : 500;
@@ -73,9 +73,8 @@ exports.filterJobs = async (request) => {
 
 exports.filterJobsInSearch = async (request) => {
   try {
-      let response = await operations.getJobsInSearch(jobSchema, {
-      });
-      return { status: 200, body: response };
+    let response = await operations.getJobsInSearch(jobSchema, {});
+    return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
     const code = err.statusCode ? err.statusCode : 500;
@@ -83,3 +82,17 @@ exports.filterJobsInSearch = async (request) => {
   }
 };
 
+exports.jobByCompanyId = async (request) => {
+  try {
+    let response = await operations.getAllDocumentsWithId(
+      jobSchema,
+      request.query.id,
+      "companyId"
+    );
+    return { status: 200, body: response };
+  } catch (err) {
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};

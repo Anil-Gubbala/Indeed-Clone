@@ -472,7 +472,7 @@ class SalaryTab extends Component {
                 return (
                   <>
                     <div style={{ margintop: "10px" }}>{header}</div>
-                    <div>
+                    <div className="row">
                       {this.state.allSalaries[header].map((h) => {
                         return (
                           <>
@@ -485,7 +485,12 @@ class SalaryTab extends Component {
                                 style={{ fontweight: "500", fontSize: "14px" }}
                               >
                                 {h.jobTitle}
+                                <br />
+                                <label style={{ color: "	#808080" }}>
+                                  {h.jobLocation}
+                                </label>
                               </div>
+
                               <div className=" col-md-5">
                                 <div
                                   style={{
