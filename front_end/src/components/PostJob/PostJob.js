@@ -23,6 +23,7 @@ function PostJob(){
 	const[city,setCity]=useState(" ");
 	const[state,setState]=useState(" ");
 	const[zip,setZip]=useState(" ");
+	const[errorMsg,setErrorMsg]=useState(" ");
 	var newJob={CompanyName:"",JobTitle:"",JobType:"",Work:"",
 	SalaryDetails:"",Street:"",City:"", State:"",Zip:""};
 const[cart,setCart]=useState(newJob);
@@ -40,6 +41,13 @@ const[cart,setCart]=useState(newJob);
 
         });
       navigate.push('/EmployerLanding');       
+	}
+	const limit=(element)=>{
+		var max_chars = 5;
+	
+		if(element.length < max_chars||element.length > max_chars) {
+			setErrorMsg("The Zipcode should be of length 5");
+		}
 	}
 
 
@@ -435,12 +443,14 @@ const[cart,setCart]=useState(newJob);
                         <div className='joProp'>
                             <p className='label'>14. Zip Code<span style={{color:"red"}}>*</span></p>
                             <input type="text" required className="input" onChange={(e)=>{
-                    setZip(e.target.value); 
+                    setZip(e.target.value);
+					limit(e.target.value); 
 					cart.Zip=e.target.value;
 					setCart(cart);
 					}}></input>
                             
                         </div>
+						<span style={{color:"red"}}>{errorMsg}</span>
 						<div className='joProp'>
 						<button className="btnpostJob" type="submit">Post a Job</button>
 						</div>

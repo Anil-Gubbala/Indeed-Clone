@@ -2,14 +2,12 @@ import React, {useState,useEffect} from 'react';
 import './Statistics.css';
 import Navbar from'../EmpNavbar/EmpNavbar';
 import Axios from 'axios';
-import {Link} from 'react-router-dom';
 
 
 function Statistics(){
 
     const[applicants,setApplicants]=useState([]);
     var selected=0;
-    var rejected=0;
 
     useEffect(()=>{
         console.log("viewing candidates");
