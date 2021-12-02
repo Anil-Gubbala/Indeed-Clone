@@ -5,8 +5,10 @@ const Jobs= require("../db/schema/job").createModel();
 const handle_request= async(msg, callback)=>{
 
     const res = {};
+    var date = new Date();
             var newJob= new Jobs({
               companyId: msg.companyId,
+              companyName:msg.companyName,
                 jobTitle: msg.jobTitle,
                 role:msg.role,
                 street:msg.street,
@@ -19,9 +21,9 @@ const handle_request= async(msg, callback)=>{
                 work:msg.jobType,
                 type:msg.type,
                 salary: msg.salaryDetails,
-                what:msg.what,
                 why:msg.why,
                 need:msg.need,
+                date:date,
 
 
               });

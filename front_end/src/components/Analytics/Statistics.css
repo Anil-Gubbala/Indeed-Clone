@@ -1,0 +1,39 @@
+.statistics{
+    background-color: white;
+    height: 100%;
+}
+
+.statisticsProp{
+    margin-left: 15%;
+    margin-right: 10%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    color: steelblue;
+    width: 70%;
+    height: 300px;
+    background-color:whitesmoke;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: black;
+    
+
+}
+
+.col1{
+    float: left;
+    width: 30%;
+    font-size: 30px;
+}
+
+.col2{
+    float: left;
+    width: 30%;
+    font-size: 30px;
+}
+
+.col3{
+    float: left;
+    width: 30%;
+    font-size: 30px;
+}
