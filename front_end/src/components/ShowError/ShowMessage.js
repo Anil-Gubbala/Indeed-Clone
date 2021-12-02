@@ -5,8 +5,9 @@ import { STATE } from '../../reducers/reducerConst';
 
 const ShowError = () => {
   const [showAlert, setShowAlert] = useState(false);
-  const errorState = useSelector((state) => state.errorReducer);
+  const messageState = useSelector((state) => state.messageReducer);
   const [errorMsg, setErrorMsg] = useState('');
+  const [variant, setVariant] = useState("success");
 
   const hideAlert = () => {
     setTimeout(() => {
@@ -14,19 +15,28 @@ const ShowError = () => {
     }, 3000);
   };
 
+  const instantHide = () =>{
+    setShowAlert(false);
+  }
+
   useEffect(() => {
-    if (errorState[STATE.ERR_MSG] !== '') {
-      setErrorMsg(errorState[STATE.ERR_MSG]);
+    if (messageState[STATE.ERR_MSG] !== '') {
+      setErrorMsg(messageState[STATE.ERR_MSG]);
       setShowAlert(true);
+      if(messageState[STATE.IS_ERROR]){
+        setVariant("danger");
+      }else{
+        setVariant("success");
+      }
       hideAlert();
     }
-  }, [errorState]);
+  }, [messageState]);
 
   return (
     <>
       {showAlert && (
         <div style={{ position: 'fixed', bottom: '10px', zIndex: '2' }}>
-          <Alert variant="danger">{errorMsg}</Alert>
+          <Alert variant={variant} onClose={() => instantHide()} dismissible>{errorMsg}</Alert>
         </div>
       )}
     </>

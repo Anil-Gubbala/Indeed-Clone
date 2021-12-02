@@ -25,6 +25,7 @@ const AddCompany = require("./routes/AddCompany")
 const GetCompany = require("./routes/GetCompany")
 const edit = require("./routes/EditCompanyPage")
 const AddImg = require("./routes/AddImg")
+const empReviews = require("./routes/employerReviews")
 
 const postJob=require('./routes/postJob');
 const viewJobs=require('./routes/viewJobs');
@@ -118,6 +119,7 @@ async function initializeApplication() {
     app.use(AddCompany)
     app.use(GetCompany)
     app.use(AddImg)
+    app.use(empReviews)
 
     app.use(postJob);
     app.use(viewJobs);

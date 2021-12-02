@@ -6,7 +6,7 @@ import Routes from './routes/routes';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import { LOGOUT } from './actions/types';
-import ShowError from './components/ShowError/ShowError';
+import ShowMessage from './components/ShowError/ShowMessage';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <>
         <BrowserRouter>
           <div>
-            <ShowError />
+            <ShowMessage />
             <Routes />
           </div>
         </BrowserRouter>

@@ -1,11 +1,13 @@
 import React,{useState} from "react"
 import { post } from '../../utils/serverCall';
 import "./AddCompanyDetails.css"
-import NavBar from "./../navbar/employerNavBar"
+import NavBar from "./../EmpNavbar/EmpNavbar"
 import {Row,Col} from "react-bootstrap"
-import { Grid,TextField } from '@material-ui/core';
+import { Grid,TextField} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import HelpIcon from '@mui/icons-material/Help';
+import {Link} from 'react-router-dom';
 
 const AddCompanyDetails = () => {
 
@@ -115,6 +117,7 @@ const handleAddCompanyDetails = () =>{
 
   }).then((response) =>{
     console.log("Added to DB!")
+    window.open("/PostJob","_self")
     })
     })
     })
@@ -203,19 +206,30 @@ const formValidation = () =>{
   return(
   <div className="body-add">
   <NavBar />
+  <div style={{marginTop:"5%"}}>
+  </div>
   <form className={classes.root}>
   <div className="page-body-add-image shadow-add">
   <Row>
   <Col>
-  <h2><strong>Provide Company Details</strong></h2>
+  <h2 className="title-main-add"><strong>Create an employer account</strong></h2>
   </Col>
   <Col>
-  <img src="/images/addcompanydet.jpeg" alt="register-company" style={{width:"250px",marginLeft:"100px"}} />
+  <img src="/images/addcompany.jpeg" alt="register-company" style={{width:"250px",marginLeft:"100px"}} />
   </Col>
   </Row>
   </div>
   <div className="page-body-add shadow-add">
-        <h6 className="heading-add"><span style={{color:"red"}}>*</span>Required Fields</h6>
+        <div><h3 className="title-add"><strong style={{fontWeight:"700"}}>You haven't posted a job before, so you'll need to create an employer account.</strong></h3></div>
+        <div class="btn-group">
+        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{padding:"2%",fontSize:"1rem",width:"640px",borderRadius:"0.5em",backgroundColor:"#EDEDED",color:"black",fontWeight:"bold",textAlign:"left"}}>
+        <HelpIcon/>Not here to post a job?
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item lg" href="#">Looking for jobs</a>
+        <a class="dropdown-item" href="#">Upload Your resume</a>
+        </div>
+        </div>
         <h6 className="heading-add">Your Company's Website<span style={{color:"red"}}>*</span></h6>
         <Grid container>
           <Grid item xs={6}>
@@ -418,6 +432,7 @@ const formValidation = () =>{
                       />
                     </Grid>
               </Grid>
+              <p style={{color:"#9E9E9E",padding:"1%"}}>1By providing my phone number, I confirm that I am the primary user and subscriber to the telephone number entered and I hereby consent to receive autodialed marketing and informational calls and texts from Indeed at the telephone number provided above, including if this number is a wireless (cell phone) number. Agreement to the above is not a condition of purchase of any Indeed product.</p>
             </div>
             <div className="page-body-add-btn shadow-add">
             <Row>
@@ -427,12 +442,12 @@ const formValidation = () =>{
             </button>
             </Col>
             <Col style={{marginLeft:"30%"}}>
-            <button type="button" className="btn btn-lg" style={{margin:"30px",borderRadius:"0.5rem",backgroundColor:"#193498",color:"white",margin:"0"}} onClick={handleAddCompanyDetails}><strong>Save And Continue</strong>
+            <button type="button" className="btn btn-lg" style={{margin:"20px",borderRadius:"0.5rem",backgroundColor:"#193498",color:"white",margin:"0"}} onClick={handleAddCompanyDetails}><strong>Save And Continue</strong>
             </button>
             </Col>
             </Row>
             {addCompanyStatus=="Failed to add Company Details!" ?
-            <div className="alert">
+            <div className="alert-bad">
             <span className="error-msg closebtn" style={{padding:"0"}}>{addCompanyStatus}</span>
             </div>
              : addCompanyStatus=="Company Details added to profile successfully!" ?
@@ -442,6 +457,10 @@ const formValidation = () =>{
             :
             <div></div>
             }
+            </div>
+            <div className="page-body-logo shadow-add">
+            <p style={{color:"#9E9E9E",padding:"1%"}}>©2021 Indeed·6433 Champion Grandview Way Building 1, Austin, TX 78750</p>
+            <p style={{color:"#9E9E9E",padding:"1%"}}>Cookies, privacy and terms–Privacy center–Security–Do not sell my personal information–Contact</p>
             </div>
             </form>
     </div>
