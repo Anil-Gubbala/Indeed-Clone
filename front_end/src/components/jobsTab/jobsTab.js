@@ -30,7 +30,7 @@ class JobsTab extends Component {
   }
 
   filterJobs = () => {
-    console.log(this.state.where);
+    // console.log(this.state.where);
 
     if (this.state.where == "" && this.state.what == "") {
       this.setState({

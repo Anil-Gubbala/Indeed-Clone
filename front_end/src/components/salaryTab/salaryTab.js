@@ -28,8 +28,13 @@ class SalaryTab extends Component {
       otherBenefits: "",
       category: "",
       allSalaries: {},
+      salariesFromDB: {},
+      salaryArrayDb: [],
       displayEndDate: "none",
       locations: [],
+      jobTitles: [],
+      selectedTitle: "",
+      selectedLocation: "",
     };
   }
 
@@ -38,17 +43,59 @@ class SalaryTab extends Component {
       .then((response) => {
         console.log(response);
         let arr = {};
+        let loc = [];
+        let jt = [];
         for (let s of response) {
           if (!arr[s.category]) arr[s.category] = [];
           arr[s.category].push(s);
+          if (!loc.includes(s.jobLocation)) loc.push(s.jobLocation);
+          if (!jt.includes(s.jobTitle)) jt.push(s.jobTitle);
         }
 
-        this.setState({ allSalaries: arr });
+        this.setState({
+          allSalaries: arr,
+          salariesFromDB: arr,
+          locations: loc,
+          jobTitles: jt,
+          salaryArrayDb: response,
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   }
+
+  filterSalaries = () => {
+    if (this.state.selectedLocation == "" && this.state.selectedTitle == "") {
+      console.log("reached if");
+      this.setState({
+        allSalaries: this.state.salariesFromDB,
+      });
+    } else {
+      console.log("reached else");
+      let arra = [];
+      arra = this.state.salaryArrayDb.filter((salary) => {
+        return (
+          (salary.jobTitle == this.state.selectedTitle ||
+            this.state.selectedTitle == "") &&
+          (salary.jobLocation == this.state.selectedLocation ||
+            this.state.selectedLocation == "")
+        );
+      });
+      let arr = [];
+      console.log("printing arra");
+      console.log(arra);
+      for (let s of arra) {
+        if (!arr[s.category]) arr[s.category] = [];
+        arr[s.category].push(s);
+      }
+      console.log("printing arr");
+      console.log(arr);
+      this.setState({
+        allSalaries: arr,
+      });
+    }
+  };
 
   handleOpen = () => {
     this.setState({ openModal: true });
@@ -540,28 +587,54 @@ class SalaryTab extends Component {
               }}
             >
               <div style={{ display: "flex" }}>
-                <div className="col-md-5">
+                <div className="col-md-4">
                   <div className="shead">Job Title</div>
                   <div>
-                    <select className="dd">
-                      <option value="volvo">Volvo</option>
-                      <option value="saab">Saab</option>
-                      <option value="mercedes">Mercedes</option>
-                      <option value="audi">Audi</option>
+                    <select
+                      className="dd"
+                      onChange={(e) => {
+                        this.setState({ selectedTitle: e.target.value });
+                      }}
+                    >
+                      <option value="">All</option>
+                      {this.state.jobTitles.map((j) => {
+                        return (
+                          <>
+                            <option value={j}>{j}</option>
+                          </>
+                        );
+                      })}
                     </select>
                   </div>
                 </div>
                 <div className="col-md-1"></div>
-                <div className="col-md-5">
+                <div className="col-md-4">
                   <div className="shead">Location</div>
                   <div>
-                    <select className="dd">
-                      <option value="volvo">Volvo</option>
-                      <option value="saab">Saab</option>
-                      <option value="mercedes">Mercedes</option>
-                      <option value="audi">Audi</option>
+                    <select
+                      className="dd"
+                      onChange={(e) => {
+                        this.setState({ selectedLocation: e.target.value });
+                      }}
+                    >
+                      <option value="">All</option>
+                      {this.state.locations.map((l) => {
+                        return (
+                          <>
+                            <option value={l}>{l}</option>
+                          </>
+                        );
+                      })}
                     </select>
                   </div>
+                </div>
+                <div
+                  className="col-md-2"
+                  style={{ marginLeft: "20px", paddingTop: "20px" }}
+                >
+                  <button className="findsbtn" onClick={this.filterSalaries}>
+                    Find Jobs
+                  </button>
                 </div>
               </div>
             </div>

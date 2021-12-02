@@ -22,7 +22,7 @@ class Snapshot extends Component {
   }
 
   componentDidMount() {
-    get("/company?id=" + "61a5f182d511b8e0df9b5fdd")
+    get("/company?id=" + "61a928fd1610fee8ce06d3c2")
       .then((response) => {
         console.log(response);
         this.setState({
@@ -423,75 +423,85 @@ class Snapshot extends Component {
         {this.reviewModal()}
         {this.happyModal()}
         <div>
-          <label className="componenttag">
-            {this.state.companyDetails.name} Careers and Employment
-          </label>
-          <div>
-            <div className="subHeading">Work happiness</div>
-            <div style={{ textAlign: "right" }}>
-              <button className="reviewButton" onClick={this.handleOpen}>
-                Review work happiness
-              </button>
-            </div>
-            <div>
-              <div className="col-md-3 "></div>
-              <div className="col-md-2"></div>
-              <div className="col-md-2"></div>
-              <div className="col-md-2"></div>
-              <div className="col-md-2"></div>
-            </div>
-          </div>
-          <div>
-            <div className="subHeading">About the company</div>
-            <div className="row" style={{ marginTop: "35px" }}>
-              <div className="col-md-2 ">
-                <img
-                  src={this.state.companyDetails.ceoImage}
-                  className="ceo1"
-                  alt="CEO Image"
-                />
+          {this.state.companyDetails == {} ||
+          this.state.companyDetails == undefined ? (
+            ""
+          ) : (
+            <>
+              <label className="componenttag">
+                {this.state.companyDetails.name} Careers and Employment
+              </label>
+              <div>
+                <div className="subHeading">Work happiness</div>
+                <div style={{ textAlign: "right" }}>
+                  <button className="reviewButton" onClick={this.handleOpen}>
+                    Review work happiness
+                  </button>
+                </div>
+                <div>
+                  <div className="col-md-3 "></div>
+                  <div className="col-md-2"></div>
+                  <div className="col-md-2"></div>
+                  <div className="col-md-2"></div>
+                  <div className="col-md-2"></div>
+                </div>
               </div>
-              <div
-                className="col-md-10"
-                style={{ marginTop: "0px", paddingTop: "0px !important" }}
-              >
-                <ul className="detailsBox row" style={{ marginTop: "-10px" }}>
-                  <li className="box">
-                    <div class="libox1">CEO</div>
-                    <div class="libox2">{this.state.companyDetails.ceo}</div>
-                  </li>
-                  <li className="box">
-                    <div className="libox1">Founded</div>
-                    <div className="libox2">
-                      {this.state.companyDetails.founded}
-                    </div>
-                  </li>
-                  <li className="box">
-                    <div className="libox1">company size</div>
-                    <div className="libox2">
-                      {this.state.companyDetails.companySize}
-                    </div>
-                  </li>
-                  <li className="box">
-                    <div className="libox1">Revenue</div>
-                    <div className="libox2">
-                      {this.state.companyDetails.revenue}
-                    </div>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="box" style={{ marginLeft: "-5px" }}>
-                    <div className="libox1">Industry</div>
-                    <div className="libox2">
-                      {this.state.companyDetails.industry}
-                    </div>
-                  </li>
-                </ul>
-                <div>{this.state.companyDetails.about}</div>
+              <div>
+                <div className="subHeading">About the company</div>
+                <div className="row" style={{ marginTop: "35px" }}>
+                  <div className="col-md-2 ">
+                    <img
+                      src={this.state.companyDetails.ceoImage}
+                      className="ceo1"
+                      alt="CEO Image"
+                    />
+                  </div>
+                  <div
+                    className="col-md-10"
+                    style={{ marginTop: "0px", paddingTop: "0px !important" }}
+                  >
+                    <ul
+                      className="detailsBox row"
+                      style={{ marginTop: "-10px" }}
+                    >
+                      <li className="box">
+                        <div class="libox1">CEO</div>
+                        <div class="libox2">
+                          {this.state.companyDetails.ceo}
+                        </div>
+                      </li>
+                      <li className="box">
+                        <div className="libox1">Founded</div>
+                        <div className="libox2">
+                          {this.state.companyDetails.founded}
+                        </div>
+                      </li>
+                      <li className="box">
+                        <div className="libox1">company size</div>
+                        <div className="libox2">
+                          {this.state.companyDetails.companySize}
+                        </div>
+                      </li>
+                      <li className="box">
+                        <div className="libox1">Revenue</div>
+                        <div className="libox2">
+                          {this.state.companyDetails.revenue}
+                        </div>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li className="box" style={{ marginLeft: "-5px" }}>
+                        <div className="libox1">Industry</div>
+                        <div className="libox2">
+                          {this.state.companyDetails.industry}
+                        </div>
+                      </li>
+                    </ul>
+                    <div>{this.state.companyDetails.about}</div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          {/* <div>
+              {/* <div>
             <div className="subHeading">Jobs near you</div>
             <div>You're seeing Google jobs close to San Jose, CA.</div>
             <div className="nearJobs">
@@ -505,29 +515,31 @@ class Snapshot extends Component {
               </div>
             </div>
           </div> */}
-          <div>
-            <div className="subHeading" style={{ marginTop: "10px" }}>
-              Company Description
-            </div>
-            <div>{this.state.companyDetails.description}</div>
-          </div>
+              <div>
+                <div className="subHeading" style={{ marginTop: "10px" }}>
+                  Company Description
+                </div>
+                <div>{this.state.companyDetails.description}</div>
+              </div>
 
-          <div>
-            <div className="subHeading" style={{ marginTop: "10px" }}>
-              Company Mission
-            </div>
-            <div>{this.state.companyDetails.mission}</div>
-          </div>
-          <div>
-            <div className="subHeading" style={{ marginTop: "10px" }}>
-              Reviews
-            </div>
-            <div>
-              {this.state.reviews == []
-                ? "No reviews to display..!"
-                : this.renderReviews()}
-            </div>
-          </div>
+              <div>
+                <div className="subHeading" style={{ marginTop: "10px" }}>
+                  Company Mission
+                </div>
+                <div>{this.state.companyDetails.mission}</div>
+              </div>
+              <div>
+                <div className="subHeading" style={{ marginTop: "10px" }}>
+                  Reviews
+                </div>
+                <div>
+                  {this.state.reviews == []
+                    ? "No reviews to display..!"
+                    : this.renderReviews()}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </>
     );
