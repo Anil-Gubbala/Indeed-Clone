@@ -141,10 +141,10 @@ function Salaries() {
                       <HelpIcon />
                     </div>
                     <div className="average-salary">
-                      <div className="salaryvalue ">{avgsalary}</div>
+                      <div className="salaryvalue ">${avgsalary}</div>
                       <div className="salarytype ">per year</div>
                       <h3 className="info">
-                        The average salary for a {details.title} is {avgsalary} per year in{' '}
+                        The average salary for a {details.title} is ${avgsalary} per year in{' '}
                         {details.location}
                       </h3>
                     </div>
@@ -176,13 +176,12 @@ function Salaries() {
         <div className="companies">
           {companies.map((item) => (
             <SalaryBox
-              key={item._id}
-              id={item._id}
-              // logo={item.logo}
-              // name={item.name}
-              // description={item.description}
-              // rating={item.ratings}
-              avg={item.avg}
+              key={item.results._id}
+              id={item.results._id}
+              name={item.results.name}
+              avg={item.results.avg}
+              count={item.count}
+              rating={item.rating}
             />
           ))}
         </div>

@@ -4,13 +4,10 @@ import { Card, Col, Container, Row } from 'react-bootstrap';
 import StarIcon from '@material-ui/icons/Star';
 import useStyles from './companyBoxElements';
 import g from '../../images/g.jpeg';
+import Rating from '@material-ui/lab/Rating';
 
 function SalaryBox(props) {
   const classes = useStyles();
-  const name = 'Google';
-
-  const rating = 4.5;
-  const id = 4;
   return (
     <container>
       <Card
@@ -41,7 +38,7 @@ function SalaryBox(props) {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div>
                 <b>
-                  <u>{props.id}</u>
+                  <u>{props.name}</u>
                 </b>
               </div>
               <div
@@ -53,9 +50,9 @@ function SalaryBox(props) {
                   paddingLeft: '10px',
                 }}
               >
-                <div style={{ paddingRight: '10px', paddingLeft: '10px' }}>4.2</div>
+                <h5 style={{ paddingRight: '10px', paddingLeft: '10px' }}>{props.rating}</h5><Rating value={props.rating} readOnly style={{ color: '#9d2b6b' }} />
                 <a href="" style={{ paddingRight: '10px', paddingLeft: '10px' }}>
-                  10539 reviews
+                  {props.count} reviews
                 </a>
                 <a href="" style={{ paddingRight: '10px', paddingLeft: '10px' }}>
                   323 salaries reported
@@ -63,7 +60,7 @@ function SalaryBox(props) {
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div>{props.avg}</div>
+              <div>${props.avg}</div>
               <div>per year</div>
             </div>
           </div>

@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 var constraints = require('../kafka/config');
 const config = require('../Utils/config')
 const { kafkaRequest } = require('../kafka/kafkaRequest');
+const CompanySchema = require("../db/schema/company").createModel();
 const saltRounds = 10;
 
 const sqlconnection = mysql.createPool({
@@ -316,6 +317,47 @@ router.get('/user', async (req, res) => {
       }
     }
   );
+});
+
+
+router.get("/userReviews", async (request, response) => {
+  // const id = request.query.id;
+  const id = "61a5f182d511b8e0df9b5fda";
+  try {
+    sqlconnection.query(
+      `SELECT * FROM reviews WHERE userId=?`,
+      id,
+      function (error, results) {
+        const resultMap = {};
+        results.forEach((each)=>{
+          resultMap[each.companyId] = each;
+        });
+
+        const keys = Object.keys(resultMap);
+        console.log(keys);
+        CompanySchema.find({ _id: { $in: keys } })
+        .select(["name"])
+        .then((res) => {
+          const resMap = [];
+          res.forEach((each) => {
+            const temp = {};
+            temp._id = each._id;
+            temp.name = each.name;
+            temp.results = resultMap[each._id];
+            resMap.push(temp);
+          });
+          console.log(resMap);
+        response.send(resMap);
+      }
+    );
+  })} catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting user Details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
 });
 
 //Get user by id or by emailid, password and account type

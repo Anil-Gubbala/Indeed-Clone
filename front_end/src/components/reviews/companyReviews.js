@@ -116,11 +116,11 @@ function CompanyReviews() {
           <div>
             {companies.map((item) => (
               <ReviewBox
-                key={item._id}
-                // logo={item.logo}
-                name={item.name}
-                description={item.description}
-                // rating={item.ratings}
+                key={item.results._id}
+                logo={item.results.companyLogo}
+                name={item.results.name}
+                description={item.results.description}
+                rating={item.rating}
                 id={item._id}
                 // handleClick={handleCompanyClick}
               />

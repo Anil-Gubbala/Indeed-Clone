@@ -22,6 +22,7 @@ import Employer from "../components/Employer/EmployerLanding";
 import PostJob from "../components/PostJob/PostJob";
 import Candidates from "../components/Candidates/Candidates";
 import Messages from "../components/messages/messages";
+import MyReviews from "../components/reviews/Myreviews";
 
 class Routes extends Component {
   render() {
@@ -45,6 +46,9 @@ class Routes extends Component {
 
         <Route exact path="/reviews">
           <CompanyReviews />
+        </Route>
+        <Route exact path="/myreviews">
+          <MyReviews />
         </Route>
         <Route exact path="/profile">
           <Profile />
