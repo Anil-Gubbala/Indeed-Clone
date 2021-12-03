@@ -14,12 +14,13 @@ import axios from 'axios';
 import Rating from '@material-ui/lab/Rating';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'bootstrap';
+import { get, put, post } from "../../utils/serverCall";
 
 
 export const SearchableDropdown = ({list, location}) => {
     const [value, setValue] = useState('');
     const [city, setCity] = useState('');
-    const [avgrating, setAvgRating] = useState(0.0);
+    const [avgrating, setAvgRating] = useState(0);
     const [countreviews, setCountReviews] = useState(0);
     const [toggle, setToggle] = useState('');
     const [citytoggle, setCityToggle] = useState('');
@@ -50,10 +51,19 @@ export const SearchableDropdown = ({list, location}) => {
         async function fetch() {
           console.log(el.companyId._id);
           var compid=JSON.stringify(el.companyId._id);
-          var reqavgrating =await axios.post('/empReviews/avgrating',{"companyId":el.companyId._id});
-          setAvgRating(reqavgrating.data[0].avgrating);
-          setCountReviews(reqavgrating.data[0].totalreviews)
-          console.log(reqavgrating.data[0].avgrating);
+
+          await post('/empReviews/avgrating',{"companyId":el.companyId._id})
+          .then((result) => {
+            console.log(result);
+            setAvgRating(result[0].avgrating);
+          setCountReviews(result[0].totalreviews)
+          console.log(result[0].avgrating);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+          
         }
         fetch();
         
@@ -62,15 +72,22 @@ export const SearchableDropdown = ({list, location}) => {
       const savejob = async (a) => {
         console.log(a);
         console.log(localStorage.getItem("emailId"));
-        var reqaddfav = await axios.post('/addfav',{emailId: localStorage.getItem("emailId"),jobId:a});
-        console.log(reqaddfav);
-        if(reqaddfav.data==="success"){
+
+        await post('/addfav',{emailId: localStorage.getItem("emailId"),jobId:a})
+        .then((result) => {
+          console.log(result);
+        if(result==="success"){
           alert("operaion successful");
         }
         else{
           console.log("operation failed");
         }
          console.log("We are in save job!");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        
 
       };
 
@@ -117,14 +134,17 @@ export const SearchableDropdown = ({list, location}) => {
 
       useEffect(() => {
         async function fetchData() {
-       var re = await axios.post('/filterjob',{role:"",location:""});
-        console.log(re.data);
-        // const res = re.data.map(
-        //     ({details, ...rest}) => details.map(o => Object.assign({}, rest, o))
-        //   ).flat();
-        
-        setJobList(re.data);
-        setJobsArrayDb(re.data);
+
+       await post('/filterjob',{role:"",location:""})
+       .then((result) => {
+        console.log(result);
+        setJobList(result);
+        setJobsArrayDb(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
         }
         fetchData();
     }, [])
@@ -135,30 +155,36 @@ export const SearchableDropdown = ({list, location}) => {
     const onSubmit = async e => {
         e.preventDefault();
         console.log(value+" "+city);
-        var r = await axios.post('/filterjob',{role:value,location:city});
+        await post('/filterjob',{role:value,location:city})
+        .then((result) => {
+          if (value == "" && city == "") {
+            console.log("reached if");
+            setJobList(result);
+          }
+          else{
+            console.log("reached else");
+        let arra = [];
+        arra = jobsarraydb.filter((salary) => {
+          return (
+            (salary.role == value || salary.companyId.name == value ||
+              value == "") &&
+            (salary.location.city == city ||
+              city == "")
+          );
+        });
+        setJobList(arra);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
         
-        if (value == "" && city == "") {
-          console.log("reached if");
-          setJobList(r.data);
-        }
-        else{
-          console.log("reached else");
-      let arra = [];
-      arra = jobsarraydb.filter((salary) => {
-        return (
-          (salary.role == value || salary.companyId.name == value ||
-            value == "") &&
-          (salary.location.city == city ||
-            city == "")
-        );
-      });
-      setJobList(arra);
-        }
+        
 
 
 
 
-        console.log(r.data);
+        //console.log(r.data);
        // setJobList(r.data);
     }
     return (
