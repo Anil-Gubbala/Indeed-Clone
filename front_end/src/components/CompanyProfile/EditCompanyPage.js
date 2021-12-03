@@ -304,7 +304,7 @@ const headquatersValidation = () =>{
     const headquatersErr="";
     let isValid=true;
 
-    if(headquaters==""){
+    if(headquarters==""){
       isValid=false;
       setHeadquatersErr("Please enter a valid headquaters");
     }
