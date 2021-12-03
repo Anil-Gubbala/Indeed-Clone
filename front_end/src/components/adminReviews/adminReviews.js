@@ -5,11 +5,28 @@ import { put } from "../../utils/serverCall";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
+import { Tabs } from "antd";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import AdminNavbar from "../admin/AdminNavbar";
+import { isAdmin, isSignedIn } from "../../utils/checkLogin";
+import { Redirect } from 'react-router-dom';
+
+const { TabPane } = Tabs;
 
 class AdminReviews extends Component {
   constructor(props) {
     super(props);
-    this.state = { allReviews: [], companyDetails: {} };
+    this.state = { allReviews: [], companyDetails: {}, stats: {} };
   }
   // this.props.location.state.c.id)
 
@@ -27,11 +44,39 @@ class AdminReviews extends Component {
       .catch((err) => {
         console.log(err);
       });
+
+    get("/getCompanyStatistics", { id: this.props.location.state.id._id })
+      .then((response) => {
+        console.log(response);
+        let data = [];
+        response.forEach((each)=>{
+          console.log(each);
+          if(each._id !== "Saved"){
+            data.push(each);
+          }
+        });
+        // const data = response.filter((each)=>{
+        //   if(each._id !== "Saved"){
+        //     return each;
+        //   }
+        // })
+        console.log(data)
+        this.setState({
+          stats: data,
+        });
+        // this.setState({
+        //   allReviews: response,
+        // });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   renderReviews = () => {
     return (
       <>
+      
         <div style={{ margintop: "20px", padding: "25px" }}>
           <div>
             {this.state.allReviews == [] ? (
@@ -142,44 +187,6 @@ class AdminReviews extends Component {
                             </div>
                           </div>
                         </div>
-                        <div style={{ display: "flex" }}>
-                          <div className="col-md-2"></div>
-                          <div className="col-md-8">
-                            <div style={{ color: "#767676" }}>
-                              Was this review helful
-                            </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                marginLeft: "25px",
-
-                                paddingTop: "10px",
-                              }}
-                            >
-                              <div>
-                                <button
-                                  className="reviewhlp"
-                                  // onClick={() => {
-                                  //   this.upvote(review._id);
-                                  // }}
-                                >
-                                  Yes - {review.upVotes}
-                                </button>
-                              </div>
-                              <div style={{ marginLeft: "10px" }}>
-                                <button
-                                  className="reviewhlp"
-                                  // onClick={() => {
-                                  //   this.downvote(review._id);
-                                  // }}
-                                >
-                                  No - {review.downVotes}
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
                         <hr></hr>
                       </div>
                     </>
@@ -193,9 +200,56 @@ class AdminReviews extends Component {
     );
   };
 
+  tabChange = () => {};
+
+  statistics = () => {
+   return <BarChart
+      width={500}
+      height={300}
+      data={this.state.stats}
+      margin={{
+        top: 5,
+        right: 30,
+        left: 20,
+        bottom: 30,
+      }}
+    >
+      <CartesianGrid vertical />
+      <XAxis
+        dataKey="_id"
+        textAnchor="end"
+        sclaeToFit="true"
+        verticalAnchor="start"
+        interval={0}
+        angle="-30"
+        // label={{ value: 'random text', position: 'bottom', offset: 15 }}
+      />
+      <YAxis
+        label={{
+          value: "Count",
+          angle: -90,
+          position: "insideBottomLeft",
+          textAnchor: "middle",
+        }}
+      />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey="count" fill="#82ca9d" />
+    </BarChart>;
+  };
+
+  
+
   render() {
+    if(! isSignedIn()){
+      return <Redirect push to="/login" />;
+    }
+    if(! isAdmin()){
+      return <Redirect push to="/invalid" />;
+    }
     return (
       <>
+      <AdminNavbar></AdminNavbar>
         <div style={{ marginLeft: "20%", marginRight: "20%" }}>
           <div>
             <img
@@ -209,20 +263,27 @@ class AdminReviews extends Component {
             className="row"
             style={{ paddingBottom: "15px", marginTop: "20px" }}
           >
-            <div className="col-md-1" style={{ paddingLeft: "20px" }}>
+            {/* <div className="col-md-1" style={{ paddingLeft: "20px" }}>
               <img
                 src={this.state.companyDetails.companyLogo}
                 className="companyLogo"
                 alt="Company Logo"
               />
-            </div>
-            <div className="col-md-4 " style={{ paddingLeft: "45px" }}>
-              <div className="row companytxt">
-                {this.state.companyDetails.name} - Reviews
-              </div>
-            </div>
+            </div> */}
+            <Tabs
+              defaultActiveKey="1"
+              onChange={this.tabChange}
+              // indicatorColor="secondary"
+              style={{ width: "100%" }}
+            >
+              <TabPane tab="Reviews" key="1">
+                <div>{this.renderReviews()}</div>
+              </TabPane>
+              <TabPane tab="Statistics" key="2">
+                <div>{this.statistics()}</div>
+              </TabPane>
+            </Tabs>
           </div>
-          <div>{this.renderReviews()}</div>
         </div>
       </>
     );
