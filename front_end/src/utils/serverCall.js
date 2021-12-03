@@ -10,11 +10,13 @@ import { showError } from "../reducers/actions";
 //   // 'Access-Control-Allow-Origin': '*',
 // };
 
-Axios.defaults.headers.common.authorization = localStorage.getItem(
-  STORAGE.token
-);
+const setHeaders = () => {
+  Axios.defaults.headers.common.authorization = localStorage.getItem(
+    STORAGE.token
+  );
+};
 
-const handleError = (error) =>{
+const handleError = (error) => {
   if (error.response && error.response.data.err) {
     store.dispatch(showError(error.response.data.err));
     throw error.response.data.err;
@@ -22,9 +24,10 @@ const handleError = (error) =>{
     store.dispatch(showError("Server Side Error Occured"));
     throw "Server Side Error Occured";
   }
-}
+};
 
 const get = (path, data) => {
+  setHeaders();
   return Axios.get(config.SERVERURL + path, { params: data })
     .then((response) => response.data)
     .catch((error) => {
@@ -35,18 +38,24 @@ const get = (path, data) => {
 const post = (path, data) =>
   // Axios.defaults.headers.common.authorization = localStorage.getItem(config.TOKEN);
   // Axios.defaults.headers.common.authorization = null;
-  Axios.post(config.SERVERURL + path, data, { mode: "cors" })
-    .then((response) => response.data)
-    .catch((error) => {
-      handleError(error);
-    });
+  {
+    setHeaders();
+    return Axios.post(config.SERVERURL + path, data, { mode: "cors" })
+      .then((response) => response.data)
+      .catch((error) => {
+        handleError(error);
+      });
+  };
 
 const put = (path, data) =>
   // Axios.defaults.headers.common.authorization = localStorage.getItem(config.TOKEN);
   // Axios.defaults.headers.common.authorization = null;
-  Axios.put(config.SERVERURL + path, data, { mode: "cors" })
-    .then((response) => response.data)
-    .catch((error) => {
-      handleError(error);
-    });
+  {
+    setHeaders();
+    return Axios.put(config.SERVERURL + path, data, { mode: "cors" })
+      .then((response) => response.data)
+      .catch((error) => {
+        handleError(error);
+      });
+  };
 export { get, post, put };

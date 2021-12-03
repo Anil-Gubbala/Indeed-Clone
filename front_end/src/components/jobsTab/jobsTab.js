@@ -17,7 +17,7 @@ class JobsTab extends Component {
   }
 
   componentDidMount() {
-    get("/jobbycompanyid?id=" + "61960b7c79026b0aab6bef86")
+    get("/jobbycompanyid?id=" + this.props.id)
       .then((response) => {
         console.log(response);
         this.setState({ allJobs: response });
@@ -30,7 +30,7 @@ class JobsTab extends Component {
   }
 
   filterJobs = () => {
-    // console.log(this.state.where);
+    console.log(this.state.where);
 
     if (this.state.where == "" && this.state.what == "") {
       this.setState({
@@ -43,6 +43,7 @@ class JobsTab extends Component {
         return (
           (job.location.city == this.state.where ||
             job.location.state == this.state.where ||
+            job.location.zip == this.state.where ||
             this.state.where == "") &&
           (job.jobTitle == this.state.what ||
             job.role == this.state.what ||
@@ -63,23 +64,24 @@ class JobsTab extends Component {
         {this.state.allJobs.map((job) => {
           return (
             <>
-              <div
-                className="jobclick"
-                style={{
-                  padding: "20px",
-                  paddingBottom: "30px",
-                  paddingTop: "15px",
-                }}
-                onClick={() => this.changeJob(job)}
-              >
-                <div style={{ fontSize: "17px", fontWeight: "700" }}>
-                  {job.role}, {job.jobTitle}
-                </div>
-                <div style={{ color: "#4B4B4B" }}>
-                  {job.location.city}, {job.location.state} - {job.location.zip}
+              <div className="jobclick" onClick={() => this.changeJob(job)}>
+                <div
+                  style={{
+                    padding: "20px",
+                    paddingBottom: "30px",
+                    paddingTop: "15px",
+                  }}
+                >
+                  <div style={{ fontSize: "17px", fontWeight: "700" }}>
+                    {job.role}, {job.jobTitle}
+                  </div>
+                  <div style={{ color: "#4B4B4B" }}>
+                    {job.location.city}, {job.location.state} -{" "}
+                    {job.location.zip}
+                  </div>
                 </div>
               </div>
-              <hr className="hrPadding"></hr>
+              <hr className="jobpadding"></hr>
             </>
           );
         })}
@@ -137,7 +139,7 @@ class JobsTab extends Component {
                 </button>
               </div>
             </div>
-            <hr className="hrPadding"></hr>
+            <hr className="jobpadding"></hr>
             <div
               className="jobdescscrl"
               style={{ padding: "20px", border: "1px solid #f2f2f2" }}
@@ -253,7 +255,10 @@ class JobsTab extends Component {
           </div>
         </div>
         <div style={{ display: "flex", marginTop: "30px" }}>
-          <div className="col-md-4" style={{ border: "1px solid #f2f2f2" }}>
+          <div
+            className="col-md-4"
+            style={{ border: "1px solid #f2f2f2", padding: "0px" }}
+          >
             {this.state.allJobs == [] ? (
               <div>No Jobs to display</div>
             ) : (

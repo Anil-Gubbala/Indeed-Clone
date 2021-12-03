@@ -13,12 +13,14 @@ import Popper from 'popper.js';
 import axios from 'axios';
 import Rating from '@material-ui/lab/Rating';
 import { Link, Redirect } from 'react-router-dom';
+import { Button } from 'bootstrap';
+import { get, put, post } from "../../utils/serverCall";
 
 
 export const SearchableDropdown = ({list, location}) => {
     const [value, setValue] = useState('');
     const [city, setCity] = useState('');
-    const [avgrating, setAvgRating] = useState(0.0);
+    const [avgrating, setAvgRating] = useState(0);
     const [countreviews, setCountReviews] = useState(0);
     const [toggle, setToggle] = useState('');
     const [citytoggle, setCityToggle] = useState('');
@@ -29,26 +31,71 @@ export const SearchableDropdown = ({list, location}) => {
     const [jobrole, setJobRole] = useState('');
     const [jobsarraydb, setJobsArrayDb] = useState([]);
 
+    const [favorite, setFavorite] = useState([]);
+
+      const handleClick = (id) => {
+        if(favorite[id] === 0){
+          favorite[id]=1;
+        }
+        else{
+          favorite[id]=0;
+        }
+        
+        //setFavorite([...favorite, id]);
+        console.log(favorite);
+        }
+
     const addToPopup = (el) => {
 
         setCart([el]);
         async function fetch() {
           console.log(el.companyId._id);
           var compid=JSON.stringify(el.companyId._id);
-          var reqavgrating =await axios.post('/empReviews/avgrating',{"companyId":el.companyId._id});
-          setAvgRating(reqavgrating.data[0].avgrating.toFixed(1));
-          setCountReviews(reqavgrating.data[0].totalreviews)
-          console.log(reqavgrating.data[0].avgrating.toFixed(1));
+
+          await post('/empReviews/avgrating',{"companyId":el.companyId._id})
+          .then((result) => {
+            console.log(result);
+            setAvgRating(result[0].avgrating);
+          setCountReviews(result[0].totalreviews)
+          console.log(result[0].avgrating);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+          
         }
         fetch();
         
       }
 
-      const apply = () => {
-      
+      const savejob = async (a) => {
+        console.log(a);
+        console.log(localStorage.getItem("emailId"));
+
+        await post('/addfav',{emailId: localStorage.getItem("emailId"),jobId:a})
+        .then((result) => {
+          console.log(result);
+        if(result==="success"){
+          alert("operaion successful");
+        }
+        else{
+          console.log("operation failed");
+        }
+         console.log("We are in save job!");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        
+
       };
+
+      const unsavejob = (b) => {
+        console.log("We are in unsave job!");
+     };
     
-      let details = cart.map(jobdetails => {
+      let details = cart.map((jobdetails,index) => {
         return (
           <body>
           <div class="Header">
@@ -87,14 +134,17 @@ export const SearchableDropdown = ({list, location}) => {
 
       useEffect(() => {
         async function fetchData() {
-       var re = await axios.post('/filterjob',{role:"",location:""});
-        console.log(re.data);
-        // const res = re.data.map(
-        //     ({details, ...rest}) => details.map(o => Object.assign({}, rest, o))
-        //   ).flat();
-        
-        setJobList(re.data);
-        setJobsArrayDb(re.data);
+
+       await post('/filterjob',{role:"",location:""})
+       .then((result) => {
+        console.log(result);
+        setJobList(result);
+        setJobsArrayDb(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
         }
         fetchData();
     }, [])
@@ -105,30 +155,36 @@ export const SearchableDropdown = ({list, location}) => {
     const onSubmit = async e => {
         e.preventDefault();
         console.log(value+" "+city);
-        var r = await axios.post('/filterjob',{role:value,location:city});
+        await post('/filterjob',{role:value,location:city})
+        .then((result) => {
+          if (value == "" && city == "") {
+            console.log("reached if");
+            setJobList(result);
+          }
+          else{
+            console.log("reached else");
+        let arra = [];
+        arra = jobsarraydb.filter((salary) => {
+          return (
+            (salary.role == value || salary.companyId.name == value ||
+              value == "") &&
+            (salary.location.city == city ||
+              city == "")
+          );
+        });
+        setJobList(arra);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
         
-        if (value == "" && city == "") {
-          console.log("reached if");
-          setJobList(r.data);
-        }
-        else{
-          console.log("reached else");
-      let arra = [];
-      arra = jobsarraydb.filter((salary) => {
-        return (
-          (salary.role == value || salary.companyId.name == value ||
-            value == "") &&
-          (salary.location.city == city ||
-            city == "")
-        );
-      });
-      setJobList(arra);
-        }
+        
 
 
 
 
-        console.log(r.data);
+        //console.log(r.data);
        // setJobList(r.data);
     }
     return (
@@ -184,7 +240,7 @@ export const SearchableDropdown = ({list, location}) => {
             <div class="row dashmargin">
         <div class="col-4">
       <ul class="dash-ul">
-        {jobList.map(country => (
+        {jobList.map((country,index) => (
           <div class="dash-button">
 
             <li class="col-5 stunt" key={country.role.trim()}  onClick={() => addToPopup(country)}>
@@ -213,9 +269,15 @@ export const SearchableDropdown = ({list, location}) => {
 </svg>
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a className="dropdown-item" href="#nogo">Save Job</a>
+                    <a className="dropdown-item" onClick={() => savejob(country._id)}>Save Job</a>
                     <a className="dropdown-item" href="#nogo">Not Interested</a>
                     <a className="dropdown-item" href="#nogo">Report Job</a>
+                    <a className="dropdown-item" onClick={() => unsavejob(country._id)}>UnSave Job</a>
+                    {/* <a><button button
+                  key={index} 
+                 onClick={()=>handleClick(index)}
+                  color={favorite.indexOf(index) > 0 ? 'red' : 'blue'}>save</button>
+                  </a> */}
                 </div>
             </div>
         </div>

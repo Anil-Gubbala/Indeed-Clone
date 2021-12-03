@@ -1,5 +1,5 @@
 import React,{useState} from "react"
-import { post } from '../../utils/serverCall';
+import { post,put } from '../../utils/serverCall';
 import "./AddCompanyDetails.css"
 import NavBar from "./../EmpNavbar/EmpNavbar"
 import {Row,Col} from "react-bootstrap"
@@ -119,7 +119,13 @@ const handleAddCompanyDetails = () =>{
     console.log(response.payload);
     localStorage.setItem("companyId",response.payload._id);
     console.log("Added to DB!")
-    window.open("/PostJob","_self")
+    put("/AddCompany/Id",{companyId:localStorage.getItem("companyId"),emailId:localStorage.getItem("emailId")})
+    .then((result) =>{
+      console.log("Added to users table!");
+    }).catch(err=>{
+      console.log(err);
+    })
+    // window.open("/PostJob","_self")
     })
     })
     })

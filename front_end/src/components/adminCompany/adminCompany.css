@@ -1,0 +1,23 @@
+.adinp {
+  width: 400px;
+  height: 20px;
+  padding: 18px;
+  border-radius: 7px;
+  border: 1px solid black;
+}
+
+.adminSearch {
+  padding: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #085ff7;
+  color: white;
+  font-weight: 600;
+  border-radius: 20px;
+  margin-left: 30px;
+}
+
+.companybx {
+  border: 1px solid black;
+  border-radius: 5px;
+}

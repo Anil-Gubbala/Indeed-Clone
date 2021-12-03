@@ -8,6 +8,7 @@ html{
     background-color: whitesmoke;
     color: steelblue;
     font-family: Avenir Next,Arial,Roboto,Noto,sans-serif;
+    min-height: 100vh;
     height: 100%;
   }
 

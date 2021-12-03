@@ -9,7 +9,7 @@ class WhyJoinUs extends Component {
     this.state = { companyDetails: {} };
   }
   componentDidMount() {
-    get("/company?id=" + "61a3fd8c6a262725310f68f0")
+    get("/company?id=" + this.props.id)
       .then((response) => {
         console.log(response);
         this.setState({ companyDetails: response });

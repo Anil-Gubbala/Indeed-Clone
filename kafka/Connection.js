@@ -7,8 +7,8 @@ function ConnectionProvider() {
       kafkaHost: `${config.config.KAFKA_HOST}:${config.config.KAFKA_PORT}`,
     });
     this.kafkaConsumerConnection = new kafka.Consumer(this.client, [
-      { topic: topicName, partition: 0 },
-    ]);
+      { topic: topicName, partition: 0 }
+    ],{groupId:"group1"});
     this.client.on("ready", () => {
       console.log("Request consumer ready!");
     });

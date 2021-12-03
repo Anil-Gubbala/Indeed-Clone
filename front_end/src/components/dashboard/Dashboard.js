@@ -3,6 +3,7 @@ import Navbar from '../navbar/navbar'
 import SearchableDropdown from '../dropdown/SearchableDropdown';
 import './Dashboard.css'
 import { DashboardPopup } from './DashboardPopup';
+import { get, put, post } from "../../utils/serverCall";
 
 import axios from 'axios';
 import DashNav from '../navbar/DashNav';
@@ -35,7 +36,7 @@ export const Dashboard = (props) => {
     useEffect(() => {
       async function fetchData() {
         //const req = await axios.get('/getjobinsearch');
-       
+        
         var r = await axios.post('/filterjob',{role:"",location:""});
         setCart(r.data);
 
@@ -51,7 +52,6 @@ export const Dashboard = (props) => {
           var myObj2 = {
             "role" : item.companyId.name
           };
-
           var loc = {
             "city": item.location.city
           };
@@ -65,6 +65,7 @@ export const Dashboard = (props) => {
           if (!locat.includes(loc)){
             locat.push( loc );
             }
+        
         });
 
         console.log(list2);

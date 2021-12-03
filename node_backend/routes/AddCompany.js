@@ -45,6 +45,25 @@ router.post("/AddCompany", (req, res) => {
   })
   })
 
+  router.put("/AddCompany/Id",(req,res) =>{
+    console.log("Inside Add Company Id to User Profile Page");
+    kafka.makeRequest("addCompanyId",req.body,(err,data) =>{
+      if(err){
+        res.writeHead(400,{
+          "Content-type":"text/plain",
+        });
+        res.end("Cannot save company Id details");
+      }
+      else{
+        let payload={
+          companyId:data.data.companyId,
+        }
+        console.log("payload in backend",JSON.stringify(payload))
+        res.status(200).json({payload});
+      }
+    })
+  })
+
 
 
 module.exports = router;

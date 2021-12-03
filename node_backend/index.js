@@ -31,8 +31,10 @@ const postJob=require('./routes/postJob');
 const viewJobs=require('./routes/viewJobs');
 const viewApplicants=require('./routes/viewApplicants');
 const setApplicationStatus=require('./routes/setApplicationStatus');
+const passport = require("passport");
 
 const connection = require("./db/connection");
+const { auth } = require("./Utils/auth");
 
 app.use(session({
   secret: 'mysql',
@@ -62,6 +64,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({ origin: process.env.REACT_URL, credentials: true }));
+app.use(passport.initialize());
+auth();
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", process.env.REACT_URL);
