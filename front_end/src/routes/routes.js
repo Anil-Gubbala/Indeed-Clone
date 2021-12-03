@@ -14,14 +14,20 @@ import Salaries from '../components/Salaries/salaries';
 import AppliedJobs from '../components/useraccount/AppliedJobs';
 import DashNav from "../components/navbar/DashNav";
 import { LandingPage } from "../components/dashboard/LandingPage";
+
 import ProfilePage from "../components/EmployerLanding/ProfilePage";
 import AddCompanyDetails from "../components/CompanyProfile/AddCompanyDetails";
 import EditCompanyPage from "../components/CompanyProfile/EditCompanyPage";
+import employerReviews from "../components/CompanyProfile/employerReviews";
+import noreviews from "../components/CompanyProfile/NoReviews"
 
 import Employer from "../components/Employer/EmployerLanding";
 import PostJob from "../components/PostJob/PostJob";
 import Candidates from "../components/Candidates/Candidates";
 import Messages from "../components/messages/messages";
+import MyReviews from "../components/reviews/Myreviews";
+import Analytics from '../components/Analytics/Analytics';
+import Statistics from '../components/Analytics/Statistics';
 
 class Routes extends Component {
   render() {
@@ -42,9 +48,14 @@ class Routes extends Component {
         <Route exact path="/Candidates" component={Candidates} />
         <Route exact path="/EmployerLanding" component={Employer} />
         <Route exact path="/PostJob" component={PostJob} />
+        <Route exact path="/Analytics" component={Analytics} />
+        <Route exact path="/Statistics" component={Statistics} />
 
         <Route exact path="/reviews">
           <CompanyReviews />
+        </Route>
+        <Route exact path="/myreviews">
+          <MyReviews />
         </Route>
         <Route exact path="/profile">
           <Profile />
@@ -61,6 +72,8 @@ class Routes extends Component {
         <Route exact path="/employerprofile" component={ProfilePage} />
         <Route exact path="/addcompany" component={AddCompanyDetails} />
         <Route exact path="/editcompany" component={EditCompanyPage} />
+        <Route exact path="/employerreviews" component={employerReviews} />
+        <Route exact path="/noreviews" component={noreviews} />
       </div>
     );
   }

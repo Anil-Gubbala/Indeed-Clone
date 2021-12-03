@@ -1,21 +1,21 @@
-import { Grid } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import './profile.css';
-import S3 from 'react-aws-s3';
-import axios from 'axios';
-import { Card, Modal } from 'react-bootstrap';
-import { MdUpload, MdModeEdit } from 'react-icons/md';
-import { AiFillEye } from 'react-icons/ai';
-import { IoIosLock } from 'react-icons/io';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
-import { Link, NavLink } from 'react-router-dom';
+import { Grid } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import "./profile.css";
+import S3 from "react-aws-s3";
+import axios from "axios";
+import { Card, Modal } from "react-bootstrap";
+import { MdUpload, MdModeEdit } from "react-icons/md";
+import { AiFillEye } from "react-icons/ai";
+import { IoIosLock } from "react-icons/io";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
+import { Link, NavLink } from "react-router-dom";
 
 function Profile() {
-  const Input = styled('input')({
-    display: 'none',
+  const Input = styled("input")({
+    display: "none",
   });
   const [show, setShow] = useState(false);
 
@@ -23,37 +23,38 @@ function Profile() {
   const handleShow = () => setShow(true);
   const config = {
     bucketName: process.env.REACT_APP_BUCKET_NAME,
-    dirName: 'company',
-    region: 'us-east-2',
+    dirName: "company",
+    region: "us-east-2",
     accessKeyId: process.env.REACT_APP_ACCESS_ID,
     secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
   };
 
   const defaultValues = {
-    firstname: '',
-    lastname: '',
-    emailId: '',
-    contact: '',
-    resumeLink: '',
+    firstname: "",
+    lastname: "",
+    emailId: "",
+    contact: "",
+    resumeLink: "",
   };
   const [details, setDetails] = useState(defaultValues);
-  const [open, setOpen] = useState('');
-  const [file, setfile] = useState('');
-  const [submit, setsubmit] = useState('');
-  const [view, setview] = useState('');
+  const [open, setOpen] = useState("");
+  const [file, setfile] = useState("");
+  const [submit, setsubmit] = useState("");
+  const [url, setfileurl] = useState("");
   const handleChange = () => {
-    setfileurl('');
-    console.log('Entered');
+    setfileurl("");
+    console.log("Entered");
   };
 
   useEffect(() => {
-    axios.get(`/use`, { params: { id: '61765e2cac3f02c79a885222' } }).then((response) => {
-      console.log(response.data);
-      setDetails(response.data);
-    });
+    axios
+      .get(`/use`, { params: { id: "61765e2cac3f02c79a885222" } })
+      .then((response) => {
+        console.log(response.data);
+        setDetails(response.data);
+      });
   }, []);
 
-  // check in e
   const fileSelected = (e) => {
     setfile(e.target.files[0]);
     setsubmit(true);
@@ -73,29 +74,48 @@ function Profile() {
     }
   };
 
+  const deleteResume = (event) => {
+    const details = {
+      id: "61765e2cac3f02c79a885222",
+      resumeLink: "",
+    };
+    axios
+    .post("/updateresume", details)
+    .then((response) => {
+      setfile("");
+      console.log(response.data);
+      window.location.reload();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  }
+
   const Submit = (event) => {
-    console.log('Entered');
+    console.log("Entered");
     const ReactS3Client = new S3(config);
     ReactS3Client.uploadFile(file)
       .then((data) => {
         setfileurl(data.location);
         if (data.status === 204) {
-          console.log(' Resume upload to S3 success', data.location);
+          console.log(" Resume upload to S3 success", data.location);
           const details = {
-            id: '61765e2cac3f02c79a885222',
+            id: "61765e2cac3f02c79a885222",
             resumeLink: data.location,
           };
           axios
-            .post('/updateresume', details)
+            .post("/updateresume", details)
             .then((response) => {
               console.log(response.data);
+              window.location.reload();
             })
             .catch((err) => {
               console.log(err);
             });
           setsubmit(false);
         } else {
-          console.log(' customer image to S3 fail');
+          console.log(" customer image to S3 fail");
         }
       })
       .catch((err) => {
@@ -122,18 +142,19 @@ function Profile() {
       <container className="profile__body__container">
         <Card
           style={{
-            display: 'flex',
-            alignContent: 'center',
-            justifyContent: 'flex-start',
+            display: "flex",
+            alignContent: "center",
+            justifyContent: "flex-start",
             marginBottom: 10,
             width: 600,
-            height: 'auto',
-            flexFlow: 'wrap',
+            height: "auto",
+            flexFlow: "wrap",
             borderRadius: 20,
           }}
         >
           <Card.Body>
-            {(file && !submit) || details.resumeLink != null ? (
+            {/* {(file && !submit) || details.resumeLink != null ? ( */}
+              {details.resumeLink != "" ? (
               <div className="icl-body">
                 <div className="icl">Resume</div>
                 <div className="meta-flex">
@@ -185,26 +206,82 @@ function Profile() {
                       d="M0 44H44V62C44 63.1046 43.1046 64 42 64H2C0.895431 64 0 63.1046 0 62V44Z"
                       fill="#085ff7"
                     />
-                    <text fontSize="12" fontWeight="700" fill="#FFFFFF" aria-hidden="true">
+                    <text
+                      fontSize="12"
+                      fontWeight="700"
+                      fill="#FFFFFF"
+                      aria-hidden="true"
+                    >
                       <tspan x="10" y="58">
                         PDF
                       </tspan>
                     </text>
                   </svg>
-                  <div className="pdf" style={{ paddingLeft: '30px' }}>
+                  <div className="pdf" style={{ paddingLeft: "30px" }}>
                     <div className="name">
                       {details.firstname} {details.lastname}.pdf
                     </div>
-                    <Link
-                      to={{
-                        pathname:
-                          'https://indeed13.s3-us-east-2.amazonaws.com/company/ooBP94GqCWdULYwyRMeqZJ.pdf',
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-around",
                       }}
-                      target="_blank"
-                      download
                     >
-                      Download
-                    </Link>
+                      <Button>
+                      <a
+                        style={{ display: "table-cell" }}
+                        href="https://indeed13.s3-us-east-2.amazonaws.com/company/ooBP94GqCWdULYwyRMeqZJ.pdf"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        View
+                      </a>
+                      </Button>
+                      <Button>
+                      <Link
+                        to={{
+                          pathname:
+                            "https://indeed13.s3-us-east-2.amazonaws.com/company/ooBP94GqCWdULYwyRMeqZJ.pdf",
+                        }}
+                        target="_blank"
+                        download
+                      >
+                        Download
+                      </Link>
+                      </Button>
+                    
+                      <label htmlFor="contained-button-file">
+                    <Input
+                      accept="application/pdf"
+                      id="contained-button-file"
+                      multiple
+                      type="file"
+                      display="none"
+                      onChange={(e) => {
+                        console.log("Entered");
+                        fileSelected(e);
+                      }}
+                    />
+                    <Button
+                      component="span"
+                    >
+                      Replace
+                    </Button>
+                  </label>
+                      <Button onClick={deleteResume}>Delete</Button>
+                      
+                    </div>
+                    {submit ? (
+                  <Button
+                    style={{ display: "flex", justifyContent: "flex-start" }}
+                    onClick={Submit}
+                  >
+                    Save
+                  </Button>
+                ) : (
+                  ""
+                )}
                     <div className="time"> Added today </div>
                     <div className="public">
                       <AiFillEye /> Public
@@ -212,7 +289,12 @@ function Profile() {
                   </div>
                   <div className="dots">
                     <BsThreeDotsVertical onClick={handleShow} />
-                    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+                    <Modal
+                      show={show}
+                      onHide={handleClose}
+                      backdrop="static"
+                      keyboard={false}
+                    >
                       <Modal.Body>
                         <Button>View File</Button>
                       </Modal.Body>
@@ -234,10 +316,10 @@ function Profile() {
             ) : (
               <div
                 style={{
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  flexDirection: 'column',
-                  height: 'auto',
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  flexDirection: "column",
+                  height: "auto",
                 }}
               >
                 <h3>Get started</h3>
@@ -251,7 +333,7 @@ function Profile() {
                       type="file"
                       display="none"
                       onChange={(e) => {
-                        console.log('Entered');
+                        console.log("Entered");
                         fileSelected(e);
                       }}
                     />
@@ -259,13 +341,15 @@ function Profile() {
                       variant="contained"
                       component="span"
                       style={{
-                        borderRadius: '25px',
-                        backgroundColor: 'white',
-                        color: '#1150bf',
-                        border: '2px solid #1150bf',
+                        borderRadius: "25px",
+                        backgroundColor: "white",
+                        color: "#1150bf",
+                        border: "2px solid #1150bf",
                       }}
                     >
-                      <MdUpload style={{ fontSize: '1.5rem', color: '#1150bf' }} />
+                      <MdUpload
+                        style={{ fontSize: "1.5rem", color: "#1150bf" }}
+                      />
                       Upload a Resume
                     </Button>
                   </label>
@@ -281,10 +365,10 @@ function Profile() {
                       variant="contained"
                       component="span"
                       style={{
-                        borderRadius: '25px',
-                        backgroundColor: 'white',
-                        color: '#1150bf',
-                        border: '2px solid #1150bf',
+                        borderRadius: "25px",
+                        backgroundColor: "white",
+                        color: "#1150bf",
+                        border: "2px solid #1150bf",
                       }}
                     >
                       Build a Resume
@@ -293,20 +377,22 @@ function Profile() {
                 </Stack>
                 {submit ? (
                   <Button
-                    style={{ display: 'flex', justifyContent: 'flex-start' }}
+                    style={{ display: "flex", justifyContent: "flex-start" }}
                     onClick={Submit}
                   >
                     Save
                   </Button>
                 ) : (
-                  ''
+                  ""
                 )}
 
                 {/* </container> */}
-                <div style={{ marginTop: '10px' }}>
-                  By continuing, you agree to create a{' '}
-                  <a href="https://hrtechprivacy.com/brands/indeed#s4-4">public resume</a> and agree
-                  to receiving job opportunities from employers.
+                <div style={{ marginTop: "10px" }}>
+                  By continuing, you agree to create a{" "}
+                  <a href="https://hrtechprivacy.com/brands/indeed#s4-4">
+                    public resume
+                  </a>{" "}
+                  and agree to receiving job opportunities from employers.
                 </div>
               </div>
             )}
@@ -314,30 +400,30 @@ function Profile() {
         </Card>
         <Card
           style={{
-            display: 'flex',
-            alignContent: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignContent: "center",
+            justifyContent: "center",
             margin: 10,
             width: 600,
-            height: 'auto',
-            flexFlow: 'wrap',
+            height: "auto",
+            flexFlow: "wrap",
             borderRadius: 20,
           }}
         >
           <Card.Body>
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'flex-start',
+                display: "flex",
+                justifyContent: "flex-start",
                 margin: 10,
-                flexDirection: 'column',
+                flexDirection: "column",
               }}
             >
               <container>
                 <div className="profile_contact">
                   <h3>Contact Information</h3>
                   <MdModeEdit
-                    style={{ justifyContent: 'flex-end', cursor: 'pointer' }}
+                    style={{ justifyContent: "flex-end", cursor: "pointer" }}
                     onClick={() => setOpen(true)}
                   />
                 </div>
@@ -348,7 +434,7 @@ function Profile() {
                     </div>
                     <span className="required">*</span>Required fields
                     <div>
-                      <label htmlFor="fname" style={{ fontWeight: '700' }}>
+                      <label htmlFor="fname" style={{ fontWeight: "700" }}>
                         First Name <span className="required">*</span>
                       </label>
                       <br />
@@ -362,7 +448,7 @@ function Profile() {
                         }}
                       />
                       <br />
-                      <label htmlFor="lname" style={{ fontWeight: '700' }}>
+                      <label htmlFor="lname" style={{ fontWeight: "700" }}>
                         Last Name <span className="required">*</span>
                       </label>
                       <br />
@@ -378,14 +464,14 @@ function Profile() {
                       <br />
                       <br />
                       <div>
-                        Email Address <IoIosLock /> only provided to employers you apply or respond
-                        to.
+                        Email Address <IoIosLock /> only provided to employers
+                        you apply or respond to.
                       </div>
                       <div>{details.emailId}</div>
                       <br />
                       <div>
-                        Phone Number(optional) <IoIosLock /> only provided to employers you apply or
-                        respond to.
+                        Phone Number(optional) <IoIosLock /> only provided to
+                        employers you apply or respond to.
                       </div>
                       <input
                         type="text"
@@ -399,19 +485,19 @@ function Profile() {
                       <br />
                       <div
                         style={{
-                          display: 'flex',
-                          flexDirection: 'row',
+                          display: "flex",
+                          flexDirection: "row",
                         }}
                       >
                         <Button
                           variant="contained"
                           component="span"
                           style={{
-                            borderRadius: '25px',
-                            backgroundColor: '#1150bf',
-                            color: '#ffff',
-                            border: '2px solid #1150bf',
-                            height: '45px',
+                            borderRadius: "25px",
+                            backgroundColor: "#1150bf",
+                            color: "#ffff",
+                            border: "2px solid #1150bf",
+                            height: "45px",
                           }}
                           onClick={() => {
                             setOpen(false);
@@ -421,7 +507,7 @@ function Profile() {
                           Save
                         </Button>
                         <Button
-                          style={{ margin: '10px' }}
+                          style={{ margin: "10px" }}
                           onClick={() => {
                             setOpen(false);
                           }}
@@ -452,32 +538,32 @@ function Profile() {
         </Card>
         <Card
           style={{
-            display: 'flex',
-            alignContent: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignContent: "center",
+            justifyContent: "center",
             margin: 10,
             width: 600,
-            height: 'auto',
-            flexFlow: 'wrap',
+            height: "auto",
+            flexFlow: "wrap",
             borderRadius: 20,
           }}
         >
           <Card.Body>
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'flex-start',
+                display: "flex",
+                justifyContent: "flex-start",
                 margin: 10,
-                flexDirection: 'column',
+                flexDirection: "column",
               }}
             >
               <div className="profile_contact">
                 <h3>Job preferences</h3>
-                <MdModeEdit style={{ justifyContent: 'flex-end' }} />
+                <MdModeEdit style={{ justifyContent: "flex-end" }} />
               </div>
               <div>
-                Save specific details like desired pay and schedule that help us match you with
-                better jobs
+                Save specific details like desired pay and schedule that help us
+                match you with better jobs
               </div>
             </div>
           </Card.Body>
@@ -486,21 +572,21 @@ function Profile() {
           container
           spacing={1}
           style={{
-            fontSize: '14px',
-            backgroundColor: 'white',
-            padding: '15px 10px',
-            margin: '0 -20px ',
+            fontSize: "14px",
+            backgroundColor: "white",
+            padding: "15px 10px",
+            margin: "0 -20px ",
           }}
         >
-          <Grid item style={{ cursor: 'pointer' }}>
+          <Grid item style={{ cursor: "pointer" }}>
             © 2021 Indeed
           </Grid>
           <Grid item>-</Grid>
-          <Grid item style={{ cursor: 'pointer' }}>
+          <Grid item style={{ cursor: "pointer" }}>
             Cookies, Privacy and Terms
           </Grid>
           <Grid item>-</Grid>
-          <Grid item style={{ cursor: 'pointer' }}>
+          <Grid item style={{ cursor: "pointer" }}>
             Do Not Sell My Personal Information
           </Grid>
         </Grid>

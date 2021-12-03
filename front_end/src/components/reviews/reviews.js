@@ -282,17 +282,17 @@ class ReviewsTab extends Component {
       let arr = [...this.state.allReviews];
       console.log("***");
       console.log(arr);
-      arr.sort((a, b) => a.upVotes - b.upVotes);
+      arr.sort((a, b) => b.upVotes - a.upVotes);
       this.setState({ allReviews: arr });
     }
     if (criteria == "Rating") {
       let arr = [...this.state.allReviews];
-      arr.sort((a, b) => a.rating - b.rating);
+      arr.sort((a, b) => b.rating - a.rating);
       this.setState({ allReviews: arr });
     }
     if (criteria == "Date") {
       let arr = [...this.state.allReviews];
-      arr.sort((a, b) => a.date.localeCompare(b.date));
+      arr.sort((a, b) => b.date.localeCompare(a.date));
       this.setState({ allReviews: arr });
     }
   };

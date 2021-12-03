@@ -1,20 +1,25 @@
 import React,{useState,useRef,useEffect} from "react"
 import { get,put } from '../../utils/serverCall';
-import NavBar from "./../navbar/employerNavBar"
+import NavBar from "./../EmpNavbar/EmpNavbar"
 import  "./EditPage.css"
 import {Row,Col} from "react-bootstrap"
 
 const ProfilePage = () => {
 
   useEffect(() => {
-      get(`/GetCompany`,{_id:"61a47a7c41e79758f01d1ace"})
+      get(`/GetCompany`,{employerId:localStorage.getItem("userId")})
         .then((result) =>{
-        localStorage.setItem("companyDetails",JSON.stringify(result.data.data[0]));
-        console.log("data for display",result.data.data[0]);
-        const allCompanyData = result.data.data[0];
-        // console.log("website",((response.data))["payload"][0]["website"]);
-        getData(allCompanyData);
-        console.log(data)
+        if(result.data.data.length === 0){
+          alert("Opps! Looks like you have not added company details!")
+          window.open("/addcompany","_self")
+        }
+        else{
+          console.log("data for display");
+          const allCompanyData = result.data.data[0];
+          // console.log("website",((response.data))["payload"][0]["website"]);
+          getData(allCompanyData);
+          console.log(data)
+        }
       }).catch(err =>{
         console.log(err);
       })
@@ -116,7 +121,7 @@ useEffect(() => {
 const handleWebsiteChange = () =>{
   const isValid=websiteValidation();
   if(isValid){
-    put("/edit/website",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],website:website.toLowerCase(),})
+    put("/edit/website",{_id:localStorage.getItem("companyId"),website:website.toLowerCase(),})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -130,10 +135,8 @@ const handleWebsiteChange = () =>{
 const handleSizeChange = () =>{
   const isValid=sizeValidation();
   if(isValid){
-    put("http://localhost:8080/edit/size",{
-    _id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],
-    companySize:size,
-  }).then((result) =>{
+    put("/edit/size",{_id:localStorage.getItem("companyId"),companySize:size,})
+    .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
       console.log(err);
@@ -146,7 +149,7 @@ const handleSizeChange = () =>{
 const handleTypeChange = () =>{
   const isValid=typeValidation();
   if(isValid){
-    put("/edit/type",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],companyType:type,}).
+    put("/edit/type",{_id:localStorage.getItem("companyId"),companyType:type,}).
     then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -160,7 +163,7 @@ const handleTypeChange = () =>{
 const handleRevenueChange = () =>{
   const isValid=revenueValidation();
   if(isValid){
-    put("/edit/revenue",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],revenue:revenue})
+    put("/edit/revenue",{_id:localStorage.getItem("companyId"),revenue:revenue})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -173,7 +176,7 @@ const handleRevenueChange = () =>{
 const handleHeadquartersChange = () =>{
   const isValid=headquatersValidation();
   if(isValid){
-  put("/edit/headquaters",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],headquaters:headquarters,})
+  put("/edit/headquaters",{_id:localStorage.getItem("companyId"),headquaters:headquarters,})
   .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -186,7 +189,7 @@ const handleHeadquartersChange = () =>{
 const handleIndustryChange = () =>{
   const isValid=industryValidation();
   if(isValid){
-    put("/edit/industry",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],industry:industry})
+    put("/edit/industry",{_id:localStorage.getItem("companyId"),industry:industry})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -199,7 +202,7 @@ const handleIndustryChange = () =>{
 const handleFoundedChange = () =>{
   const isValid=foundedValidation();
   if(isValid){
-    put("/edit/founded",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],founded:founded,})
+    put("/edit/founded",{_id:localStorage.getItem("companyId"),founded:founded,})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -212,7 +215,7 @@ const handleFoundedChange = () =>{
 const handleMissionChange = () =>{
   const isValid=missionValidation();
   if(isValid){
-    put("/edit/mission",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],mission:mission,})
+    put("/edit/mission",{_id:localStorage.getItem("companyId"),mission:mission,})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -225,7 +228,7 @@ const handleMissionChange = () =>{
 const handleCEOChange = () =>{
   const isValid=ceoValidation();
   if(isValid){
-    put("/edit/ceo",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],ceo:ceo,})
+    put("/edit/ceo",{_id:localStorage.getItem("companyId"),ceo:ceo,})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -301,7 +304,7 @@ const headquatersValidation = () =>{
     const headquatersErr="";
     let isValid=true;
 
-    if(headquaters==""){
+    if(headquarters==""){
       isValid=false;
       setHeadquatersErr("Please enter a valid headquaters");
     }
@@ -362,11 +365,13 @@ const ceoValidation = () =>{
   return(
   <div key={data.id}>
   <NavBar />
+  <div className="edit-div" style={{marginTop:"1%",backgroundColor: "#EEEEEE"}}>
+  </div>
     <div className="profile-page-edit">
         <div className="info-profile-title page-body-edit shadow edit">
         <Row>
         <Col>
-        <h2><strong>Edit Company Page</strong></h2>
+        <h2 style={{padding:"3%"}}><strong>Edit Company Page</strong></h2>
         </Col>
         <Col>
         <img src="/images/editcompany.jpeg" alt="edit-company" style={{width:"40%",marginLeft:"40%"}} />
@@ -396,7 +401,7 @@ const ceoValidation = () =>{
               </div>
               ) : (
               <div style={{textAlign:"left"}} className="hidden">
-                  <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"3%"}} onClick={() => setEditWebsiteVisible(true)}>
+                  <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"4%"}} onClick={() => setEditWebsiteVisible(true)}>
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                   <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
                   </path>
@@ -433,7 +438,7 @@ const ceoValidation = () =>{
                   </div>
                   ) : (
                   <div style={{textAlign:"left"}} className="hidden">
-                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"3%"}} onClick={() => setEditCompanySize(true)}>
+                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"4%"}} onClick={() => setEditCompanySize(true)}>
                       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
                       </path>
@@ -470,7 +475,7 @@ const ceoValidation = () =>{
                   </div>
                   ) : (
                   <div style={{textAlign:"left"}} className="hidden">
-                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"3%"}} onClick={() => setEditCompanyType(true)}>
+                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"4%"}} onClick={() => setEditCompanyType(true)}>
                       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
                       </path>
@@ -507,7 +512,7 @@ const ceoValidation = () =>{
                   </div>
                   ) : (
                   <div style={{textAlign:"left"}} className="hidden">
-                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"3%"}} onClick={() => setEditRevenue(true)}>
+                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"4%"}} onClick={() => setEditRevenue(true)}>
                       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
                       </path>
@@ -544,7 +549,7 @@ const ceoValidation = () =>{
                   </div>
                   ) : (
                   <div style={{textAlign:"left"}} className="hidden">
-                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"3%"}} onClick={() => setEditHeadquarters(true)}>
+                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"4%"}} onClick={() => setEditHeadquarters(true)}>
                       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
                       </path>
@@ -581,7 +586,7 @@ const ceoValidation = () =>{
                   </div>
                   ) : (
                   <div style={{textAlign:"left"}} className="hidden">
-                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"3%"}} onClick={() => setEditIndustry(true)}>
+                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"4%"}} onClick={() => setEditIndustry(true)}>
                       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
                       </path>
@@ -618,7 +623,7 @@ const ceoValidation = () =>{
                   </div>
                   ) : (
                   <div style={{textAlign:"left"}} className="hidden">
-                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"3%"}} onClick={() => setEditFounded(true)}>
+                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"4%"}} onClick={() => setEditFounded(true)}>
                       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
                       </path>
@@ -651,12 +656,12 @@ const ceoValidation = () =>{
                 </textarea>
                 <div className="error-msg-edit" style={{color:"red"}}>{missionErr}</div>
                   <div className="save-button">
-                      <button type="button" className="button-edit" style={{margin:"30px"}} onClick={handleMissionChange}>Save Changes</button>
+                      <button type="button" className="button-edit" style={{margin:"30px"}} onClick={handleMissionChange}>Save</button>
                   </div>
                   </div>
                   ) : (
                   <div style={{textAlign:"left"}} className="hidden">
-                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"3%"}} onClick={() => setEditMission(true)}>
+                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"4%"}} onClick={() => setEditMission(true)}>
                       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
                       </path>
@@ -693,7 +698,7 @@ const ceoValidation = () =>{
                   </div>
                   ) : (
                   <div style={{textAlign:"left"}} className="hidden">
-                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"3%"}} onClick={() => setEditCEO(true)}>
+                      <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-100%",width:"4%"}} onClick={() => setEditCEO(true)}>
                       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
                       </path>
@@ -708,6 +713,10 @@ const ceoValidation = () =>{
                   <hr/>
                 </div>
                   )}
+        </div>
+        <div className="page-body-logo shadow-add">
+        <p style={{color:"#9E9E9E",padding:"1%"}}>©2021 Indeed·6433 Champion Grandview Way Building 1, Austin, TX 78750</p>
+        <p style={{color:"#9E9E9E",padding:"1%"}}>Cookies, privacy and terms–Privacy center–Security–Do not sell my personal information–Contact</p>
         </div>
       </div>
     </div>

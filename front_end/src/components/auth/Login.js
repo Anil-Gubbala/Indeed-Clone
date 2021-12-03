@@ -27,7 +27,8 @@ export const Login = ({login,  isAuthenticated, details, state}) => {
         return <Redirect to="/landing" />;
         }
         else{
-            return <Redirect to="/company" />;
+
+            return <Redirect to="/addcompany" />;
         }
       }
     return (
@@ -74,6 +75,7 @@ export const Login = ({login,  isAuthenticated, details, state}) => {
                                             Remember password
                                         </label>
                                     </div>
+                                    <Link to='/register'>Register Here</Link>
                                     <div class="d-grid">
                                         <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
                                             in</button>

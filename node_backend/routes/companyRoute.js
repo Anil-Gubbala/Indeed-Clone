@@ -35,6 +35,21 @@ router.post("/company", async (request, response) => {
   }
 });
 
+router.post("/salary", async (request, response) => {
+  console.log(request.body);
+  try {
+    const data = await companyService.saveSalaryDetails(request);
+    response.status(data.status).json(data.body);
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while Saving company Details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
 // //Get company by id or by emailid, password and account type
 // router.get("/company", async (request, response) => {
 //   try {
@@ -53,6 +68,20 @@ router.post("/company", async (request, response) => {
 router.get("/company", async (request, response) => {
   try {
     const data = await companyService.getCompanyDetails(request);
+    response.status(data.status).json(data.body);
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting company Details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
+router.get("/salary", async (request, response) => {
+  try {
+    const data = await companyService.getSalaryDetails(request);
     response.status(data.status).json(data.body);
   } catch (err) {
     console.log(err);
@@ -177,8 +206,9 @@ router.post("/reviews", async (request, response) => {
 router.get("/companySearch", async (request, response) => {
   try {
     console.log("Entered company");
-    const data = await companyService.getCompanyDetails_nameloc(request);
-    response.status(data.status).json(data.body);
+    await companyService.getCompanyDetails_nameloc(request,response);
+    // console.log("data",data);
+    // response.status(data.status).json(data.body);
   } catch (err) {
     console.log(err);
     const message = err.message

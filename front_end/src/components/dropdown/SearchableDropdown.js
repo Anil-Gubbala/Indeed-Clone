@@ -11,17 +11,37 @@ import DashNav from '../navbar/DashNav';
 import $ from 'jquery';
 import Popper from 'popper.js';
 import axios from 'axios';
+import Rating from '@material-ui/lab/Rating';
+import { Link, Redirect } from 'react-router-dom';
+
+
 export const SearchableDropdown = ({list, location}) => {
     const [value, setValue] = useState('');
     const [city, setCity] = useState('');
+    const [avgrating, setAvgRating] = useState(0.0);
+    const [countreviews, setCountReviews] = useState(0);
     const [toggle, setToggle] = useState('');
     const [citytoggle, setCityToggle] = useState('');
     const [cart, setCart] = useState([]);
     const [jobList, setJobList] = useState([]);
+    const [joblocation, setLocation] = useState('');
+    const [jobtitle, setJobTitle] = useState('');
+    const [jobrole, setJobRole] = useState('');
+    const [jobsarraydb, setJobsArrayDb] = useState([]);
+
     const addToPopup = (el) => {
 
         setCart([el]);
-    
+        async function fetch() {
+          console.log(el.companyId._id);
+          var compid=JSON.stringify(el.companyId._id);
+          var reqavgrating =await axios.post('/empReviews/avgrating',{"companyId":el.companyId._id});
+          setAvgRating(reqavgrating.data[0].avgrating.toFixed(1));
+          setCountReviews(reqavgrating.data[0].totalreviews)
+          console.log(reqavgrating.data[0].avgrating.toFixed(1));
+        }
+        fetch();
+        
       }
 
       const apply = () => {
@@ -34,8 +54,10 @@ export const SearchableDropdown = ({list, location}) => {
           <div class="Header">
           <img src="https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/8af1f1544e551bf42990ae60c8e5ccd8" alt="company" width="670" height="100"/>
             <p>{jobdetails.role}</p>
-            <p>{jobdetails.companyId.name}</p>
-            
+            <p><Link to={{pathname:"/companyHomes", state: {companyId: jobdetails.companyId._id }}}>{jobdetails.companyId.name} </Link> &nbsp; {avgrating} &nbsp; {countreviews}</p>
+
+            <Rating name="half-rating-read" defaultValue={2.0} precision={0.5} readOnly />
+
             <a><button type="button" class="btn btn-primary">Apply Now</button></a>
             <button type="button" class="btn btn-primary lovesymbol">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
@@ -72,19 +94,42 @@ export const SearchableDropdown = ({list, location}) => {
         //   ).flat();
         
         setJobList(re.data);
+        setJobsArrayDb(re.data);
         }
         fetchData();
     }, [])
+
+
+    
 
     const onSubmit = async e => {
         e.preventDefault();
         console.log(value+" "+city);
         var r = await axios.post('/filterjob',{role:value,location:city});
-        // const result = r.data.map(
-        //     ({details, ...rest}) => details.map(o => Object.assign({}, rest, o))
-        //   ).flat();
+        
+        if (value == "" && city == "") {
+          console.log("reached if");
+          setJobList(r.data);
+        }
+        else{
+          console.log("reached else");
+      let arra = [];
+      arra = jobsarraydb.filter((salary) => {
+        return (
+          (salary.role == value || salary.companyId.name == value ||
+            value == "") &&
+          (salary.location.city == city ||
+            city == "")
+        );
+      });
+      setJobList(arra);
+        }
+
+
+
+
         console.log(r.data);
-        setJobList(r.data);
+       // setJobList(r.data);
     }
     return (
         <>
@@ -103,14 +148,14 @@ export const SearchableDropdown = ({list, location}) => {
 
          <div class="form-text">
         <div class="input-box">
-      <Input onChange={(inputValue) =>{setValue(inputValue); setToggle(true)}} value={value} autofocus="autofocus"/>
+      <Input class="dashboardinput" onChange={(inputValue) =>{setValue(inputValue); setToggle(true)}} value={value} autofocus="autofocus"/>
        <span class="unit">What</span>
           </div>
         </div>
 
       <div>
         <div class="input-box">
-      <Input onChange={(inputValue) =>{setCity(inputValue); setCityToggle(true)}} value={city} autofocus="autofocus"/>
+      <Input class="dashboardinput" onChange={(inputValue) =>{setCity(inputValue); setCityToggle(true)}} value={city} autofocus="autofocus"/>
        <span class="unit">Where</span>
           </div>
           </div>

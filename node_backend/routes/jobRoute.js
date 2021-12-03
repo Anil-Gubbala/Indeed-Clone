@@ -83,8 +83,8 @@ router.get("/getjobinsearch", async (request, response) => {
 
 router.get("/jobsearch", async (request, response) => {
   try {
-    const data = await jobService.getJobDetails_search(request);
-    response.status(data.status).json(data.body);
+    await jobService.getJobDetails_search(request,response);
+    // response.status(data.status).json(data.body);
   } catch (err) {
     console.log(err);
     const message = err.message

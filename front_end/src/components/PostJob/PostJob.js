@@ -4,6 +4,7 @@ import Navbar from'../EmpNavbar/EmpNavbar';
 import './PostJob.css'
 import Axios from 'axios';
 import image from '../images/indeed-postjob.png'
+import about from '../images/about.jpg'
 
 
 function PostJob(){
@@ -11,32 +12,45 @@ function PostJob(){
 	const[companyName,setCompanyName]=useState(" ");
 	const[jobTitle,setJobTitle]=useState(" ");
 	const[industry,setIndustry]=useState(" ");
+	const[role,setRole]=useState(" ");
 	const[country,setCountry]=useState(" ");
 	const[jobType,setJobType]=useState(" ");
 	const[type,setType]=useState(" ");
 	const[salaryDetails,setSalaryDetails]=useState(" ");
 	const[need,setNeed]=useState(" ");
-	const[what,setWhat]=useState(" ");
 	const[why,setWhy]=useState(" ");
 	const[street,setStreet]=useState(" ");
 	const[city,setCity]=useState(" ");
 	const[state,setState]=useState(" ");
 	const[zip,setZip]=useState(" ");
-	/*var job={"Company Name":"","Job title":"","Industry":"","Country":"","Job Type":"","Work":"",
-	"Salary Details":"","What you wil do":"","Why you'll love this job":"","What you Need":"","Street address":"",
-"City":"", "State":"","Zip":""};
-const[cart,setCart]=useState(job);*/
+	const[errorMsg,setErrorMsg]=useState(" ");
+	var newJob={CompanyName:"",JobTitle:"",JobType:"",Work:"",
+	SalaryDetails:"",Street:"",City:"", State:"",Zip:""};
+const[cart,setCart]=useState(newJob);
+
+
+
 
 	const postThisJob=()=>{
 		console.log("posting job");
+
 		Axios.post("http://localhost:8080/postJob",{companyId:localStorage.getItem('companyId'), companyName:companyName, jobTitle:jobTitle,
-    industry:industry, country: country, jobType: jobType, type: type,salaryDetails: salaryDetails, what:what, why:why,need:need, street: street,
-		  city: city, state: state, zip:zip}).then((response)=>{
+    industry:industry,role:role, country: country, jobType: jobType, type: type,salaryDetails: salaryDetails, why:why,need:need, street: street,
+		  city: city, state: state, zip:zip,}).then((response)=>{
 				console.log(response.data.payload);
 
         });
-      navigate.push('/EmployerLanding');       
+      navigate.push('/EmployerLanding');
 	}
+	const limit=(element)=>{
+		var max_chars = 5;
+
+		if(element.length < max_chars||element.length > max_chars) {
+			setErrorMsg("The Zipcode should be of length 5");
+		}
+	}
+
+
 
 
     return(
@@ -44,11 +58,11 @@ const[cart,setCart]=useState(job);*/
 		<div className="postjob">
 		           <div className="row">
 				   <div className="coloumn1">
-			
+
 			</div>
 
                <div className="coloumn2">
-				
+
 		<form className='postAJob' onSubmit={()=>{postThisJob();}}>
 
 		                <div className='joProp'>
@@ -62,25 +76,39 @@ const[cart,setCart]=useState(job);*/
                             <p className='label'>1. Company Name<span style={{color:"red"}}>*</span></p>
                             <input type="text" className="input" required
 							onChange={(e)=>{
-                    setCompanyName(e.target.value);}}></input>
+                    setCompanyName(e.target.value);
+					cart.CompanyName=e.target.value;
+					setCart(cart);
+				}
+
+					}></input>
 
                         </div>
 
                         <div className='joProp'>
                             <p className='label'>2. Job title<span style={{color:"red"}}>*</span></p>
                             <input type="text" required className="input" onChange={(e)=>{
-                    setJobTitle(e.target.value); }}></input>
-                            
+                    setJobTitle(e.target.value);
+					cart.JobTitle=e.target.value;
+					setCart(cart);
+					}}></input>
+
                         </div>
                         <div className='joProp'>
                             <p className='label'>3. Industry<span style={{color:"red"}}>*</span></p>
                             <input type="text" required className="input" onChange={(e)=>{
                     setIndustry(e.target.value); }}></input>
-                            
+
+                        </div>
+						<div className='joProp'>
+                            <p className='label'>4. Role<span style={{color:"red"}}>*</span></p>
+                           <textarea required className="input" onChange={(e)=>{
+                    setRole(e.target.value); }} style={{height:"150px"}}></textarea>
+
                         </div>
                         <div className='joProp'>
-                            <p className='label'>4. Country<span style={{color:"red"}}>*</span></p>
-                            
+                            <p className='label'>5. Country<span style={{color:"red"}}>*</span></p>
+
                                 <select type="text" required className="input" onChange={(e)=>{
                     setCountry(e.target.value); }}>
                                 <option value="AF">Afghanistan</option>
@@ -332,25 +360,31 @@ const[cart,setCart]=useState(job);*/
 	<option value="YE">Yemen</option>
 	<option value="ZM">Zambia</option>
 	<option value="ZW">Zimbabwe</option>
-                    
+
                                 </select>
-                            
+
 
                         </div>
                         <div className='joProp'>
-                            <p className='label'>5. Job Type<span style={{color:"red"}}>*</span></p>
+                            <p className='label'>6. Job Type<span style={{color:"red"}}>*</span></p>
                             <select type="text" required className="input" onChange={(e)=>{
-                    setJobType(e.target.value); }}>
+                    setJobType(e.target.value);
+					cart.JobType=e.target.value;
+					setCart(cart);
+					}}>
 						    <option ></option>
                             <option value="Remote">Remote</option>
 	                         <option value="In- Person">In- Person</option>
                             </select>
-                            
+
                         </div>
                         <div className='joProp'>
-                            <p className='label'>6. Type<span style={{color:"red"}}>*</span></p>
+                            <p className='label'>7. Type<span style={{color:"red"}}>*</span></p>
                             <select type="text" required className="input" onChange={(e)=>{
-                    setType(e.target.value); }}>
+                    setType(e.target.value);
+					cart.Work=e.target.value;
+					setCart(cart);
+					}}>
 						    <option ></option>
                             <option value="Part-Time">Part-Time</option>
 	                         <option value="Full-Time">Full-Time</option>
@@ -358,65 +392,85 @@ const[cart,setCart]=useState(job);*/
 
                         </div>
 						<div className='joProp'>
-                            <p className='label'>7. Salary Details<span style={{color:"red"}}>*</span></p>
+                            <p className='label'>8. Salary Details<span style={{color:"red"}}>*</span></p>
                            <input type="text" required className="input" onChange={(e)=>{
-                    setSalaryDetails(e.target.value); }}></input>
-                           
+                    setSalaryDetails(e.target.value);
+					cart.SalaryDetails=e.target.value;
+					setCart(cart);
+					}}></input>
+
                         </div>
-						<div className='joProp'>
-                            <p className='label'>8. What you wil do<span style={{color:"red"}}>*</span></p>
-                           <textarea required className="input" onChange={(e)=>{
-                    setWhat(e.target.value); }} style={{height:"150px"}}></textarea>
-                           
-                        </div>
+
 						<div className='joProp'>
                             <p className='label'>9. Why you'll love this job<span style={{color:"red"}}>*</span></p>
                            <textarea required className="input" onChange={(e)=>{
                     setWhy(e.target.value); }} style={{height:"150px"}}></textarea>
-                           
+
                         </div>
 						<div className='joProp'>
                             <p className='label'>10. What you Need<span style={{color:"red"}}>*</span></p>
                            <textarea required className="input" onChange={(e)=>{
                     setNeed(e.target.value); }} style={{height:"150px"}}></textarea>
-                           
+
                         </div>
                         <div className='joProp'>
                             <p className='label'>11. Street address<span style={{color:"red"}}>*</span></p>
                            <input type="text" required className="input" onChange={(e)=>{
-                    setStreet(e.target.value); }}></input>
-                           
+                    setStreet(e.target.value);
+					cart.Street=e.target.value;
+					setCart(cart);
+					}}></input>
+
                         </div>
                         <div className='joProp'>
                             <p className='label'>12. City<span style={{color:"red"}}>*</span></p>
                             <input type="text" required className="input" onChange={(e)=>{
-                    setCity(e.target.value); }}></input>
-                           
+                    setCity(e.target.value);
+					cart.City=e.target.value;
+					setCart(cart);
+					}}></input>
+
                         </div>
                         <div className='joProp'>
                             <p className='label'>13. State<span style={{color:"red"}}>*</span></p>
                             <input type="text" required className="input" onChange={(e)=>{
-                    setState(e.target.value); }}></input>
-                            
+                    setState(e.target.value);
+					cart.State=e.target.value;
+					setCart(cart);
+					}}></input>
+
                         </div>
                         <div className='joProp'>
                             <p className='label'>14. Zip Code<span style={{color:"red"}}>*</span></p>
-                            <input type="text" required className="input" onChange={(e)=>{
-                    setZip(e.target.value); }}></input>
-                            
+                            <input type="number" required className="input" onChange={(e)=>{
+                    setZip(e.target.value);
+					limit(e.target.value);
+					cart.Zip=e.target.value;
+					setCart(cart);
+					}}></input>
+
                         </div>
+						<span style={{color:"red"}}>{errorMsg}</span>
 						<div className='joProp'>
 						<button className="btnpostJob" type="submit">Post a Job</button>
 						</div>
- 
+
         </form>
 		</div>
 		<div className="coloumn3">
 		<div className='joProp'>
 		<p style={{fontWeight: "bold"}}>About this Job:</p>
+		<img src={about} alt='img' style={{height:"12%", width:"90%"}}/>
 		<p style={{fontSize: "12px"}}>We use this information to find the best candidates for this job</p>
+		<p>Company: {cart.CompanyName}</p>
+		<p>Job: {cart.JobTitle}</p>
+		<p>Job Type: {cart.JobType}</p>
+		<p>Work: {cart.Work}</p>
+		<p>Salary: {cart.SalaryDetails}</p>
+		<p>Address: {cart.Street} {cart.City} {cart.Zip}</p>
+
 		</div>
-	  
+
 	</div>
 		</div>
  </div></>

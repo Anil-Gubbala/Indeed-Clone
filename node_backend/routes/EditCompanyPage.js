@@ -13,7 +13,7 @@ router.put("/website",(req,res) =>{
     }
     else{
       let payload={
-        role:data.data.role,
+        website:data.data.website,
       }
       console.log("payload in backend",JSON.stringify(payload))
       res.status(200).json({payload});
@@ -22,17 +22,17 @@ router.put("/website",(req,res) =>{
 })
 
 router.put("/size",(req,res) =>{
-  console.log("Inside Employer Edit Role Page");
+  console.log("Inside Employer Edit Size Page");
   kafka.makeRequest("changeSize",req.body,(err,data) =>{
     if(err){
       res.writeHead(400,{
         "Content-type":"text/plain",
       });
-      res.end("Cannot save employer name details");
+      res.end("Cannot save company size details");
     }
     else{
       let payload={
-        role:data.data.role,
+        companySize:data.data.companySize,
       }
       console.log("payload in backend",JSON.stringify(payload))
       res.status(200).json({payload});
@@ -51,7 +51,7 @@ router.put("/type",(req,res) =>{
     }
     else{
       let payload={
-        role:data.data.role,
+        companyType:data.data.companyType,
       }
       console.log("payload in backend",JSON.stringify(payload))
       res.status(200).json({payload});
@@ -70,7 +70,7 @@ router.put("/revenue",(req,res) =>{
     }
     else{
       let payload={
-        role:data.data.role,
+        revenue:data.data.revenue,
       }
       console.log("payload in backend",JSON.stringify(payload))
       res.status(200).json({payload});
@@ -89,7 +89,7 @@ router.put("/headquaters",(req,res) =>{
     }
     else{
       let payload={
-        role:data.data.role,
+        headquaters:data.data.headquaters,
       }
       console.log("payload in backend",JSON.stringify(payload))
       res.status(200).json({payload});
@@ -108,7 +108,7 @@ router.put("/industry",(req,res) =>{
     }
     else{
       let payload={
-        role:data.data.role,
+        industry:data.data.industry,
       }
       console.log("payload in backend",JSON.stringify(payload))
       res.status(200).json({payload});
@@ -127,7 +127,7 @@ router.put("/founded",(req,res) =>{
     }
     else{
       let payload={
-        role:data.data.role,
+        founded:data.data.founded,
       }
       console.log("payload in backend",JSON.stringify(payload))
       res.status(200).json({payload});
@@ -146,7 +146,7 @@ router.put("/mission",(req,res) =>{
     }
     else{
       let payload={
-        role:data.data.role,
+        mission:data.data.mission,
       }
       console.log("payload in backend",JSON.stringify(payload))
       res.status(200).json({payload});
@@ -165,7 +165,7 @@ router.put("/ceo",(req,res) =>{
     }
     else{
       let payload={
-        role:data.data.role,
+        ceo:data.data.ceo,
       }
       console.log("payload in backend",JSON.stringify(payload))
       res.status(200).json({payload});

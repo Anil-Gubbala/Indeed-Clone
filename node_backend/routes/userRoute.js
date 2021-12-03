@@ -2,13 +2,17 @@ const express = require('express');
 const router = express.Router();
 const userService = require('../services/userService');
 const User = require('../db/schema/user');
+const userSchema = require("../db/schema/user").createModel();
 var mysql = require('mysql');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var constraints = require('../kafka/config');
 const config = require('../Utils/config')
 const { kafkaRequest } = require('../kafka/kafkaRequest');
+const CompanySchema = require("../db/schema/company").createModel();
+const mongoose = require("mongoose");
 const saltRounds = 10;
+
 
 const sqlconnection = mysql.createPool({
   host: constraints.DB.host,
@@ -318,6 +322,47 @@ router.get('/user', async (req, res) => {
   );
 });
 
+
+router.get("/userReviews", async (request, response) => {
+  // const id = request.query.id;
+  const id = "61a6c779cc2ed4d1abc2c1ad";
+  try {
+    sqlconnection.query(
+      `SELECT * FROM indeed.reviews WHERE userId=?`,
+      id,
+      function (error, results) {
+        const resultMap = {};
+        results.forEach((each)=>{
+          resultMap[each.companyId] = each;
+        });
+
+        const keys = Object.keys(resultMap);
+        console.log(keys);
+        CompanySchema.find({ _id: { $in: keys } })
+        .select(["name"])
+        .then((res) => {
+          const resMap = [];
+          res.forEach((each) => {
+            const temp = {};
+            temp._id = each._id;
+            temp.name = each.name;
+            temp.results = resultMap[each._id];
+            resMap.push(temp);
+          });
+          console.log(resMap);
+        response.send(resMap);
+      }
+    );
+  })} catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting user Details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
 //Get user by id or by emailid, password and account type
 // router.get('/use', async (request, response) => {
 //   try {
@@ -382,6 +427,30 @@ router.get('/signout', (req, res) => {
   } else {
     res.send();
   }
+});
+
+router.get('/addfav', (req,res)=>{
+  try{   
+    const {emailId,jobId} = req.body;
+    userSchema.findOneAndUpdate({emailId:emailId},{$addToSet:{savedJobs:jobId}},function(err,doc){
+    //const adddata = await User.find({});
+      if(doc){
+        res.send("success");
+      }
+      else{
+        res.send("failure");
+      }
+      });
+    }
+ catch (err) {
+     console.log(err);
+     const message = err.message
+       ? err.message
+       : 'Error while getting user Details';
+    const code = err.statusCode ? err.statusCode : 500;
+     return res.status(code).json({ message });
+     }
+
 });
 
 module.exports = router;

@@ -16,6 +16,12 @@ router.post("/Profile",(req,res) =>{
       res.end("Cannot fetch employer details");
     }
     else if(data.status===200){
+      if(data.data==null){
+        const payload = "Looks like you have not yet entered your details! Please enter your details to save it!"
+        res.status(200).json({payload});
+        console.log("payload in profile",payload)
+      }
+      else{
       const payload={
         firstName:data.data.employerName.firstName,
         lastName:data.data.employerName.lastName,
@@ -30,6 +36,7 @@ router.post("/Profile",(req,res) =>{
       // res.end(JSON.stringify(data));
       console.log("payload in profile",payload)
     }
+  }
     else{
           console.log(err)
       res.writeHead(400,{

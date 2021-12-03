@@ -17,11 +17,11 @@ class DashNav extends Component {
 
   render() {
     return (
-        <nav class="navbar navbar-expand-md  ">
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
+        <nav className="navbar navbar-expand-md  ">
+        <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul className="navbar-nav mr-auto">
+                <li className="nav-item active">
+                    <a className="nav-link" href="#">
 
                     <svg
                         width="108"
@@ -42,18 +42,18 @@ class DashNav extends Component {
 
                     </a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link">
+                <li className="nav-item">
+                <a className="nav-link">
                 <Link to="/company">Find Jobs</Link>
                 </a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link">
+                <li className="nav-item">
+                <a className="nav-link">
                 <Link to="/company">Company Reviews</Link>
                 </a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link">
+                <li className="nav-item">
+                <a className="nav-link">
                 <Link to="/company">Find Salaries</Link>
                 </a>
                 </li>
@@ -61,20 +61,20 @@ class DashNav extends Component {
             </ul>
         </div>
        
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                <a class="nav-link">
+        <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                <a className="nav-link">
                 <Link to="/company">Upload your resume</Link>
                 </a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link">
+                <li className="nav-item">
+                <a className="nav-link">
                 <Link to="/login">Sign in</Link>
                 </a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link">
+                <li className="nav-item">
+                <a className="nav-link">
                 <Link to="/company">Post Job</Link>
                 </a>
                 </li>

@@ -26,6 +26,7 @@ router.post('/viewJobs',(req, res)=>{
             JobType:data.data[i].work,
             Type:data.data[i].type,
             Street:data.data[i].street,
+            Date:data.data[i].date,
           
               City:data.data[i].location.city,
               State:data.data[i].location.state,
