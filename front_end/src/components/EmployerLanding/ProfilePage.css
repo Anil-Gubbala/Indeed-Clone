@@ -39,15 +39,16 @@
 .main-heading{
   justify-content: center;
   white-space: nowrap;
-  margin-left: -87%;
+  margin-left: -83%;
+  margin-top: 4%;
 
 }
 
 .circle {
   display: flex;
-  width: 70px;
-  height: 70px;
-  background-color: blue;
+  width: 19%;
+  height: auto;
+  background-color: white;
   border-radius: 100%;
 
 }
@@ -90,13 +91,14 @@
   height: auto;
 }
 
-.main-heading{
-  margin-top:1%;
-}
-
 p{
   font-weight: 500;
 }
 .shadow{
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
+}
+
+.form-field{
+  width: 100%;
+  height:35px;
 }

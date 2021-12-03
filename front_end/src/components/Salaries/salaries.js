@@ -13,6 +13,7 @@ import CompanyBox from '../layout/CompanyBox';
 import { SearchButton, useStyles } from '../reviews/companyreviewstyles';
 import './salaries.css';
 import SalaryBox from '../layout/SalariesBox';
+import DashLoginNav from '../navbar/DashLoginNav';
 
 function Salaries() {
   console.log('Entered');
@@ -43,6 +44,7 @@ function Salaries() {
 
   return (
     <div>
+       <DashLoginNav/>
       <div className="head">
         <div className="picoutline">
           <img
@@ -155,7 +157,7 @@ function Salaries() {
           </div>
         </div>
       </div>
-      <div className="toppaying">
+      <div className="toppaying" style={{height: '500px'}}>
         <div>
           <h2 className="toppaying_header">
             Top companies for Software Engineers in United States

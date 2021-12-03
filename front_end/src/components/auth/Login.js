@@ -27,7 +27,8 @@ export const Login = ({login,  isAuthenticated, details, state}) => {
         return <Redirect to="/landing" />;
         }
         else{
-            return <Redirect to="/company" />;
+
+            return <Redirect to="/addcompany" />;
         }
       }
     return (

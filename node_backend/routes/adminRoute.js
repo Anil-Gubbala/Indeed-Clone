@@ -7,7 +7,7 @@ router.post("/updateView", (req, res) => {
   kafkaRequest(
     "admin",
     "updateView",
-    { _id: "61960b7c79026b0aab6bef86", date: new Date() },
+    { _id: req.body.id, date: new Date() },
     (err, result) => {
       if (err) {
         res.status(500).send({});
@@ -77,6 +77,7 @@ router.get("/getTopJobSeekers", (req, res) => {
     }
   });
 });
+
 router.get("/getTopRatedCEOs", (req, res) => {
   kafkaRequest("admin", "getTopRatedCEOs", {}, (err, result) => {
     if (err) {
@@ -98,6 +99,7 @@ router.get("/getCompanyJobStatistics", (req, res) => {
 });
 
 router.get("/getUnfilteredReviews", (req, res) => {
+  
   kafkaRequest("admin", "getUnfilteredReviews", {}, (err, result) => {
     if (err) {
       res.status(500).send({});
@@ -106,6 +108,7 @@ router.get("/getUnfilteredReviews", (req, res) => {
     }
   });
 });
+
 router.get("/getUnfilteredImages", (req, res) => {
   kafkaRequest("admin", "getUnfilteredImages", {}, (err, result) => {
     if (err) {
@@ -115,8 +118,10 @@ router.get("/getUnfilteredImages", (req, res) => {
     }
   });
 });
+
 router.put("/flagReview", (req, res) => {
-  kafkaRequest("admin", "flagReview", {}, (err, result) => {
+  const {_id, approved} = req.body;
+  kafkaRequest("admin", "flagReview", {status:approved ? 1: 2, id:_id}, (err, result) => {
     if (err) {
       res.status(500).send({});
     } else {
@@ -124,8 +129,10 @@ router.put("/flagReview", (req, res) => {
     }
   });
 });
+
 router.put("/flagImage", (req, res) => {
-  kafkaRequest("admin", "flagImage", {}, (err, result) => {
+  const {_id, approved} = req.body;
+  kafkaRequest("admin", "flagImage", {status:approved ? 1:2, _id}, (err, result) => {
     if (err) {
       res.status(500).send({});
     } else {

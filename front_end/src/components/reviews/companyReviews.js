@@ -11,6 +11,7 @@ import CompanyBox from '../layout/CompanyBox';
 // import { searchCompany, getCompanyReviews } from '../../Redux/CompanyReviews/action';
 import { SearchButton, useStyles } from './companyreviewstyles';
 import ReviewBox from '../layout/reviewsBox';
+import DashLoginNav from '../navbar/DashLoginNav';
 
 function CompanyReviews() {
   const classes = useStyles();
@@ -37,6 +38,8 @@ function CompanyReviews() {
   };
 
   return (
+    <div>
+    <DashLoginNav/>
     <Container className={classes.container} maxWidth="xl">
       <Grid container className={classes.boxSearch}>
         <Grid
@@ -185,6 +188,7 @@ function CompanyReviews() {
         </Grid>
       </Grid>
     </Container>
+    </div>
   );
 }
 

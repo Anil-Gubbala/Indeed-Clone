@@ -2,7 +2,7 @@ import React,{useState,useRef,useEffect} from "react"
 import {Row,Col} from "react-bootstrap"
 import { post,put } from '../../utils/serverCall';
 import "./ProfilePage.css"
-import NavBar from "./../navbar/employerNavBar"
+import NavBar from "./../EmpNavbar/EmpNavbar"
 import { IoIosLock } from 'react-icons/io';
 
 const ProfilePage = () => {
@@ -212,14 +212,15 @@ const addressValidation = () =>{
 }
 
   return(
-    <div className="body-profile">
+    <>
     <NavBar/>
+    <div className="body-profile">
     <div>
     <div className="first">
     <Row>
     <Col>
     <div className="circle">
-    <h1 className="text">{getAcronym(employerData.firstName,employerData.lastName)}</h1>
+    <h1 className="text" style={{backgroundColor:"white",marginTop:"10%"}}>{getAcronym(employerData.firstName,employerData.lastName)}</h1>
     </div>
     </Col>
     <Col>
@@ -237,7 +238,7 @@ const addressValidation = () =>{
           type="text"
           ref={inputRefContact}
           name="firstName"
-          className="form-control"
+          className="form-field"
           onChange={
             (e)=>{
               setFirstName(e.target.value);
@@ -250,7 +251,7 @@ const addressValidation = () =>{
           type="text"
           ref={inputRefContact}
           name="lastName"
-          className="form-control"
+          className="form-field"
           onChange={
             (e)=>{
               setLastName(e.target.value);
@@ -259,7 +260,7 @@ const addressValidation = () =>{
           />
           <div className="error-msg" style={{color:"red"}}>{lastNameErr}</div>
           <div className="save-button">
-          <button type="button" className="btn btn-primary btn-md" onClick={handleNameChange}>Save</button>
+          <button type="button" className="btn btn-primary btn-md" style={{margin:"30px",borderRadius:"1rem",width:"15%",backgroundColor:"#085ff7"}} onClick={handleNameChange}>Save</button>
           </div>
           </div>
         </div>
@@ -267,7 +268,7 @@ const addressValidation = () =>{
           <div className="info-profile page-body shadow name">
           <h6 className="heading-profile">Contact Information</h6>
           <div style={{textAlign:"left"}} className="hidden">
-          <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-99%",width:"3.5%"}} onClick={() => setEditContactVisible(true)}>
+          <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-98%",width:"5%"}} onClick={() => setEditContactVisible(true)}>
             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
               </path>
@@ -291,7 +292,7 @@ const addressValidation = () =>{
           type="text"
           ref={inputRefRole}
           name="role"
-          className="form-control"
+          className="form-field"
           onChange={
             (e)=>{
               setRole(e.target.value);
@@ -300,7 +301,7 @@ const addressValidation = () =>{
           />
           <div className="error-msg" style={{color:"red"}}>{roleErr}</div>
           <div className="save-button">
-          <button type="button" className="btn btn-primary btn-md" style={{margin:"30px"}} onClick={handleRoleChange}>Save</button>
+          <button type="button" className="btn btn-primary btn-md" style={{margin:"30px",borderRadius:"1rem",width:"15%",backgroundColor:"#085ff7"}} onClick={handleRoleChange}>Save</button>
           </div>
           </div>
         </div>
@@ -308,7 +309,7 @@ const addressValidation = () =>{
           <div className="info-profile page-body shadow role">
             <h6 className="heading-profile">Role</h6>
           <div style={{textAlign:"left"}} className="hidden">
-          <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-99%",width:"3.5%"}} onClick={() => setEditRoleVisible(true)}>
+          <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-98%",width:"5%"}} onClick={() => setEditRoleVisible(true)}>
           <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
               </path>
@@ -332,7 +333,7 @@ const addressValidation = () =>{
             type="text"
             ref={inputRefAddress}
             name="streetAddress"
-            className="form-control"
+            className="form-field"
             onChange={
               (e)=>{
                 setStreetAddress(e.target.value);
@@ -345,7 +346,7 @@ const addressValidation = () =>{
             type="text"
             ref={inputRefAddress}
             name="city"
-            className="form-control"
+            className="form-field"
             onChange={
               (e)=>{
                 setCity(e.target.value);
@@ -358,7 +359,7 @@ const addressValidation = () =>{
             type="text"
             ref={inputRefAddress}
             name="state"
-            className="form-control"
+            className="form-field"
             onChange={
               (e)=>{
                 setState(e.target.value);
@@ -371,7 +372,7 @@ const addressValidation = () =>{
             type="text"
             ref={inputRefAddress}
             name="zipCode"
-            className="form-control"
+            className="form-field"
             onChange={
               (e)=>{
                 setZipCode(e.target.value);
@@ -380,7 +381,7 @@ const addressValidation = () =>{
             />
             <div className="error-msg" style={{color:"red"}}>{zipCodeErr}</div>
             <div className="save-button">
-            <button type="button" className="btn btn-primary btn-md" style={{margin:"30px",borderRadius:"10%"}} onClick={handleAddressChange}>Save</button>
+            <button type="button" className="btn btn-primary btn-md" style={{margin:"30px",borderRadius:"1rem",width:"15%",backgroundColor:"#085ff7"}} onClick={handleAddressChange}>Save</button>
             </div>
             </div>
           </div>
@@ -388,7 +389,7 @@ const addressValidation = () =>{
             <div className="info-profile page-body shadow address">
             <h6 className="heading-profile">Address</h6>
             <div style={{textAlign:"left"}} className="hidden">
-            <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-99%",width:"3.5%"}} onClick={() => setEditAddressVisible(true)}>
+            <button type="button" style={{backgroundColor:"white",border:"none",justifyContent:"right",position:"relative",top:"50%",right:"-98%",width:"5%"}} onClick={() => setEditAddressVisible(true)}>
               <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path fill="black" d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z">
                 </path>
@@ -409,8 +410,12 @@ const addressValidation = () =>{
           </div>
         </div>
           )}
+          <div>
+          <p style={{textAlign:"center",textDecoration:"underline",padding:"3%",fontSize:"0.9rem",color:"#212121"}}>© 2021 Indeed - Cookies, Privacy and Terms - Do Not Sell My Personal Information</p>
+          </div>
         </div>
         </div>
+        </>
 );
 }
 
