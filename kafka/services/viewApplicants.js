@@ -4,6 +4,7 @@ const Applications=require('../db/schema/jobApplication').createModel()
 
 const handle_request = async (msg, callback) => {
     const res = {};
+    console.log(msg);
     Applications.find({jobId:msg.jobId},(error, applications) => {
           if (error) {
             console.log('Failed to fetch data');
