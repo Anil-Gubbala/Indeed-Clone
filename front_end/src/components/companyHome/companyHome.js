@@ -14,6 +14,7 @@ import PhotosTab from "../photosTab/photosTab";
 import JobsTab from "../jobsTab/jobsTab";
 import SalaryTab from "../salaryTab/salaryTab";
 import { get, post } from "../../utils/serverCall";
+import DashLoginNav from '../navbar/DashLoginNav';
 
 dotenv.config();
 
@@ -85,6 +86,7 @@ class companyHomes extends React.Component {
     }
     return (
       <>
+      <DashLoginNav/>
         {this.state.companyDetails == {} ? (
           ""
         ) : (
