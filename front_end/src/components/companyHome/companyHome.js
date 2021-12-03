@@ -21,15 +21,28 @@ const { TabPane } = Tabs;
 class companyHomes extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { companyDetails: {} };
+    this.state = { companyDetails: {} , companyId: '', tab:''};
   }
 
   componentDidMount() {
-    get("/company?id=" + "61a53b6e3ec1481dde76f327")
+    const query = new URLSearchParams(this.props.location.search);
+    const urlCompanyId = query.get('id');
+    let urlTab = query.get("tab");
+    if(!urlCompanyId){
+      //redirect 
+      console.log("redirect here");
+    }
+    if(!urlTab){
+      urlTab = 0;
+    }
+    // this.setState({tab:urlTab});
+    // this.setState({companyId:urlCompanyId});
+
+    get("/company?id=" + urlCompanyId)
       .then((response) => {
         console.log(response);
         this.setState({ companyDetails: response });
-        post("/updateView", { id: "61960b7c79026b0aab6bef86" })
+        post("/updateView", { id: urlCompanyId })
           .then((response) => {})
           .catch((err) => {
             console.log(err);
@@ -41,7 +54,23 @@ class companyHomes extends React.Component {
   }
 
   render() {
-    function callback(key) {
+
+    const query = new URLSearchParams(this.props.location.search);
+    const urlCompanyId = query.get('id');
+    let urlTab = query.get("tab");
+    if(!urlCompanyId){
+      //redirect 
+      console.log("redirect here");
+    }
+    if(!urlTab){
+      urlTab = 0;
+    }
+    // this.state.urlTab = urlTab;
+    // urlTab = parseInt(urlTab);
+    // console.log(urlTab);
+
+    
+     function callback(key){
       switch (key) {
         case "1":
           console.log("one called");
@@ -103,28 +132,28 @@ class companyHomes extends React.Component {
                 <div>
                   <div style={{ marginLeft: "10px" }}>
                     <Tabs
-                      defaultActiveKey="1"
+                      defaultActiveKey={urlTab}
                       onChange={callback}
                       indicatorColor="secondary"
                       style={{ width: "100%" }}
                     >
                       <TabPane tab="Snapshot" key="1">
-                        <Snapshot />
+                        <Snapshot id={urlCompanyId}/>
                       </TabPane>
                       <TabPane tab="Why Join Us" key="2">
-                        <WhyJoinUs />
+                        <WhyJoinUs id={urlCompanyId} />
                       </TabPane>
                       <TabPane tab="Reviews" key="3">
-                        <ReviewsTab />
+                        <ReviewsTab id={urlCompanyId}/>
                       </TabPane>
                       <TabPane tab="Salaries" key="4">
-                        <SalaryTab />
+                        <SalaryTab id={urlCompanyId}/>
                       </TabPane>
                       <TabPane tab="Photos" key="5">
-                        <PhotosTab />
+                        <PhotosTab id={urlCompanyId}/>
                       </TabPane>
                       <TabPane tab="Jobs" key="6">
-                        <JobsTab />
+                        <JobsTab id={urlCompanyId}/>
                       </TabPane>
                     </Tabs>
                   </div>

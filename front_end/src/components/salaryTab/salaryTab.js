@@ -39,7 +39,7 @@ class SalaryTab extends Component {
   }
 
   componentDidMount() {
-    get("/salary?id=" + "61960b7c79026b0aab6bef86")
+    get("/salary?id=" + this.props.id)
       .then((response) => {
         console.log(response);
         let arr = {};

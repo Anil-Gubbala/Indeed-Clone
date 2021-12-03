@@ -23,7 +23,7 @@ class Snapshot extends Component {
   }
 
   componentDidMount() {
-    get("/company?id=" + "61a928fd1610fee8ce06d3c2")
+    get("/company?id=" + this.props.id)
       .then((response) => {
         console.log(response);
         this.setState({
@@ -32,7 +32,7 @@ class Snapshot extends Component {
         let d = response.founded;
         d = JSON.stringify(d).substring(1, 5);
         this.setState({ dt: d });
-        get("/reviews?id=61a5f182d511b8e0df9b5fdd").then((resp) => {
+        get("/reviews?id=" + this.props.id).then((resp) => {
           let arr = resp.filter((review) => review.featured == 1);
           this.setState({ reviews: arr });
           console.log(arr);
