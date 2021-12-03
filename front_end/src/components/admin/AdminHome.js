@@ -12,6 +12,7 @@ import { isAdmin } from "../../utils/checkLogin";
 import { Redirect } from 'react-router-dom';
 import Analytics from "./Analytics";
 import ApproveImages from "./ApproveImages";
+import AdminCompany from "../adminCompany/adminCompany";
 
 function AdminHome() {
   if(! isAdmin()){
@@ -43,6 +44,9 @@ function AdminHome() {
             </TabPane>
             <TabPane tab="Analytics" key="3">
               <Analytics></Analytics>
+            </TabPane>
+            <TabPane tab="Companies" key="4">
+              <AdminCompany></AdminCompany>
             </TabPane>
           </Tabs>
         </div>

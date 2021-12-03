@@ -16,6 +16,7 @@ const {
   getUnfilteredImages,
   flagReview,
   flagImage,
+  getCompanyStatistics,
 } = require("../services/Admin");
 
 const {
@@ -40,7 +41,7 @@ const functionMap = {
   getUnfilteredImages,
   flagReview,
   flagImage,
-  getPassword, registerUser
+  getPassword, registerUser,getCompanyStatistics
 };
 
 const handle_request = (msg, callback) => {

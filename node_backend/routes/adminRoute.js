@@ -4,7 +4,7 @@ const { checkAuth } = require("../Utils/auth");
 
 const router = express.Router();
 
-router.post("/updateView", checkAuth , (req, res) => {
+router.post("/updateView" , (req, res) => {
   kafkaRequest(
     "admin",
     "updateView",
@@ -113,6 +113,16 @@ router.get("/getUnfilteredReviews", checkAuth , (req, res) => {
 
 router.get("/getUnfilteredImages", checkAuth , (req, res) => {
   kafkaRequest("admin", "getUnfilteredImages", {}, (err, result) => {
+    if (err) {
+      res.status(500).send({});
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+router.get("/getCompanyStatistics", checkAuth , (req, res) => {
+  kafkaRequest("admin", "getCompanyStatistics", {id:req.query.id}, (err, result) => {
     if (err) {
       res.status(500).send({});
     } else {

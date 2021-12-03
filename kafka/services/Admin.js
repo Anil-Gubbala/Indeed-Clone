@@ -20,6 +20,8 @@ const CompanySchema = require("../db/schema/company").createModel();
 const UserSchema = require("../db/schema/user").createModel();
 const ApplicationSchema = require("../db/schema/jobApplication").createModel();
 const ImageSchema = require("../db/schema/image").createModel();
+const JobApplicationSchema =
+  require("../db/schema/jobApplication").createModel();
 
 const getDate = (date = new Date()) => {
   return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
@@ -248,6 +250,32 @@ const getUnfilteredImages = (msg, callback) => {
     });
 };
 
+const getCompanyStatistics = (msg, callback) => {
+  
+  JobApplicationSchema.aggregate(
+    [
+      {
+        '$match': {
+          'companyId': mongoose.Types.ObjectId('61960b7c79026b0aab6bef86')
+        }
+      }, {
+        '$group': {
+          '_id': '$status', 
+          'count': {
+            '$sum': 1
+          }
+        }
+      }
+    ]
+  )
+    .then((result) => {
+      callback(null, result);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+};
+
 const flagReview = (msg, callback) => {
   conn.query(sql.flagReview, [msg.data.status, msg.data._id], (err, result) => {
     if (err) {
@@ -284,4 +312,5 @@ module.exports = {
   getUnfilteredImages,
   flagReview,
   flagImage,
+  getCompanyStatistics,
 };
