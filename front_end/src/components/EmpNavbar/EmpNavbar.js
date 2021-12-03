@@ -50,14 +50,12 @@ function Navbar(){
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 &nbsp;
-                <div style={{marginLeft:"20%"}}>{localStorage.getItem("emailId")}</div>
-                &nbsp;
                 <button type="button" className="btn btn-outline">
                 <Link to={"/employerProfile"}><a class="dropdown-item" href="#" style={{fontWeight:"bold"}}><ArticleIcon/>&nbsp; &nbsp;Profile</a></Link>
                 </button>
                 &nbsp;
                 <button type="button" className="btn btn-outline">
-                <Link to={"/addcompany"}><a class="dropdown-item" href="#" style={{fontWeight:"bold"}}><EditIcon/>&nbsp; &nbsp;Profile</a></Link>
+                <Link to={"/editcompany"}><a class="dropdown-item" href="#" style={{fontWeight:"bold"}}><EditIcon/>&nbsp; &nbsp;Edit Company</a></Link>
                 </button>
                 <hr style={{height:"2px",border:"none",color: "#333",backgroundColor: "#A7BBC7"}}/>
                 <button type="button" className="btn btn-outline" style={{marginLeft:"30%"}}>

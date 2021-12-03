@@ -243,7 +243,7 @@ export const SearchableDropdown = ({list, location}) => {
         {jobList.map((country,index) => (
           <div class="dash-button">
 
-            <li class="col-5 stunt" key={country.role.trim()}  onClick={() => addToPopup(country)}>
+            <li class="col-5 stunt" key={country.role}  onClick={() => addToPopup(country)}>
               <div >
                 <div class="maincard" >
     <div class="card yash">
