@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import Rating from "@mui/material/Rating";
 import DashLoginNav from '../navbar/DashLoginNav';
 import { get, post } from '../../utils/serverCall';
+import {isSignedIn, accountType  } from "../../utils/checkLogin";
 
 
 function MyReviews() {
@@ -15,6 +16,10 @@ function MyReviews() {
           setReviews(response);
         });
       }, []);
+
+      if(! isSignedIn()){
+        return <Redirect push to="/login" />;
+      }  
 
     const renderReviews = () => {
         return (
@@ -29,9 +34,9 @@ function MyReviews() {
                       return (
                         <>
                           <div>
-                          <a href="/companyHome">
-                            <h2 class="cow-CompanyReviews-cmp-name css-1q0r4vf e1tiznh50" style={{color: '#1890ff', paddingLeft: '60px'}}>{review.name}</h2>
-                          </a>
+                          <div><Link to={"/companyHomes?id="+ review.results.companyId}>
+                            <h2 class="cow-CompanyReviews-cmp-name css-1q0r4vf e1tiznh50" style={{color: '#1890ff', paddingLeft: '60px'}}>{review.name}</h2></Link>
+                            </div>
                             <div style={{ display: "flex", marginBottom: "25px" }}>
                               <div className="col-md-2">
                                 <div
@@ -62,8 +67,8 @@ function MyReviews() {
                                     paddingBottom: "0px",
                                   }}
                                 >
-                                    <a href = "/companyHomes">
-                                  {review.results.summary}</a>
+                                    <div>
+                                  {review.results.summary}</div>
                                 </div>
                                 <label style={{ color: "#767676" }}>
                                   {review.results.date}
@@ -135,7 +140,7 @@ function MyReviews() {
                             </div>
                             <div style={{ display: "flex" }}>
                               <div className="col-md-2"></div>
-                              <a href="/companyHomes"><h3 style={{color: "#1890ff"}}> -> View on company page</h3></a>
+                              <div > <Link to={"/companyHomes?id="+ review.results.companyId+"&review_id="+review.results._id}><h3 style={{color: "#1890ff"}}> -> View on company page</h3></Link></div>
                                 
                             </div>
     

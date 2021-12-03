@@ -49,12 +49,12 @@ class DashNav extends Component {
                 </li>
                 <li className="nav-item">
                 <a className="nav-link">
-                <Link to="/company">Company Reviews</Link>
+                <Link to="/reviews">Company Reviews</Link>
                 </a>
                 </li>
                 <li className="nav-item">
                 <a className="nav-link">
-                <Link to="/company">Find Salaries</Link>
+                <Link to="/salary">Find Salaries</Link>
                 </a>
                 </li>
                 

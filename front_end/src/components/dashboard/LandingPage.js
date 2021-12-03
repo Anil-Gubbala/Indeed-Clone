@@ -59,7 +59,10 @@ export const LandingPage = (props) => {
 
         console.log(list2);
         console.log(result);
-        list2 = list2.filter((li, idx, self) => self.map(itm => itm.role).indexOf(li.role) === idx)
+        list2 = list2.filter((li, idx, self) => self.map(itm => itm.role).indexOf(li.role) === idx);
+        list2 = list2.filter(function( element ) {
+          return element.role !== undefined;
+       });
         locat = locat.filter((li, idx, self) => self.map(itm => itm.city).indexOf(li.city) === idx)
         setRoles(list2);
         setLocation(locat);

@@ -8,7 +8,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import HelpIcon from '@mui/icons-material/Help';
 import './Employer.css'
 
-
     // <Link to={"/employerProfile"} className="icon"><PersonIcon/></Link>
 function Navbar(){
 
@@ -50,12 +49,16 @@ function Navbar(){
                 <PersonIcon className="icon-nav" style={{height:"30px",width:"100px",color:"white"}}/>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  &nbsp;
+                &nbsp;
                 <div style={{marginLeft:"20%"}}>{localStorage.getItem("emailId")}</div>
                 &nbsp;
-                <a class="dropdown-item" href="http://localhost:3000/employerProfile" style={{fontWeight:"500"}}><span><ArticleIcon/></span>  &nbsp;Profile</a>
+                <button type="button" className="btn btn-outline">
+                <Link to={"/employerProfile"}><a class="dropdown-item" href="#" style={{fontWeight:"bold"}}><ArticleIcon/>&nbsp; &nbsp;Profile</a></Link>
+                </button>
                 &nbsp;
-                <a class="dropdown-item" href="http://localhost:3000/editCompany" style={{fontWeight:"500"}}><span><EditIcon/></span>  &nbsp;Edit Your Company Profile</a>
+                <button type="button" className="btn btn-outline">
+                <Link to={"/addcompany"}><a class="dropdown-item" href="#" style={{fontWeight:"bold"}}><EditIcon/>&nbsp; &nbsp;Profile</a></Link>
+                </button>
                 <hr style={{height:"2px",border:"none",color: "#333",backgroundColor: "#A7BBC7"}}/>
                 <button type="button" className="btn btn-outline" style={{marginLeft:"30%"}}>
                 <Link onClick={handleLogOut}><a class="dropdown-item" href="#" style={{color:"#085ff7",fontWeight:"bold"}}>Sign Out</a></Link>

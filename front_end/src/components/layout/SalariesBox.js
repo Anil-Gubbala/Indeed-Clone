@@ -5,9 +5,11 @@ import StarIcon from '@material-ui/icons/Star';
 import useStyles from './companyBoxElements';
 import g from '../../images/g.jpeg';
 import Rating from '@material-ui/lab/Rating';
+import { Link } from 'react-router-dom';
 
 function SalaryBox(props) {
   const classes = useStyles();
+  console.log(props);
   return (
     <container>
       <Card
@@ -38,7 +40,7 @@ function SalaryBox(props) {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div>
                 <b>
-                  <u>{props.name}</u>
+                <div><Link to={"/companyHomes?id="+ props.id}>{props.name}</Link></div>
                 </b>
               </div>
               <div
@@ -51,12 +53,14 @@ function SalaryBox(props) {
                 }}
               >
                 <h5 style={{ paddingRight: '10px', paddingLeft: '10px' }}>{props.rating}</h5><Rating value={props.rating} readOnly style={{ color: '#9d2b6b' }} />
-                <a href="" style={{ paddingRight: '10px', paddingLeft: '10px' }}>
-                  {props.count} reviews
-                </a>
-                <a href="" style={{ paddingRight: '10px', paddingLeft: '10px' }}>
-                  323 salaries reported
-                </a>
+                <div style={{ paddingRight: '10px', paddingLeft: '10px' }}>
+                <Link to={"/companyHomes?id="+ props.id+"&tab=3"}>{props.count} reviews</Link>
+                  
+                </div>
+                <div style={{ paddingRight: '10px', paddingLeft: '10px' }}>
+                <Link to={"/companyHomes?id="+ props.id+"&tab=4"}> 3 salaries reported</Link>
+                 
+                </div>
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>

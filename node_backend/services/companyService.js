@@ -122,8 +122,7 @@ exports.getCompanyPhotos = async (request) => {
 //get companies for admins
 exports.getAdminCompanies = async (request) => {
   try {
-    let response = await companySchema.find();
-
+    let response = await companySchema.find({"name": {$regex: request.query.search, $options: 'i'}}).limit(10);
     return { status: 200, body: response };
   } catch (err) {
     console.log(err);
@@ -194,6 +193,7 @@ exports.getCompanyDetails_nameloc = async (request, res) => {
       });
     }
     let resultMap = {};
+    console.log(response);
     response.forEach((each) => {
       resultMap[each._id] = each;
     });

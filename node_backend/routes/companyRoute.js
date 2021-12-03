@@ -128,8 +128,27 @@ router.get("/admincompanyreviews", async (request, response) => {
   try {
     console.log(request.query.id);
     const data = await sqlconnection.query(
-      `select * from reviews where companyId=?`,
-      request.query.id,
+      `select * from reviews where companyId=? limit 10 OFFSET ?`,
+      [request.query.id,parseInt(request.query.page)],
+      function (error, results) {
+        response.send(results);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting admin reviews";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
+router.get("/admincompanyreviewsCount", async (request, response) => {
+  try {
+    const data = await sqlconnection.query(
+      `select count(*) as total from reviews where companyId=?`,
+      [request.query.id],
       function (error, results) {
         response.send(results);
       }
