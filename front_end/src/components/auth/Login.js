@@ -27,8 +27,12 @@ export const Login = ({login,  isAuthenticated, details, state}) => {
         return <Redirect to="/landing" />;
         }
         else{
-
+            if(localStorage.get('companyId')=== undefined){
             return <Redirect to="/addcompany" />;
+            }
+            else{
+                return <Redirect to="/EmployerLanding" />;
+            }
         }
       }
     return (
