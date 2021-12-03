@@ -5,6 +5,7 @@ import Axios from 'axios';
 import {Link} from 'react-router-dom';
 import image from '../images/postjob.PNG'
 import ReactPaginate from 'react-paginate';
+import {post} from '../../utils/serverCall';
 
 function EmployerLanding(){
     const[jobsPosted,setJobPosted]=useState([]);
@@ -43,10 +44,10 @@ function EmployerLanding(){
     useEffect(()=>{
         //Axios.defaults.headers.common.authorization = localStorage.getItem('token');
     
-        Axios.post("http://localhost:8080/viewJobs",
+        post("/viewJobs",
         {companyId: localStorage.getItem('companyId')}).then((response)=>{
-          setJobPosted(response.data.jobsPosted);
-          console.log(response.data.jobsPosted);
+          setJobPosted(response.jobsPosted);
+          console.log(response.jobsPosted);
          
         });
         

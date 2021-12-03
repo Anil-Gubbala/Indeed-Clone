@@ -5,6 +5,8 @@ import './PostJob.css'
 import Axios from 'axios';
 import image from '../images/indeed-postjob.png'
 import about from '../images/about.jpg'
+import {post} from '../../utils/serverCall';
+
 
 
 function PostJob(){
@@ -34,10 +36,10 @@ const[cart,setCart]=useState(newJob);
 	const postThisJob=()=>{
 		console.log("posting job");
 
-		Axios.post("http://localhost:8080/postJob",{companyId:localStorage.getItem('companyId'), companyName:companyName, jobTitle:jobTitle,
+		post("/postJob",{companyId:localStorage.getItem('companyId'), companyName:companyName, jobTitle:jobTitle,
     industry:industry,role:role, country: country, jobType: jobType, type: type,salaryDetails: salaryDetails, why:why,need:need, street: street,
 		  city: city, state: state, zip:zip,}).then((response)=>{
-				console.log(response.data.payload);
+				console.log(response.payload);
 
         });
       navigate.push('/EmployerLanding');
