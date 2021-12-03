@@ -1,13 +1,14 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const passport = require('passport');
+const config = require('./config')
 
 // Setup work and export for the JWT passport strategy
 function auth() {
   // console.log("entered auth");
   const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
-    secretOrKey: 'indeed13',
+    secretOrKey: config.secret,
   };
   // console.log(opts);
   passport.use(
