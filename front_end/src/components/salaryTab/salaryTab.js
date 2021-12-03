@@ -8,6 +8,7 @@ import Rating from "@mui/material/Rating";
 import { get } from "../../utils/serverCall";
 import { post } from "../../utils/serverCall";
 import { put } from "../../utils/serverCall";
+import { getUserId } from "../../utils/checkLogin";
 class SalaryTab extends Component {
   constructor(props) {
     super(props);
@@ -114,7 +115,7 @@ class SalaryTab extends Component {
       this.setState({ error: "Enter all fields." });
     } else {
       let details = {
-        companyId: "61960b7c79026b0aab6bef86",
+        companyId: this.props.id,
         comapanyName: this.state.companyName,
         isWorking: this.state.isWorking,
         endDate: this.state.endDate,
@@ -122,7 +123,7 @@ class SalaryTab extends Component {
         jobLocation: this.state.jobLocation,
         pay: this.state.pay,
         category: this.state.category,
-        userId: "61a6c82acc2ed4d1abc2c1b1",
+        userId: getUserId,
         experience: this.state.experience,
         benefits: [
           this.state.healthInsurance,

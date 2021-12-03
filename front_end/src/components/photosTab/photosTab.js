@@ -80,14 +80,14 @@ class PhotosTab extends Component {
         if (data.status === 204) {
           console.log(" Customer image to S3 success");
           let details = {
-            companyId: "61960b7c79026b0aab6bef86",
+            companyId: this.props.id,
             imageUrl: data.location,
             isVerified: false,
             caption: this.state.caption,
             location: this.state.location,
           };
-          axios
-            .post("http://localhost:8080/photos", details)
+
+          post("/photos", details)
             .then((response) => {
               console.log(response.data);
               this.setState({ openModel: false });
@@ -100,7 +100,7 @@ class PhotosTab extends Component {
               console.log(err);
             });
         } else {
-          console.log(" customer image to S3 fail");
+          console.log(" company image to S3 fail");
         }
       })
       .catch((err) => {
@@ -368,7 +368,7 @@ class PhotosTab extends Component {
         {this.uploadModal()}
         {this.imageModal()}
         <div>
-          <div className="subHeading">Google Photos</div>
+          <div className="subHeading">Company Photos</div>
           <div style={{ textAlign: "center" }}>
             <button className="reviewButtons" onClick={this.handleOpen}>
               Upload a photo

@@ -1,5 +1,7 @@
 const _ = require("lodash");
 const dotenv = require("dotenv");
+const jobApplicationSchema =
+  require("../db/schema/jobApplication").createModel();
 var mysql = require("mysql");
 var constraints = require("../kafka/config");
 dotenv.config();
@@ -91,7 +93,7 @@ exports.filterJobsInSearch = async (request) => {
   }
 };
 
-exports.getJobDetails_search = async (request,res) => {
+exports.getJobDetails_search = async (request, res) => {
   try {
     const { title, location } = request.query;
     const averagesalary = await jobSchema.aggregate([
@@ -157,12 +159,11 @@ exports.getJobDetails_search = async (request,res) => {
               };
               console.log(response);
               res.send(response);
-             // return { status: 200, body: response };
+              // return { status: 200, body: response };
               // return { status: 200, body: resMap };
             }
           }
         );
-        
       });
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
@@ -178,6 +179,7 @@ exports.jobByCompanyId = async (request) => {
       request.query.id,
       "companyId"
     );
+
     return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";

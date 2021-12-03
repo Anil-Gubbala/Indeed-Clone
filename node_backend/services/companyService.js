@@ -6,6 +6,8 @@ var constraints = require("../kafka/config");
 dotenv.config();
 const companySchema = require("../db/schema/company").createModel();
 const jobSchema = require("../db/schema/job").createModel();
+const jobApplicationSchema =
+  require("../db/schema/jobApplication").createModel();
 const imageSchema = require("../db/schema/image").createModel();
 const salaryScehma = require("../db/schema/salary").createModel();
 const reviewSchema = require("../db/schema/review").createModel();
@@ -138,6 +140,30 @@ exports.postCompanyPhotos = async (request) => {
       runValidators: false,
     });
 
+    return { status: 200, body: response };
+  } catch (err) {
+    console.log(err);
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
+exports.applyToAJob = async (request) => {
+  try {
+    // response = await jobApplicationSchema.findOneAndUpdate(
+    //   { _id: mongoose.Types.ObjectId(request.body.id) },
+    //   {
+    //     status: "Applied",
+    //   }
+    // );
+    response = await operations.saveDocuments(
+      jobApplicationSchema,
+      request.body,
+      {
+        runValidators: false,
+      }
+    );
     return { status: 200, body: response };
   } catch (err) {
     console.log(err);

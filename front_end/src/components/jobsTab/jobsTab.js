@@ -3,6 +3,7 @@ import "./jobsTab.css";
 import { get } from "../../utils/serverCall";
 import { post } from "../../utils/serverCall";
 import { put } from "../../utils/serverCall";
+import { getUserId } from "../../utils/checkLogin";
 
 class JobsTab extends Component {
   constructor(props) {
@@ -89,6 +90,20 @@ class JobsTab extends Component {
     );
   };
 
+  handleApply = (id) => {
+    let details = {
+      userId: getUserId,
+      companyId: this.props.id,
+      jobId: id,
+      status: "Applied",
+    };
+    put("/applytoajob", details)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+  };
+
   renderJobDescription = () => {
     let job = this.state.selectedJob;
     return (
@@ -134,6 +149,7 @@ class JobsTab extends Component {
                 <button
                   style={{ paddingLeft: "30px", paddingRight: "30px" }}
                   className="aplbtn"
+                  onClick={() => this.handleApply(job._id)}
                 >
                   Apply
                 </button>
@@ -223,7 +239,7 @@ class JobsTab extends Component {
     return (
       <>
         <div>
-          <div className="subHeading stick">Google Jobs</div>
+          <div className="subHeading stick">Jobs</div>
           <div style={{ display: "flex" }}>
             <div className="col-md-5" style={{ paddingLeft: "0px" }}>
               <div className="shead">what</div>

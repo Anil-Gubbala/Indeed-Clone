@@ -242,7 +242,7 @@ router.post("/reviews", async (request, response) => {
 router.get("/companySearch", async (request, response) => {
   try {
     console.log("Entered company");
-    await companyService.getCompanyDetails_nameloc(request,response);
+    await companyService.getCompanyDetails_nameloc(request, response);
     // console.log("data",data);
     // response.status(data.status).json(data.body);
   } catch (err) {
@@ -288,6 +288,19 @@ router.put("/downvoterating", async (request, response) => {
   } catch (err) {
     console.log(err);
     const message = err.message ? err.message : "Error while down voting";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
+router.post("/applytoajob", async (request, response) => {
+  try {
+    console.log(request.body.id);
+    const data = await companyService.applyToAJob(request);
+    response.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    const message = err.message ? err.message : "Error applyingto a job";
     const code = err.statusCode ? err.statusCode : 500;
     return response.status(code).json({ message });
   }

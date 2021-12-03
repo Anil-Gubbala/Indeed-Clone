@@ -8,6 +8,7 @@ import Rating from "@mui/material/Rating";
 import { get } from "../../utils/serverCall";
 import { post } from "../../utils/serverCall";
 import { put } from "../../utils/serverCall";
+import { getUserId } from "../../utils/checkLogin";
 
 class ReviewsTab extends Component {
   constructor(props) {
@@ -108,8 +109,8 @@ class ReviewsTab extends Component {
       this.setState({ error: "Enter all fields." });
     } else {
       let details = {
-        companyId: "61a5f182d511b8e0df9b5fdd",
-        userId: "61a5f182d511b8e0df9b5fda",
+        companyId: this.props.id,
+        userId: getUserId,
         date: new Date().toLocaleDateString(),
         upvotes: 0,
         downVotes: 0,
@@ -176,7 +177,7 @@ class ReviewsTab extends Component {
                 </div>
                 <div style={{ alignSelf: "center", marginLeft: "15px" }}>
                   <div style={{ fontWeight: 500 }}>
-                    Please help answer these questions about <b>Google</b>
+                    Please help answer these questions about the <b>Company</b>
                   </div>
                   <div style={{ fontSize: "12px", fontweight: "400" }}>
                     Your honest responses help other job seekers and it’s
