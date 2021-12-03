@@ -121,3 +121,18 @@ exports.getJobDetails_search = async (request) => {
     return { status: code, body: { message } };
   }
 };
+
+exports.jobByCompanyId = async (request) => {
+  try {
+    let response = await operations.getAllDocumentsWithId(
+      jobSchema,
+      request.query.id,
+      "companyId"
+    );
+    return { status: 200, body: response };
+  } catch (err) {
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
