@@ -135,14 +135,15 @@ function Candidates() {
             <div className="candidates">
               <div className="leftside">
                 <Link
-                  to={"/prrofile"}
-                  onClick={() => {
-                    localStorage.setItem("userId", d._id);
-                  }}
+                  to={"emp/profile?id=" + d.userId}
+                  // onClick={() => {
+                  //   localStorage.setItem("userId", d._id);
+                  // }}
                 >
                   <h3 style={{ color: "steelblue" }}>{d.userName}</h3>
+                  <h3 style={{ color: "steelblue" }}>User Profile</h3>
                 </Link>
-                <p>
+                {/* <p>
                   <a
                     href={d.resume}
                     download="Resume"
@@ -150,7 +151,7 @@ function Candidates() {
                   >
                     Resume
                   </a>
-                </p>
+                </p> */}
 
                 <p>Status: {d.status}</p>
                 <p style={{ marginLeft: "20px" }}>

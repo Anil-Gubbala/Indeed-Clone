@@ -123,7 +123,7 @@ class SalaryTab extends Component {
         jobLocation: this.state.jobLocation,
         pay: this.state.pay,
         category: this.state.category,
-        userId: getUserId,
+        userId: getUserId(),
         experience: this.state.experience,
         benefits: [
           this.state.healthInsurance,
