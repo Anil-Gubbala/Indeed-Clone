@@ -122,6 +122,7 @@ exports.getJobDetails_search = async (request,res) => {
       .limit(5)
       .sort({ avg: -1 })
       .then((top5com) => {
+        console.log(top5com);
         let resultMap = {};
         top5com.forEach((each) => {
           resultMap[each._id] = each;

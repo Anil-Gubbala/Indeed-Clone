@@ -1,8 +1,9 @@
 import { Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
 import React, { useEffect, useReducer, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import timeDifference from '../../utils/timeDifference';
 import ApplyModal from '../layout/ApplyModal';
 import useStyles from './myjobsElements';
@@ -10,6 +11,7 @@ import DashLoginNav from '../navbar/DashLoginNav';
 import { get, post } from '../../utils/serverCall';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import {isSignedIn, accountType  } from "../../utils/checkLogin";
 
 function SavedJobs(props) {
   const classes = useStyles();
@@ -32,7 +34,9 @@ function SavedJobs(props) {
       });
   }, []);
 
- 
+  if(! isSignedIn()){
+    return <Redirect push to="/login" />;
+  }
  
 
   return (
@@ -59,13 +63,13 @@ function SavedJobs(props) {
             <Box style={{ display: 'flex' }} key={key}>
               <Box style={{ width: '500px' }}>
                 <Typography variant="h5" style={{ fontSize: '18px', marginBottom: '15px' }}>
-                  {key.jobId.jobTitle}
+                  <h3>{key.jobId.jobTitle}</h3>
                 </Typography>
                 <Box style={{ marginBottom: '2px', fontWeight: '600', color: 'grey' }}>
-                  {key.jobId.companyName}
+                  <h5><Link to={"/companyHomes?id="+ key.companyId}>{key.jobId.companyName}</Link></h5>
                 </Box>
                 <Box style={{ marginBottom: '2px', fontWeight: '600', color: 'grey' }}>
-                  {key.jobId.location.city} , {key.jobId.location.state}
+                  <h6>{key.jobId.location.city} , {key.jobId.location.state}</h6>
                 </Box>
                 <Box
                   style={{
@@ -75,14 +79,14 @@ function SavedJobs(props) {
                     color: 'grey',
                   }}
                 >
-                  Saved today
+                  <b>Saved today</b>
                   {/* Saved {timeDifference(savedjobs[key].dateSaved)} */}
                 </Box>
               </Box>
-              <Box style={{ display: 'flex' }}>
+              {/* <Box style={{ display: 'flex' }}>
                 <Button className={classes.applyButton}>Apply now</Button>
                 <Button className={classes.updateButton}>Update status</Button>
-              </Box>
+              </Box> */}
             </Box>
           ))}
         </Box> 
@@ -94,13 +98,13 @@ function SavedJobs(props) {
               <Box style={{ display: 'flex' }} key={key}>
                 <Box style={{ width: '500px' }}>
                   <Typography variant="h5" style={{ fontSize: '18px', marginBottom: '15px' }}>
-                    {key.jobId.jobTitle}
+                    <h3>{key.jobId.jobTitle}</h3>
                   </Typography>
                   <Box style={{ marginBottom: '2px', fontWeight: '600', color: 'grey' }}>
-                    {key.jobId.companyName}
+                    <h5><Link to={"/companyHomes?id="+ key.companyId}>{key.jobId.companyName}</Link></h5>
                   </Box>
                   <Box style={{ marginBottom: '2px', fontWeight: '600', color: 'grey' }}>
-                    {key.jobId.location.city} , {key.jobId.location.state}
+                    <h6>{key.jobId.location.city} , {key.jobId.location.state}</h6>
                   </Box>
                   <Box
                     style={{
@@ -110,14 +114,14 @@ function SavedJobs(props) {
                       color: 'grey',
                     }}
                   >
-                    Applied
+                    <b>Applied</b>
                   </Box>
                 </Box>
-                <Box style={{ display: 'flex' }}>
+                {/* <Box style={{ display: 'flex' }}>
                   <Button className={classes.applyButton}>
                     Cancel
                   </Button>
-                </Box>
+                </Box> */}
               </Box>
             </>
           ))}

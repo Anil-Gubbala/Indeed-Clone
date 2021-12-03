@@ -30,6 +30,7 @@ import Statistics from "../components/Analytics/Statistics";
 import AdminCompany from "../components/adminCompany/adminCompany";
 import AdminReviews from "../components/adminReviews/adminReviews";
 import MyReviews from "../components/reviews/Myreviews";
+import EmployerUserProfile from "../components/profile/employeruserprofile";
 
 class Routes extends Component {
   render() {
@@ -61,6 +62,9 @@ class Routes extends Component {
         </Route>
         <Route exact path="/profile">
           <Profile />
+        </Route>
+        <Route exact path="/emp/profile">
+          <EmployerUserProfile />
         </Route>
         <Route exact path="/salary">
           <Salaries />

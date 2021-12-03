@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Redirect, useHistory } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
-
+import {isSignedIn  } from "../../utils/checkLogin";
 import RoomIcon from '@mui/icons-material/Room';
 import { Container, FormHelperText, Grid, InputAdornment, Typography } from '@material-ui/core';
 import { TextField } from '@mui/material';
@@ -34,8 +34,11 @@ function CompanyReviews() {
   };
 
   const handleCompanyClick = (id) => {
-    history.push(`/reviews?id=${id}`);
+    history.push(`/?id=${id}`);
   };
+  if(! isSignedIn()){
+    return <Redirect push to="/login" />;
+  }
 
   return (
     <div>
@@ -124,8 +127,8 @@ function CompanyReviews() {
                 name={item.results.name}
                 description={item.results.description}
                 rating={item.rating}
-                id={item._id}
-                // handleClick={handleCompanyClick}
+                id={item.results._id}
+              
               />
             ))}
           </div>

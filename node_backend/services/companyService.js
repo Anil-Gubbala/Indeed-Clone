@@ -168,6 +168,7 @@ exports.getCompanyDetails_nameloc = async (request, res) => {
       });
     }
     let resultMap = {};
+    console.log(response);
     response.forEach((each) => {
       resultMap[each._id] = each;
     });

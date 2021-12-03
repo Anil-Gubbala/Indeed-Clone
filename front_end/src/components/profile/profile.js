@@ -2,7 +2,9 @@ import { Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import "./profile.css";
 import S3 from "react-aws-s3";
+import { saveAs } from "file-saver";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
 import { Card, Modal } from "react-bootstrap";
 import { MdUpload, MdModeEdit, MdDetails } from "react-icons/md";
 import { AiFillEye } from "react-icons/ai";
@@ -14,6 +16,7 @@ import { styled } from "@mui/material/styles";
 import { Link, NavLink } from "react-router-dom";
 import DashLoginNav from "../navbar/DashLoginNav";
 import { get, post } from '../../utils/serverCall';
+import {isSignedIn, accountType  } from "../../utils/checkLogin";
 
 function Profile() {
   const Input = styled("input")({
@@ -61,6 +64,16 @@ function Profile() {
   const fileSelected = (e) => {
     setfile(e.target.files[0]);
     setsubmit(true);
+  };
+
+  const downloadfile = () => {
+  const link = document.createElement('a');
+link.href = url;
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+ 
+
   };
 
   const saveProfile = () => {
@@ -128,6 +141,10 @@ function Profile() {
     document.body.appendChild(link);
     link.click();
     link.remove();
+}
+
+if(! isSignedIn()){
+  return <Redirect push to="/login" />;
 }
 
   const employerview = () => {
@@ -478,6 +495,11 @@ function Profile() {
                       </Link>
                       </Button> */}
                       <Button onClick={downloadMyFile}>
+                      
+                        Download
+                      
+                      </Button>
+                      <Button onClick={downloadfile}>
                       
                         Download
                       

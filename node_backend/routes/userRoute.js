@@ -223,7 +223,7 @@ router.get('/user', async (req, res) => {
 
 router.get("/userReviews", async (request, response) => {
   // const id = request.query.id;
-  const id = "61a6c779cc2ed4d1abc2c1ad";
+  const id = request.query.id;
   try {
     sqlconnection.query(
       `SELECT * FROM indeed.reviews WHERE userId=?`,

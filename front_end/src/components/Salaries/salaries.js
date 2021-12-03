@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-
+import {isSignedIn  } from "../../utils/checkLogin";
+import { Redirect, useHistory } from 'react-router-dom';
 import HelpIcon from '@mui/icons-material/Help';
 
 
@@ -40,6 +40,10 @@ function Salaries() {
   //   const handleCompanyClick = (id) => {
   //     history.push(`/reviews?id=${id}`);
   //   };
+
+  if(! isSignedIn()){
+    return <Redirect push to="/login" />;
+  }
 
   return (
     <div>
@@ -180,6 +184,7 @@ function Salaries() {
               key={item.results._id}
               id={item.results._id}
               name={item.results.name}
+              
               avg={item.results.avg}
               count={item.count}
               rating={item.rating}

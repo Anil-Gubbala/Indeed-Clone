@@ -5,9 +5,10 @@ import StarIcon from '@material-ui/icons/Star';
 import Rating from '@material-ui/lab/Rating';
 import useStyles from './companyBoxElements';
 import g from '../../images/g.jpeg';
+import { Link } from 'react-router-dom';
 
 function ReviewBox(props) {
-  console.log(props.description);
+  console.log(props);
   const classes = useStyles();
   const name = 'Google';
 
@@ -49,7 +50,7 @@ function ReviewBox(props) {
                 justifyContent: 'flex-start',
               }}
             >
-              <div>{props.name}</div>
+              <div><Link to={"/companyHomes?id="+ props.id}>{props.name}</Link></div>
               <div
                 style={{
                   display: 'flex',
@@ -73,15 +74,15 @@ function ReviewBox(props) {
                 margin: '15px',
               }}
             >
-              <a style={{ paddingRight: '10px', paddingLeft: '10px' }}>
-                <u>Reviews</u>
-              </a>
-              <a style={{ paddingRight: '10px', paddingLeft: '10px' }}>
-                <u>Salaries</u>
-              </a>
-              <a style={{ paddingRight: '10px', paddingLeft: '10px' }}>
-                <u>Jobs</u>
-              </a>
+              <div style={{ paddingRight: '10px', paddingLeft: '10px' }}>
+                <u><Link to={"/companyHomes?id="+ props.id+"&tab=3"}>Reviews</Link></u>
+              </div>
+              <div style={{ paddingRight: '10px', paddingLeft: '10px' }}>
+              <u><Link to={"/companyHomes?id="+ props.id+"&tab=4"}>Salaries</Link></u>
+              </div>
+              <div style={{ paddingRight: '10px', paddingLeft: '10px' }}>
+              <u><Link to={"/companyHomes?id="+ props.id+"&tab=6"}>Jobs</Link></u>
+              </div>
             </div>
           </div>
         </Card.Body>
