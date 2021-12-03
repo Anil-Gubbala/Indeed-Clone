@@ -59,27 +59,37 @@ sqlconnection.getConnection((err) => {
   console.log("pool created");
 });
 
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000","http://18.223.158.166:3000"], // add to constants file or configuration file.
+    // origin: '*',
+    methods: ['GET', 'POST', 'PUT'],
+    credentials: true,
+  })
+);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ origin: [process.env.REACT_URL], credentials: true }));
+// app.use(cors({ origin: [process.env.REACT_URL,"http://localhost:3000"], credentials: true }));
 app.use(passport.initialize());
 auth();
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", process.env.REACT_URL);
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//  res.setHeader("Access-Control-Allow-Origin", process.env.REACT_URL);
+ // res.setHeader("Access-Control-Allow-Credentials", "true");
+ // res.setHeader(
+   // "Access-Control-Allow-Methods",
+   // "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  //);
+ // res.setHeader(
+   // "Access-Control-Allow-Headers",
+   // "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+  //);
+ // next();
+//});
 
 // const options = {
 //   definition: {
