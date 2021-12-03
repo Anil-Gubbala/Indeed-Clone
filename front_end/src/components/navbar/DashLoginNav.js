@@ -82,9 +82,9 @@ class DashLoginNav extends Component {
     <PersonIcon/>
   </button>
   <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a className="dropdown-item" href="#">Profile</a>
-    <a className="dropdown-item" href="#">My Jobs</a>
-    <a className="dropdown-item" href="#">My Reviews</a>
+    <a className="dropdown-item" href="/profile">Profile</a>
+    <a className="dropdown-item" href="/savedjobs">My Jobs</a>
+    <a className="dropdown-item" href="/myreviews">My Reviews</a>
     <a className="dropdown-item" href="#">Email Preferences</a>
     <a className="dropdown-item" href="#">Search Preferences</a>
     <a className="dropdown-item" href="#">Settings</a>

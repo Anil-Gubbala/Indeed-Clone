@@ -35,6 +35,7 @@ exports.getUserDetails = async (request) => {
       const response = await operations.getDocument(userSchema, {
         _id: request.query.id,
       });
+      console.log(response);
       return { status: 200, body: response };
     }
     if (request.query.emailId) {
@@ -74,17 +75,20 @@ exports.updateUserDetails = async (request) => {
 };
 
 // update resume
-exports.updateresume = async (request) => {
+exports.updateresume = async (request,res) => {
   try {
     console.log(request.body);
-    const response = await userSchema.findOneAndUpdate(
+    await userSchema.findOneAndUpdate(
       {
-        userId: request.body.id,
+        _id: request.body.id,
       },
       { $set: { resumeLink: request.body.resumeLink } }
+    ).then((response)=>{
+    console.log("resume", response);
+    res.send(response);
+    }
     );
-
-    return { status: 200, body: response };
+    // return { status: 200, body: response };
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
     const code = err.statusCode ? err.statusCode : 500;

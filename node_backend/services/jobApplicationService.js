@@ -54,7 +54,7 @@ exports.getJobApplicationByStatus = async (request) => {
       const saved = await jobApplicationSchema
         .find({
           $and: [
-            { userId: mongoose.Types.ObjectId("61765e2cac3f02c79a885221") },
+            { userId: request.query.id },
             { status: "Saved" },
           ],
         })
@@ -64,7 +64,7 @@ exports.getJobApplicationByStatus = async (request) => {
       const applied = await jobApplicationSchema
         .find({
           $and: [
-            { userId: mongoose.Types.ObjectId("61765e2cac3f02c79a885221") },
+            { userId: request.query.id },
             { status: "Applied" },
           ],
         })

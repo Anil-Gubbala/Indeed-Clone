@@ -12,6 +12,7 @@ import CompanyBox from '../layout/CompanyBox';
 import { SearchButton, useStyles } from './companyreviewstyles';
 import ReviewBox from '../layout/reviewsBox';
 import DashLoginNav from '../navbar/DashLoginNav';
+import { get, post } from '../../utils/serverCall';
 
 function CompanyReviews() {
   const classes = useStyles();
@@ -25,11 +26,10 @@ function CompanyReviews() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .get('/companySearch', { params: { name: details.name, location: details.location } })
+    get('/companySearch', { name: details.name, location: details.location })
       .then((res) => {
         console.log(res);
-        setCompanies(res.data);
+        setCompanies(res);
       });
   };
 

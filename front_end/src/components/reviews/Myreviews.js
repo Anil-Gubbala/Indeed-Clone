@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Redirect, useHistory } from 'react-router-dom';
 import Rating from "@mui/material/Rating";
-
+import DashLoginNav from '../navbar/DashLoginNav';
+import { get, post } from '../../utils/serverCall';
 
 
 function MyReviews() {
@@ -10,9 +11,8 @@ function MyReviews() {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        axios.get(`/userReviews`, { params: { id: '61a5f182d511b8e0df9b5fda' } }).then((response) => {
-          console.log(response.data);
-          setReviews(response.data);
+        get(`/userReviews`, { id: localStorage.getItem("userId") } ).then((response) => {
+          setReviews(response);
         });
       }, []);
 
@@ -25,7 +25,7 @@ function MyReviews() {
                   "No Reviews to Display"
                 ) : (
                   <>
-                    {reviews.map((review) => {
+                    {reviews?.map((review) => {
                       return (
                         <>
                           <div>
@@ -155,25 +155,15 @@ function MyReviews() {
   
 
   return (
-//     <div className="main">  
-//    <div className="head" style={{height: '100px'}}>
-//        <h1  className= "heading">My reviews and contributions</h1>
-//     </div>
-//     <div className="cow">
-//     <div className="reviewsheader">
-//     <h2 className="title">
-//         Company Reviews
-//     </h2> 
-//     <span className="des">Reviews appear on the employer's Company Page. They are never associated with your name, resume or job applications.</span>
-//     </div> 
-//     <div>{renderReviews()}</div>
-//     </div>
-//     </div>
+
+   <div>
+     <DashLoginNav/>
    <div style={{display: 'flex', flexDirection: "column", justifyContent: "flex-start", marginLeft: '100px'}}>
        <h1 >My reviews and contributions</h1> 
        <h2 >Company Reviews</h2> 
        <h5> Reviews appear on the employer's Company Page. They are never associated with your name, resume or job applications.</h5>
        <div>{renderReviews()}</div>
+   </div>
    </div>
    
   );

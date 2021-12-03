@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Redirect, useHistory } from 'react-router-dom';
-import Rating from '@material-ui/lab/Rating';
+import { useHistory } from 'react-router-dom';
+
 import HelpIcon from '@mui/icons-material/Help';
-import RoomIcon from '@mui/icons-material/Room';
-import { Container, FormHelperText, Grid, InputAdornment, Typography } from '@material-ui/core';
-import { TextField } from '@mui/material';
+
+
 import SearchIcon from '@material-ui/icons/Search';
-import { Button } from 'bootstrap';
-import CompanyBox from '../layout/CompanyBox';
+
 // import { searchCompany, getCompanyReviews } from '../../Redux/CompanyReviews/action';
 import { SearchButton, useStyles } from '../reviews/companyreviewstyles';
 import './salaries.css';
 import SalaryBox from '../layout/SalariesBox';
 import DashLoginNav from '../navbar/DashLoginNav';
+import { get, post } from '../../utils/serverCall';
 
 function Salaries() {
   console.log('Entered');
@@ -30,11 +29,11 @@ function Salaries() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .get('/jobsearch', { params: { title: details.title, location: details.location } })
+      get('/jobsearch', { title: details.title, location: details.location })
       .then((res) => {
         console.log(res);
-        setavg(res.data.averagesalary[0].avg);
-        setCompanies(res.data.top5companies);
+        setavg(res.averagesalary[0].avg);
+        setCompanies(res.top5companies);
       });
   };
 
@@ -47,7 +46,7 @@ function Salaries() {
        <DashLoginNav/>
       <div className="head">
         <div className="picoutline">
-          <img
+          <img style={{height: '500px'}}
             src="https://d3hbwax96mbv6t.cloudfront.net/title-webapp/_next/static/images/salaries-8d20dc14bdeae8889387e0fb40e0d546.png"
             className="css-1yijzqt e183knr21 ls-is-cached lazyloaded"
             alt=""
