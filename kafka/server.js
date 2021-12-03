@@ -85,7 +85,7 @@ function handleTopicRequest(topicName, fname) {
         },
       ];
       producer.send(payloads, (err, data) => {
-        // console.log(data);
+        console.log(data);
       });
     });
   });
