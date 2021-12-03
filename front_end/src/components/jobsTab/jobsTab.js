@@ -92,12 +92,13 @@ class JobsTab extends Component {
 
   handleApply = (id) => {
     let details = {
-      userId: getUserId,
       companyId: this.props.id,
       jobId: id,
+      userId: getUserId(),
       status: "Applied",
     };
-    put("/applytoajob", details)
+    console.log(getUserId());
+    post("/applytoajob", details)
       .then((response) => {
         console.log(response);
       })

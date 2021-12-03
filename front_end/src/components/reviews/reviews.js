@@ -110,7 +110,7 @@ class ReviewsTab extends Component {
     } else {
       let details = {
         companyId: this.props.id,
-        userId: getUserId,
+        userId: getUserId(),
         date: new Date().toLocaleDateString(),
         upvotes: 0,
         downVotes: 0,
