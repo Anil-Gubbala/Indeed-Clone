@@ -7,6 +7,7 @@ import EmpNav from './Empnav';
 import image from '../images/postjob.PNG'
 import ReactPaginate from 'react-paginate';
 import {post} from '../../utils/serverCall';
+import DashLoginNav from '../navbar/DashLoginNav';
 
 function EmployerLanding(){
     const[jobsPosted,setJobPosted]=useState([]);
@@ -35,6 +36,7 @@ function EmployerLanding(){
     .map(function (d, idx) {
             
     return (
+        
         <div className="joProp">
             <Link to={"/Candidates"} 
             onClick={()=>{localStorage.setItem('jobId',d._id);
@@ -49,6 +51,7 @@ function EmployerLanding(){
     
             
         </div>
+        
     );
     
     })
