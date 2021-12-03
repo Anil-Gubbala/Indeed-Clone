@@ -2,6 +2,7 @@ import React, {useState,useEffect} from 'react';
 import './Statistics.css';
 import Navbar from'../EmpNavbar/EmpNavbar';
 import Axios from 'axios';
+import {post} from '../../utils/serverCall';
 
 
 function Statistics(){
@@ -13,10 +14,10 @@ function Statistics(){
         console.log("viewing candidates");
         //Axios.defaults.headers.common.authorization = localStorage.getItem('token');
     
-        Axios.post("http://localhost:8080/viewApplicants",
+        post("/viewApplicants",
         {jobId: localStorage.getItem('jobId')}).then((response)=>{
-          setApplicants(response.data.applicants);
-          console.log(response.data.applicants);
+          setApplicants(response.applicants);
+          console.log(response.applicants);
          
         });
         

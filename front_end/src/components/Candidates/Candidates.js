@@ -4,7 +4,8 @@ import Navbar from'../EmpNavbar/EmpNavbar';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
  import EmpNav from '../Employer/Empnav'
-import image from '../images/find.jpg'
+import image from '../images/find.jpg';
+import {post} from '../../utils/serverCall';
 
 function Candidates(){
 
@@ -15,10 +16,10 @@ function Candidates(){
         console.log("viewing candidates");
         //Axios.defaults.headers.common.authorization = localStorage.getItem('token');
 
-        Axios.post("http://localhost:8080/viewApplicants",
+        post("/viewApplicants",
         {jobId: localStorage.getItem('jobId')}).then((response)=>{
-          setApplicants(response.data.applicants);
-          console.log(response.data.applicants);
+          setApplicants(response.applicants);
+          console.log(response.applicants);
 
         });
 
@@ -26,9 +27,9 @@ function Candidates(){
 
     const setStatus=(id)=>{
         //Axios.defaults.headers.common.authorization = localStorage.getItem('token');
-        Axios.post("http://localhost:8080/setApplicationStatus",
+        post("/setApplicationStatus",
         {id:id,status:applicationStatus}).then((response)=>{
-          console.log(response.data.data);
+          console.log(response.data);
 
         });
     }
