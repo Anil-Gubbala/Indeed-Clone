@@ -28,9 +28,16 @@ const [data,getData] = useState("");
 useEffect(() => {
       get(`/empReviews/getCompanyReviews`,{companyId:localStorage.getItem("companyId")})
         .then((result) =>{
-        console.log("data for display",result.reviews);
-          const allReviews= result.reviews;
-          getReviews(allReviews)
+          console.log(result.reviews)
+          console.log("length",Object.keys(result.reviews).length)
+          if(Object.keys(result.reviews).length==0){
+            window.open("/noreviews","_self");
+          }
+          else{
+            console.log("data for display",result.reviews);
+              const allReviews= result.reviews;
+              getReviews(allReviews)
+          }
       }).catch(err =>{
         console.log(err);
       })

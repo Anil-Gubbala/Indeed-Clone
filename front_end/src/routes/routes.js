@@ -19,6 +19,7 @@ import ProfilePage from "../components/EmployerLanding/ProfilePage";
 import AddCompanyDetails from "../components/CompanyProfile/AddCompanyDetails";
 import EditCompanyPage from "../components/CompanyProfile/EditCompanyPage";
 import employerReviews from "../components/CompanyProfile/employerReviews";
+import noreviews from "../components/CompanyProfile/NoReviews"
 
 import Employer from "../components/Employer/EmployerLanding";
 import PostJob from "../components/PostJob/PostJob";
@@ -68,6 +69,7 @@ class Routes extends Component {
         <Route exact path="/addcompany" component={AddCompanyDetails} />
         <Route exact path="/editcompany" component={EditCompanyPage} />
         <Route exact path="/employerreviews" component={employerReviews} />
+        <Route exact path="/noreviews" component={noreviews} />
       </div>
     );
   }

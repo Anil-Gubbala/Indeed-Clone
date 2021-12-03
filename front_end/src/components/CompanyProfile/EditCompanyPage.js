@@ -9,12 +9,17 @@ const ProfilePage = () => {
   useEffect(() => {
       get(`/GetCompany`,{employerId:localStorage.getItem("userId")})
         .then((result) =>{
-          console.log(result)
-        console.log("data for display",result.data.data[0]);
-        const allCompanyData = result.data.data[0];
-        // console.log("website",((response.data))["payload"][0]["website"]);
-        getData(allCompanyData);
-        console.log(data)
+        if(result.data.data.length === 0){
+          alert("Opps! Looks like you have not added company details!")
+          window.open("/addcompany","_self")
+        }
+        else{
+          console.log("data for display");
+          const allCompanyData = result.data.data[0];
+          // console.log("website",((response.data))["payload"][0]["website"]);
+          getData(allCompanyData);
+          console.log(data)
+        }
       }).catch(err =>{
         console.log(err);
       })
