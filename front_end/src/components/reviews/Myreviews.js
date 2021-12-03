@@ -5,7 +5,8 @@ import Rating from "@mui/material/Rating";
 import DashLoginNav from '../navbar/DashLoginNav';
 import { get, post } from '../../utils/serverCall';
 import {isSignedIn, accountType  } from "../../utils/checkLogin";
-
+import { Box } from '@material-ui/core';
+import { TiTick } from 'react-icons/ti';
 
 function MyReviews() {
 
@@ -67,6 +68,33 @@ function MyReviews() {
                                     paddingBottom: "0px",
                                   }}
                                 >
+                                   {review.results.status === 1 ? (
+                                  <Box sx={{  width: "auto",
+        height: "auto",
+        backgroundColor: '#c3f3c4', }}>
+                                  <div className="approved">
+                                  <div className="approvedtext">
+                                    <h2 className="ra" style={{fontSize: '25px'}}> <TiTick />Review approved <span className="rv" style={{fontSize: '15px'}}>This review is visible on Indeed</span>
+                                      </h2>
+                                      
+                                    </div>
+                                  </div>
+                                 
+                                  </Box>
+                                   ) : (
+                                    
+                                    <Box sx={{  width: "auto",
+                                    height: "auto",
+                               }}>
+                                                              <div className="approved">
+                                                              <div className="approvedtext">
+                                                                <h2 className="ra" style={{fontSize: '25px'}}> Awaiting approval from admin
+                                                                  </h2>
+                                                                  
+                                                                </div>
+                                                              </div>
+                                                              </Box>
+                                   )}
                                     <div>
                                   {review.results.summary}</div>
                                 </div>

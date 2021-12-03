@@ -234,8 +234,12 @@ const formValidation = () =>{
         <HelpIcon/>Not here to post a job?
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item lg" href="http://localhost:3000/landing">Looking for jobs</a>
-        <a class="dropdown-item" href="http://localhost:3000/profile">Upload Your resume</a>
+        <button type="button" className="btn btn-outline">
+        <Link to={"/landing"}><a class="dropdown-item" href="#" style={{fontWeight:"bold"}}>Looking for Jobs</a></Link>
+        </button>
+        <button type="button" className="btn btn-outline">
+        <Link to={"/profile"}><a class="dropdown-item" href="#" style={{fontWeight:"bold"}}>Upload your resume</a></Link>
+        </button>
         </div>
         </div>
         <h6 className="heading-add">Your Company's Website<span style={{color:"red"}}>*</span></h6>
