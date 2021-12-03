@@ -14,9 +14,10 @@ class AdminReviews extends Component {
   // this.props.location.state.c.id)
 
   componentDidMount() {
+    console.log(this.props.location.state.id);
     this.setState({ companyDetails: this.props.location.state.id });
     // this.props.location.state.id._id)
-    get("/admincompanyreviews?id=" + "61a47a7c41e79758f01d1ace")
+    get("/admincompanyreviews?id=" + this.props.location.state.id._id)
       .then((response) => {
         console.log(response);
         this.setState({
@@ -202,6 +203,24 @@ class AdminReviews extends Component {
               alt="company Image"
               style={{ width: "1000px", height: "200px" }}
             ></img>
+          </div>
+
+          <div
+            className="row"
+            style={{ paddingBottom: "15px", marginTop: "20px" }}
+          >
+            <div className="col-md-1" style={{ paddingLeft: "20px" }}>
+              <img
+                src={this.state.companyDetails.companyLogo}
+                className="companyLogo"
+                alt="Company Logo"
+              />
+            </div>
+            <div className="col-md-4 " style={{ paddingLeft: "45px" }}>
+              <div className="row companytxt">
+                {this.state.companyDetails.name} - Reviews
+              </div>
+            </div>
           </div>
           <div>{this.renderReviews()}</div>
         </div>

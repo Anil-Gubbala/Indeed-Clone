@@ -20,7 +20,7 @@ class AdminCompany extends Component {
   componentDidMount() {
     get("/admincompanies")
       .then((response) => {
-        console.log(response);
+        console.log(response.body);
         this.setState({
           allCompanies: response.body,
           companiesDB: response.body,
@@ -34,7 +34,7 @@ class AdminCompany extends Component {
   renderCompanies = () => {
     return (
       <>
-        <div className="row">
+        <div className="row" style={{ marginTop: "20px" }}>
           {this.state.allCompanies.map((c) => {
             return (
               <>
@@ -42,8 +42,8 @@ class AdminCompany extends Component {
                   className="companybx col-md-2"
                   style={{
                     padding: "10px",
-                    margin: "10px",
-                    height: "100px",
+                    marginLeft: "20px",
+                    marginBottom: "20px",
                     cursor: "pointer",
                   }}
                   onClick={() => {
@@ -51,9 +51,27 @@ class AdminCompany extends Component {
                     this.setState({ redirectToReviews: true });
                   }}
                 >
-                  <div style={{ fontWeight: "600", fontSize: "16px" }}>
-                    {c.name}
+                  <div>
+                    <div style={{ display: "flex" }}>
+                      <div style={{ paddingBottom: "15px", marginTop: "20px" }}>
+                        <div
+                          className="col-md-4"
+                          style={{ paddingLeft: "20px" }}
+                        >
+                          <img
+                            src={c.companyLogo}
+                            className="companyLogo"
+                            alt="Company Logo"
+                          />
+                        </div>
+                      </div>
+                      <div style={{ textAlign: "right" }}>{c.name}</div>
+                    </div>
                   </div>
+                  {/* <div style={{ fontWeight: "600", fontSize: "16px" }}>
+                    {c.name} - {c.companyType}
+                  </div> */}
+                  <div style={{ textAlign: "right" }}>{c.location}</div>
                 </div>
               </>
             );
@@ -88,8 +106,14 @@ class AdminCompany extends Component {
     return (
       <>
         {redirectToReviews}
-        <div style={{ padding: "20px" }}>
-          <div style={{ display: "flex", margintop: "20px" }}>
+        <div
+          className="ma"
+          style={{
+            padding: "20px",
+            marginTop: "0px",
+          }}
+        >
+          <div className="ma20" style={{ display: "flex", margintop: "20px" }}>
             <input
               className="adinp"
               onChange={(e) => this.setState({ enteredSearch: e.target.value })}
