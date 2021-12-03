@@ -4,6 +4,7 @@ const router = express.Router();
 const companyService = require("../services/companyService");
 var constraints = require("../kafka/config");
 var mysql = require("mysql");
+const { result } = require("lodash");
 
 var sqlconnection = mysql.createPool({
   host: constraints.DB.host,
@@ -103,6 +104,41 @@ router.get("/photos", async (request, response) => {
     const message = err.message
       ? err.message
       : "Error while getting company photos";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
+router.get("/admincompanies", async (request, response) => {
+  try {
+    console.log(request.query);
+    const data = await companyService.getAdminCompanies(request);
+    response.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting company photos";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
+router.get("/admincompanyreviews", async (request, response) => {
+  try {
+    console.log(request.query.id);
+    const data = await sqlconnection.query(
+      `select * from reviews where companyId=?`,
+      request.query.id,
+      function (error, results) {
+        response.send(results);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    const message = err.message
+      ? err.message
+      : "Error while getting admin reviews";
     const code = err.statusCode ? err.statusCode : 500;
     return response.status(code).json({ message });
   }
@@ -218,5 +254,75 @@ router.get("/companySearch", async (request, response) => {
   }
 });
 
+router.put("/upvoterating", async (request, response) => {
+  try {
+    const data = await sqlconnection.query(
+      "update reviews set upVotes=upVotes+1 where reviews._id=?",
+      request.query.id,
+      function (error, results) {
+        console.log(error);
+        console.log(results);
+        response.send(results);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    const message = err.message ? err.message : "Error while Up voting";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
+router.put("/downvoterating", async (request, response) => {
+  try {
+    const data = await sqlconnection.query(
+      "update reviews set upVotes=upVotes-1 where reviews._id=?",
+      request.query.id,
+      function (error, results) {
+        console.log(error);
+        console.log(results);
+        response.send(results);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    const message = err.message ? err.message : "Error while down voting";
+    const code = err.statusCode ? err.statusCode : 500;
+    return response.status(code).json({ message });
+  }
+});
+
+// router.put("/upvoterating", async (request, response) => {
+//   try {
+//     const check = await sqlconnection.query(
+//       "select * from reviews where _id=? and userId=?",
+//       [request.query.id, request.query.userId],
+//       async function (error, results) {
+//         if (results.length > 0) response.send({ updated: false });
+//         else {
+//           const data = await sqlconnection.query(
+//             "update reviews set upVotes=upVotes+1 where reviews._id=?;insert into userReview (user_id,review_id) values (?,?)",
+//             [
+//               request.query.id,
+//               request.query.userId,
+//               request.query.userId,
+//               request.query.id,
+//             ],
+//             function (error, results) {
+//               console.log(error);
+//               console.log(results);
+//               response.send({ updated: true });
+//             }
+//           );
+//         }
+//       }
+//     );
+//   } catch (err) {
+//     console.log(err);
+//     const message = err.message ? err.message : "Error while upvoting a rating";
+//     const code = err.statusCode ? err.statusCode : 500;
+//     return response.status(code).json({ message });
+//   }
+// });
 
 module.exports = router;

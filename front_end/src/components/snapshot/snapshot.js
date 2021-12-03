@@ -18,6 +18,7 @@ class Snapshot extends Component {
       openModal: false,
       openHappyModal: false,
       reviews: [],
+      dt: "",
     };
   }
 
@@ -28,6 +29,9 @@ class Snapshot extends Component {
         this.setState({
           companyDetails: response,
         });
+        let d = response.founded;
+        d = JSON.stringify(d).substring(1, 5);
+        this.setState({ dt: d });
         get("/reviews?id=61a5f182d511b8e0df9b5fdd").then((resp) => {
           let arr = resp.filter((review) => review.featured == 1);
           this.setState({ reviews: arr });
@@ -271,7 +275,7 @@ class Snapshot extends Component {
     this.setState({
       openModal: false,
     });
-    this.setState({ openHappyModal: true });
+    // this.setState({ openHappyModal: true });
   };
 
   handleHappyClose = () =>
@@ -431,21 +435,21 @@ class Snapshot extends Component {
               <label className="componenttag">
                 {this.state.companyDetails.name} Careers and Employment
               </label>
-              <div>
-                <div className="subHeading">Work happiness</div>
-                <div style={{ textAlign: "right" }}>
-                  <button className="reviewButton" onClick={this.handleOpen}>
-                    Review work happiness
-                  </button>
-                </div>
-                <div>
+              {/* <div>
+                <div className="subHeading">Work happiness</div> */}
+              <div style={{ textAlign: "right" }}>
+                <button className="reviewButton" onClick={this.handleOpen}>
+                  Review work happiness
+                </button>
+              </div>
+              {/* <div>
                   <div className="col-md-3 "></div>
                   <div className="col-md-2"></div>
                   <div className="col-md-2"></div>
                   <div className="col-md-2"></div>
                   <div className="col-md-2"></div>
                 </div>
-              </div>
+              </div> */}
               <div>
                 <div className="subHeading">About the company</div>
                 <div className="row" style={{ marginTop: "35px" }}>
@@ -472,9 +476,7 @@ class Snapshot extends Component {
                       </li>
                       <li className="box">
                         <div className="libox1">Founded</div>
-                        <div className="libox2">
-                          {this.state.companyDetails.founded}
-                        </div>
+                        <div className="libox2">{this.state.dt}</div>
                       </li>
                       <li className="box">
                         <div className="libox1">company size</div>

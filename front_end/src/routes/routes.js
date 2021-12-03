@@ -5,13 +5,13 @@ import Login from "../components/auth/Login";
 import { Dashboard } from "../components/dashboard/Dashboard";
 import companyHomes from "../components/companyHome/companyHome";
 
-import NavBar from '../components/navbar/navbar';
-import AdminHome from '../components/admin/AdminHome';
-import CompanyReviews from '../components/reviews/companyReviews';
-import Profile from '../components/profile/profile';
-import SavedJobs from '../components/useraccount/myjobs';
-import Salaries from '../components/Salaries/salaries';
-import AppliedJobs from '../components/useraccount/AppliedJobs';
+import NavBar from "../components/navbar/navbar";
+import AdminHome from "../components/admin/AdminHome";
+import CompanyReviews from "../components/reviews/companyReviews";
+import Profile from "../components/profile/profile";
+import SavedJobs from "../components/useraccount/myjobs";
+import Salaries from "../components/Salaries/salaries";
+import AppliedJobs from "../components/useraccount/AppliedJobs";
 import DashNav from "../components/navbar/DashNav";
 import { LandingPage } from "../components/dashboard/LandingPage";
 
@@ -24,8 +24,10 @@ import Employer from "../components/Employer/EmployerLanding";
 import PostJob from "../components/PostJob/PostJob";
 import Candidates from "../components/Candidates/Candidates";
 import Messages from "../components/messages/messages";
-import Analytics from '../components/Analytics/Analytics';
-import Statistics from '../components/Analytics/Statistics';
+import Analytics from "../components/Analytics/Analytics";
+import Statistics from "../components/Analytics/Statistics";
+import AdminCompany from "../components/adminCompany/adminCompany";
+import AdminReviews from "../components/adminReviews/adminReviews";
 
 class Routes extends Component {
   render() {
@@ -68,6 +70,8 @@ class Routes extends Component {
         <Route exact path="/addcompany" component={AddCompanyDetails} />
         <Route exact path="/editcompany" component={EditCompanyPage} />
         <Route exact path="/employerreviews" component={employerReviews} />
+        <Route exact path="/admincompany" component={AdminCompany} />
+        <Route exact path="/adminreviews" component={AdminReviews} />
       </div>
     );
   }

@@ -1,11 +1,12 @@
 const _ = require("lodash");
 const dotenv = require("dotenv");
-
+const mongoose = require("mongoose");
 dotenv.config();
 const companySchema = require("../db/schema/company").createModel();
 const jobSchema = require("../db/schema/job").createModel();
 const imageSchema = require("../db/schema/image").createModel();
 const salaryScehma = require("../db/schema/salary").createModel();
+const reviewSchema = require("../db/schema/review").createModel();
 const operations = require("../db/operations");
 const { request } = require("express");
 
@@ -99,6 +100,20 @@ exports.getCompanyPhotos = async (request) => {
 
       return { status: 200, body: response };
     }
+  } catch (err) {
+    console.log(err);
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
+//get companies for admins
+exports.getAdminCompanies = async (request) => {
+  try {
+    let response = await companySchema.find();
+
+    return { status: 200, body: response };
   } catch (err) {
     console.log(err);
     const message = err.message ? err.message : "Error while fetching details";

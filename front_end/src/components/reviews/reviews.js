@@ -23,6 +23,10 @@ class ReviewsTab extends Component {
       prepare: "",
       error: "",
       allReviews: [],
+      selectedRating: "",
+      selectedDate: "",
+      selectedHelp: "",
+      reviewsFromDB: [],
     };
   }
 
@@ -47,12 +51,48 @@ class ReviewsTab extends Component {
     get("/reviews?id=" + "61a5f182d511b8e0df9b5fdd")
       .then((response) => {
         console.log(response);
-        this.setState({ allReviews: response });
+        this.setState({ allReviews: response, reviewsFromDB: response });
       })
       .catch((err) => {
         console.log(err);
       });
   }
+
+  // upvote = (id) => {
+  //   put("/upvoterating?id=" + id)
+  //     .then((response) => {
+  //       console.log(response);
+  //       // this.setState({ allReviews: response });
+  //       let arr = [];
+  //       for (let a of this.state.allReviews) {
+  //         if (a._id == id) a.upVotes = a.upVotes + 1;
+  //         arr.push(a);
+  //       }
+  //       this.setState({ allReviews: arr });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  // downvote = (id) => {
+  //   put("/downvoterating?id=" + id)
+  //     .then((response) => {
+  //       console.log(response);
+  //       // this.setState({ allReviews: response });
+  //       let arr = [];
+  //       for (let a of this.state.allReviews) {
+  //         if (a._id == id) {
+  //           a.upVotes = a.downVotes - 1;
+  //         }
+  //         arr.push(a);
+  //       }
+  //       this.setState({ allReviews: arr });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   handleSubmit = () => {
     console.log("reached");
@@ -88,6 +128,9 @@ class ReviewsTab extends Component {
       post("/reviews", details)
         .then((response) => {
           console.log(response);
+          let arr = [...this.state.allReviews];
+          arr.unshift(details);
+          this.setState({ allReviews: arr });
         })
         .catch((err) => {
           console.log(err);
@@ -297,6 +340,24 @@ class ReviewsTab extends Component {
     }
   };
 
+  filterReview = () => {
+    if (this.state.selectedDate == "" && this.state.selectedRating == "") {
+      this.setState({
+        allReviews: this.state.reviewsFromDB,
+      });
+    } else {
+      console.log("entered else");
+      let arr = this.state.reviewsFromDB.filter((r) => {
+        return (
+          r.rating == this.state.selectedRating ||
+          (this.state.selectedRating == "" &&
+            (r.date > this.state.selectedDate || this.state.selectedDate == ""))
+        );
+      });
+      this.setState({ allReviews: arr });
+    }
+  };
+
   renderReviews = () => {
     return (
       <>
@@ -425,10 +486,24 @@ class ReviewsTab extends Component {
                               }}
                             >
                               <div>
-                                <button className="reviewhlp">Yes</button>
+                                <button
+                                  className="reviewhlp"
+                                  // onClick={() => {
+                                  //   this.upvote(review._id);
+                                  // }}
+                                >
+                                  Yes - {review.upVotes}
+                                </button>
                               </div>
                               <div style={{ marginLeft: "10px" }}>
-                                <button className="reviewhlp">No</button>
+                                <button
+                                  className="reviewhlp"
+                                  // onClick={() => {
+                                  //   this.downvote(review._id);
+                                  // }}
+                                >
+                                  No - {review.downVotes}
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -462,28 +537,58 @@ class ReviewsTab extends Component {
         <div className="reviews1">
           <div className="reviews2">
             <div style={{ display: "flex" }}>
-              <div className="col-md-5">
-                <div className="shead">Job Title</div>
+              <div className="col-md-3">
+                <div className="shead">Rating</div>
                 <div>
-                  <select className="dd">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                  <select
+                    className="dd"
+                    onChange={(e) => {
+                      this.setState({ selectedRating: e.target.value });
+                    }}
+                  >
+                    <option value="">All</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                   </select>
                 </div>
               </div>
-              <div className="col-md-1"></div>
-              <div className="col-md-5">
-                <div className="shead">Location</div>
+              {/* <div className="col-md-1"></div> */}
+              <div className="col-md-3">
+                <div className="shead">Ratings From</div>
                 <div>
-                  <select className="dd">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                  </select>
+                  <input
+                    type="date"
+                    className="dtinp"
+                    value={this.state.selectedDate}
+                    onChange={(e) =>
+                      this.setState({ selectedDate: e.target.value })
+                    }
+                  ></input>
                 </div>
+              </div>
+              <div className="col-md-3">
+                <div className="shead">Helpfulness</div>
+                <div>
+                  <input
+                    className="dtinp"
+                    disabled
+                    value={this.state.selectedHelp}
+                    onChange={(e) =>
+                      this.setState({ selectedHelp: e.target.value })
+                    }
+                  ></input>
+                </div>
+              </div>
+              <div
+                className="col-md-3"
+                style={{ marginLeft: "20px", paddingTop: "20px" }}
+              >
+                <button className="findsbtn" onClick={this.filterReview}>
+                  Filter reviews
+                </button>
               </div>
             </div>
           </div>
