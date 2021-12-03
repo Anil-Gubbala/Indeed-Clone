@@ -16,6 +16,7 @@ router.post("/AddCompany", (req, res) => {
         }
         else if(data.status===200){
           const payload = {
+            _id:data.data._id,
             website: data.data.website,
             companySize: data.data.companySize,
             companyType:data.data.companyType,
@@ -28,6 +29,7 @@ router.post("/AddCompany", (req, res) => {
             companyPicture:data.data.companyPicture,
             companyLogo:data.data.companyLogo,
             ceoImage:data.data.ceoImage,
+            employerId:data.data.employerId,
         };
           console.log("Successfully added company",payload);
           res.status(200).json({payload});

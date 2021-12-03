@@ -7,7 +7,7 @@ const companySchema = require("../db/schema/company").createModel();
     console.log("Inside add company details kafka backend");
     console.log(msg);
     const res={};
-      companySchema.findOne({_id:msg._id}, (error,data) => {
+      companySchema.findOne({employerId:msg.employerId}, (error,data) => {
         if(error){
           res.writeHead(400,{
             "content-type":"text/plain",
@@ -25,6 +25,7 @@ const companySchema = require("../db/schema/company").createModel();
                 }
           else{
            var newCompany = new companySchema({
+              _id:msg._id,
                website: msg.website,
                companySize: msg.companySize,
                companyType:msg.companyType,
@@ -37,6 +38,7 @@ const companySchema = require("../db/schema/company").createModel();
                companyPicture:msg.companyPicture,
                companyLogo:msg.companyLogo,
                ceoImage:msg.ceoImage,
+               employerId:msg.employerId,
           });
               newCompany.save((insertErr,insertData) => {
               if(insertErr){

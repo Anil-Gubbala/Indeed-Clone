@@ -1,32 +1,48 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
+import { get } from "../../utils/serverCall";
+import { post } from "../../utils/serverCall";
+import { put } from "../../utils/serverCall";
 class WhyJoinUs extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { companyDetails: {} };
   }
   componentDidMount() {
-    axios
-      .get('http://localhost:8080/company?id=' + '61960b7c79026b0aab6bef86')
+    get("/company?id=" + "61a3fd8c6a262725310f68f0")
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
+        this.setState({ companyDetails: response });
       })
       .catch((err) => {
         console.log(err);
       });
   }
-  render() {
+
+  renderCompanyDetails = () => {
     return (
       <>
         <div>
           <div className="subHeading">About</div>
-          <div>
-            Google’s mission is to organize the world‘s information and make it universally
-            accessible and useful. In 1998, we started with two computer science students in a
-            university dorm room and now have thousands of employees in offices around the world. A
-            lot has changed since the first Google search engine appeared. But some things haven’t
-            changed
+          <div>{this.state.companyDetails.about}</div>
+          <div className="subHeading" style={{ marginTop: "20px" }}>
+            Work culture
           </div>
+          <div>{this.state.companyDetails.culture}</div>
+          <div className="subHeading" style={{ marginTop: "20px" }}>
+            Company values
+          </div>
+          <div>{this.state.companyDetails.values}</div>
+        </div>
+      </>
+    );
+  };
+
+  render() {
+    return (
+      <>
+        <div>
+          {this.state.companyDetails == {} ? "" : this.renderCompanyDetails()}
         </div>
       </>
     );
