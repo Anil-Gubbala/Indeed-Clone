@@ -351,6 +351,30 @@ router.post('/addfav', (req,res)=>{
 
 });
 
+router.post('/applyjob', (req,res)=>{
+  try{   
+    const {emailId,jobId} = req.body;
+    userSchema.findOneAndUpdate({emailId:emailId},{$addToSet:{appliedJobs:jobId}},function(err,doc){
+    //const adddata = await User.find({});
+      if(doc){
+        res.send("success");
+      }
+      else{
+        res.send("failure");
+      }
+      });
+    }
+ catch (err) {
+     console.log(err);
+     const message = err.message
+       ? err.message
+       : 'Error while getting user Details';
+    const code = err.statusCode ? err.statusCode : 500;
+     return res.status(code).json({ message });
+     }
+
+});
+
 router.get("/userprofile", async (request, response) => {
   try {
     console.log(request.query);
