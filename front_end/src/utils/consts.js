@@ -1,5 +1,5 @@
 const config = {
-  SERVERURL: 'http://localhost:8080',
+  SERVERURL: 'http://54.177.141.105:8080',
 };
 
 export const STORAGE = {
