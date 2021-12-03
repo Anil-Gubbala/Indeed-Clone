@@ -101,7 +101,6 @@ const handleAddCompanyDetails = () =>{
         setCompanyLogo(result.imagePath);
         const imagePath3 = result.imagePath;
   post("/AddCompany",{
-    _id:localStorage.getItem("userId"),
     website:website.toLowerCase(),
     companySize:size,
     companyType:type,

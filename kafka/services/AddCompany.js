@@ -7,7 +7,7 @@ const companySchema = require("../db/schema/company").createModel();
     console.log("Inside add company details kafka backend");
     console.log(msg);
     const res={};
-      companySchema.findOne({_id:msg._id}, (error,data) => {
+      companySchema.findOne({employerId:msg.employerId}, (error,data) => {
         if(error){
           res.writeHead(400,{
             "content-type":"text/plain",
