@@ -429,7 +429,7 @@ router.get('/signout', (req, res) => {
   }
 });
 
-router.get('/addfav', (req,res)=>{
+router.post('/addfav', (req,res)=>{
   try{   
     const {emailId,jobId} = req.body;
     userSchema.findOneAndUpdate({emailId:emailId},{$addToSet:{savedJobs:jobId}},function(err,doc){
@@ -452,5 +452,50 @@ router.get('/addfav', (req,res)=>{
      }
 
 });
+
+router.post('/removefav', (req,res)=>{
+  try{   
+    const {emailId,jobId} = req.body;
+    userSchema.findOneAndUpdate({emailId:emailId},{$pull:{savedJobs: {jobId} }},function(err,doc){
+    //const adddata = await User.find({});
+      if(doc){
+        res.send("success");
+      }
+      else{
+        res.send("failure");
+      }
+      });
+    }
+ catch (err) {
+     console.log(err);
+     const message = err.message
+       ? err.message
+       : 'Error while getting user Details';
+    const code = err.statusCode ? err.statusCode : 500;
+     return res.status(code).json({ message });
+     }
+
+});
+
+router.post("/empReviews/avgrating",(req,res)=>{
+  const {companyId} = req.body;
+  try{
+    sqlconnection.query(`SELECT avg(rating) as avgrating, count(*) as totalreviews FROM reviews WHERE companyId=?`,companyId
+       ,  function (error,results){
+          console.log(results);
+         if(results.length !== 0){
+            res.send(JSON.stringify(results));
+         }
+        });
+  }
+  catch(err){
+    console.log(err);
+ const message = err.message
+      ? err.message
+       : "Error while getting user Details";
+     const code = err.statusCode ? err.statusCode : 500;
+     return response.status(code).json({ message });
+  }
+})
 
 module.exports = router;

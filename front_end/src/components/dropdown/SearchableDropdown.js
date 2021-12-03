@@ -13,6 +13,7 @@ import Popper from 'popper.js';
 import axios from 'axios';
 import Rating from '@material-ui/lab/Rating';
 import { Link, Redirect } from 'react-router-dom';
+import { Button } from 'bootstrap';
 
 
 export const SearchableDropdown = ({list, location}) => {
@@ -29,6 +30,20 @@ export const SearchableDropdown = ({list, location}) => {
     const [jobrole, setJobRole] = useState('');
     const [jobsarraydb, setJobsArrayDb] = useState([]);
 
+    const [favorite, setFavorite] = useState([]);
+
+      const handleClick = (id) => {
+        if(favorite[id] === 0){
+          favorite[id]=1;
+        }
+        else{
+          favorite[id]=0;
+        }
+        
+        //setFavorite([...favorite, id]);
+        console.log(favorite);
+        }
+
     const addToPopup = (el) => {
 
         setCart([el]);
@@ -36,19 +51,34 @@ export const SearchableDropdown = ({list, location}) => {
           console.log(el.companyId._id);
           var compid=JSON.stringify(el.companyId._id);
           var reqavgrating =await axios.post('/empReviews/avgrating',{"companyId":el.companyId._id});
-          setAvgRating(reqavgrating.data[0].avgrating.toFixed(1));
+          setAvgRating(reqavgrating.data[0].avgrating);
           setCountReviews(reqavgrating.data[0].totalreviews)
-          console.log(reqavgrating.data[0].avgrating.toFixed(1));
+          console.log(reqavgrating.data[0].avgrating);
         }
         fetch();
         
       }
 
-      const apply = () => {
-      
+      const savejob = async (a) => {
+        console.log(a);
+        console.log(localStorage.getItem("emailId"));
+        var reqaddfav = await axios.post('/addfav',{emailId: localStorage.getItem("emailId"),jobId:a});
+        console.log(reqaddfav);
+        if(reqaddfav.data==="success"){
+          alert("operaion successful");
+        }
+        else{
+          console.log("operation failed");
+        }
+         console.log("We are in save job!");
+
       };
+
+      const unsavejob = (b) => {
+        console.log("We are in unsave job!");
+     };
     
-      let details = cart.map(jobdetails => {
+      let details = cart.map((jobdetails,index) => {
         return (
           <body>
           <div class="Header">
@@ -184,7 +214,7 @@ export const SearchableDropdown = ({list, location}) => {
             <div class="row dashmargin">
         <div class="col-4">
       <ul class="dash-ul">
-        {jobList.map(country => (
+        {jobList.map((country,index) => (
           <div class="dash-button">
 
             <li class="col-5 stunt" key={country.role.trim()}  onClick={() => addToPopup(country)}>
@@ -213,9 +243,15 @@ export const SearchableDropdown = ({list, location}) => {
 </svg>
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a className="dropdown-item" href="#nogo">Save Job</a>
+                    <a className="dropdown-item" onClick={() => savejob(country._id)}>Save Job</a>
                     <a className="dropdown-item" href="#nogo">Not Interested</a>
                     <a className="dropdown-item" href="#nogo">Report Job</a>
+                    <a className="dropdown-item" onClick={() => unsavejob(country._id)}>UnSave Job</a>
+                    {/* <a><button button
+                  key={index} 
+                 onClick={()=>handleClick(index)}
+                  color={favorite.indexOf(index) > 0 ? 'red' : 'blue'}>save</button>
+                  </a> */}
                 </div>
             </div>
         </div>
