@@ -34,6 +34,14 @@ function AdminReviews(props) {
 
   const handleChangePage = (e, newPage) => {
     setPage(newPage);
+    get("/admincompanyreviews", { id: props.location.state.id._id, newPage })
+      .then((response) => {
+        console.log(response);
+        setAllReviews(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   console.log(props);
