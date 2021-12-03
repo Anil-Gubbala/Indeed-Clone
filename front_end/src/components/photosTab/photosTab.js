@@ -36,7 +36,7 @@ class PhotosTab extends Component {
   }
 
   componentDidMount() {
-    get("/photos?id=" + "61960b7c79026b0aab6bef86" + "&attributeName=companyId")
+    get("/photos?id=" + this.props.id + "&attributeName=companyId")
       .then((response) => {
         console.log(response);
         this.setState({ allImages: response });

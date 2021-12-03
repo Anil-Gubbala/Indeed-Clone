@@ -17,7 +17,7 @@ class JobsTab extends Component {
   }
 
   componentDidMount() {
-    get("/jobbycompanyid?id=" + "61960b7c79026b0aab6bef86")
+    get("/jobbycompanyid?id=" + this.props.id)
       .then((response) => {
         console.log(response);
         this.setState({ allJobs: response });

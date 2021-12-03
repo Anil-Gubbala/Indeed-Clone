@@ -48,7 +48,7 @@ class ReviewsTab extends Component {
     });
 
   componentDidMount() {
-    get("/reviews?id=" + "61a5f182d511b8e0df9b5fdd")
+    get("/reviews?id=" + this.props.id)
       .then((response) => {
         console.log(response);
         this.setState({ allReviews: response, reviewsFromDB: response });

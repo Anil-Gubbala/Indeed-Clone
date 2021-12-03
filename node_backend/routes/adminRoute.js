@@ -1,9 +1,10 @@
 const express = require("express");
 const { kafkaRequest } = require("../kafka/kafkaRequest");
+const { checkAuth } = require("../Utils/auth");
 
 const router = express.Router();
 
-router.post("/updateView", (req, res) => {
+router.post("/updateView", checkAuth , (req, res) => {
   kafkaRequest(
     "admin",
     "updateView",
@@ -18,7 +19,8 @@ router.post("/updateView", (req, res) => {
   );
 });
 
-router.get("/getMostViewedCompanies", (req, res) => {
+router.get( "/getMostViewedCompanies", checkAuth , (req, res) => {
+  console.logcheckAuth , (req.user);
   kafkaRequest(
     "admin",
     "getMostViewedCompanies",
@@ -33,7 +35,7 @@ router.get("/getMostViewedCompanies", (req, res) => {
   );
 });
 
-router.get("/getReviewsCountByDay", (req, res) => {
+router.get("/getReviewsCountByDay", checkAuth , (req, res) => {
   kafkaRequest(
     "admin",
     "getReviewsCountByDay",
@@ -48,7 +50,7 @@ router.get("/getReviewsCountByDay", (req, res) => {
   );
 });
 
-router.get("/getMostReviewedCompanies", (req, res) => {
+router.get("/getMostReviewedCompanies", checkAuth , (req, res) => {
   kafkaRequest("admin", "getMostReviewedCompanies", {}, (err, result) => {
     if (err) {
       res.status(500).send({});
@@ -58,7 +60,7 @@ router.get("/getMostReviewedCompanies", (req, res) => {
   });
 });
 
-router.get("/getTopRatedCompanies", (req, res) => {
+router.get("/getTopRatedCompanies", checkAuth , (req, res) => {
   kafkaRequest("admin", "getTopRatedCompanies", {}, (err, result) => {
     if (err) {
       res.status(500).send({});
@@ -68,7 +70,7 @@ router.get("/getTopRatedCompanies", (req, res) => {
   });
 });
 
-router.get("/getTopJobSeekers", (req, res) => {
+router.get("/getTopJobSeekers", checkAuth , (req, res) => {
   kafkaRequest("admin", "getTopJobSeekers", {}, (err, result) => {
     if (err) {
       res.status(500).send({});
@@ -78,7 +80,7 @@ router.get("/getTopJobSeekers", (req, res) => {
   });
 });
 
-router.get("/getTopRatedCEOs", (req, res) => {
+router.get("/getTopRatedCEOs", checkAuth , (req, res) => {
   kafkaRequest("admin", "getTopRatedCEOs", {}, (err, result) => {
     if (err) {
       res.status(500).send({});
@@ -88,7 +90,7 @@ router.get("/getTopRatedCEOs", (req, res) => {
   });
 });
 
-router.get("/getCompanyJobStatistics", (req, res) => {
+router.get("/getCompanyJobStatistics", checkAuth , (req, res) => {
   kafkaRequest("admin", "getCompanyJobStatistics", {}, (err, result) => {
     if (err) {
       res.status(500).send({});
@@ -98,7 +100,7 @@ router.get("/getCompanyJobStatistics", (req, res) => {
   });
 });
 
-router.get("/getUnfilteredReviews", (req, res) => {
+router.get("/getUnfilteredReviews", checkAuth , (req, res) => {
   
   kafkaRequest("admin", "getUnfilteredReviews", {}, (err, result) => {
     if (err) {
@@ -109,7 +111,7 @@ router.get("/getUnfilteredReviews", (req, res) => {
   });
 });
 
-router.get("/getUnfilteredImages", (req, res) => {
+router.get("/getUnfilteredImages", checkAuth , (req, res) => {
   kafkaRequest("admin", "getUnfilteredImages", {}, (err, result) => {
     if (err) {
       res.status(500).send({});
@@ -119,7 +121,7 @@ router.get("/getUnfilteredImages", (req, res) => {
   });
 });
 
-router.put("/flagReview", (req, res) => {
+router.put("/flagReview", checkAuth , (req, res) => {
   const {_id, approved} = req.body;
   kafkaRequest("admin", "flagReview", {status:approved ? 1: 2, id:_id}, (err, result) => {
     if (err) {
@@ -130,7 +132,7 @@ router.put("/flagReview", (req, res) => {
   });
 });
 
-router.put("/flagImage", (req, res) => {
+router.put("/flagImage", checkAuth , (req, res) => {
   const {_id, approved} = req.body;
   kafkaRequest("admin", "flagImage", {status:approved ? 1:2, _id}, (err, result) => {
     if (err) {
