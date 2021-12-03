@@ -1,12 +1,14 @@
 const _ = require("lodash");
 const dotenv = require("dotenv");
-var mysql = require('mysql');
-var constraints = require('../kafka/config');
+const mongoose = require("mongoose");
+var mysql = require("mysql");
+var constraints = require("../kafka/config");
 dotenv.config();
 const companySchema = require("../db/schema/company").createModel();
 const jobSchema = require("../db/schema/job").createModel();
 const imageSchema = require("../db/schema/image").createModel();
 const salaryScehma = require("../db/schema/salary").createModel();
+const reviewSchema = require("../db/schema/review").createModel();
 const operations = require("../db/operations");
 const { request } = require("express");
 const sqlconnection = mysql.createPool({
@@ -115,6 +117,20 @@ exports.getCompanyPhotos = async (request) => {
   }
 };
 
+//get companies for admins
+exports.getAdminCompanies = async (request) => {
+  try {
+    let response = await companySchema.find();
+
+    return { status: 200, body: response };
+  } catch (err) {
+    console.log(err);
+    const message = err.message ? err.message : "Error while fetching details";
+    const code = err.statusCode ? err.statusCode : 500;
+    return { status: code, body: { message } };
+  }
+};
+
 //post company Photos
 exports.postCompanyPhotos = async (request) => {
   try {
@@ -132,7 +148,7 @@ exports.postCompanyPhotos = async (request) => {
 };
 
 // get company details based on name and/or location
-exports.getCompanyDetails_nameloc = async (request,res) => {
+exports.getCompanyDetails_nameloc = async (request, res) => {
   try {
     console.log(request.query.name);
     console.log(request.query.location);
@@ -152,20 +168,24 @@ exports.getCompanyDetails_nameloc = async (request,res) => {
       });
     }
     let resultMap = {};
-    response.forEach((each)=>{
+    response.forEach((each) => {
       resultMap[each._id] = each;
     });
     const keys = Object.keys(resultMap);
     const resMap = [];
-    await sqlconnection.query(`select companyId, AVG(rating) as avg  from indeed.reviews where companyId IN (?) group by companyId;`, [keys], (err, result) => {
-      console.log("Entered sql");
-      if (err) {
-        console.log(err);
-        const message = err.message ? err.message : "Error while fetching details";
-        const code = err.statusCode ? err.statusCode : 500;
-        return { status: code, body: { message } };
-      } else {
-      
+    await sqlconnection.query(
+      `select companyId, AVG(rating) as avg  from indeed.reviews where companyId IN (?) group by companyId;`,
+      [keys],
+      (err, result) => {
+        console.log("Entered sql");
+        if (err) {
+          console.log(err);
+          const message = err.message
+            ? err.message
+            : "Error while fetching details";
+          const code = err.statusCode ? err.statusCode : 500;
+          return { status: code, body: { message } };
+        } else {
           result.forEach((each) => {
             const temp = {};
 
@@ -175,11 +195,10 @@ exports.getCompanyDetails_nameloc = async (request,res) => {
           });
           console.log(resMap);
           res.send(resMap);
-          // 
+          //
+        }
       }
-      
-    });
- 
+    );
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
     const code = err.statusCode ? err.statusCode : 500;

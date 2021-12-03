@@ -13,17 +13,28 @@ import ReviewsTab from "../reviews/reviews";
 import PhotosTab from "../photosTab/photosTab";
 import JobsTab from "../jobsTab/jobsTab";
 import SalaryTab from "../salaryTab/salaryTab";
-import { post } from "../../utils/serverCall";
+import { get, post } from "../../utils/serverCall";
 
 dotenv.config();
 
 const { TabPane } = Tabs;
 class companyHomes extends React.Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = { companyDetails: {} };
+  }
 
   componentDidMount() {
-    post("/updateView", { id: "61960b7c79026b0aab6bef86" })
-      .then((response) => {})
+    get("/company?id=" + "61a53b6e3ec1481dde76f327")
+      .then((response) => {
+        console.log(response);
+        this.setState({ companyDetails: response });
+        post("/updateView", { id: "61960b7c79026b0aab6bef86" })
+          .then((response) => {})
+          .catch((err) => {
+            console.log(err);
+          });
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -45,60 +56,84 @@ class companyHomes extends React.Component {
     }
     return (
       <>
-        <div
-          style={{
-            paddingLeft: "25%",
-            paddingRight: "25%",
-            position: "absolute",
-            width: "100%",
-            background: "white",
-          }}
-        >
-          <img
-            src={google}
-            style={{ marginTop: "-15px" }}
-            alt="Company Image"
-          />
-          <div className="row" style={{ paddingBottom: "15px" }}>
-            <div className="col-md-1" style={{ paddingLeft: "20px" }}>
-              <img src={g} className="companyLogo" alt="Company Logo" />
-            </div>
-            <div className="col-md-2 " style={{ paddingLeft: "45px" }}>
-              <div className="row companytxt">Google</div>
-              <div className="row"></div>
-            </div>
-          </div>
-          <div>
-            <div style={{ marginLeft: "10px" }}>
-              <Tabs
-                defaultActiveKey="1"
-                onChange={callback}
-                indicatorColor="secondary"
-                style={{ width: "100%" }}
+        {this.state.companyDetails == {} ? (
+          ""
+        ) : (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                width: "100%",
+                paddingLeft: "25%",
+                paddingRight: "25%",
+                background: "white",
+              }}
+            >
+              <div>
+                <img
+                  src={this.state.companyDetails.companyPicture}
+                  style={{
+                    width: "960px",
+                    height: "200px",
+                  }}
+                  alt="Company Image"
+                />
+              </div>
+
+              <div
+                style={{
+                  marginTop: "25px",
+                }}
               >
-                <TabPane tab="Snapshot" key="1">
-                  <Snapshot />
-                </TabPane>
-                <TabPane tab="Why Join Us" key="2">
-                  <WhyJoinUs />
-                </TabPane>
-                <TabPane tab="Reviews" key="3">
-                  <ReviewsTab />
-                </TabPane>
-                <TabPane tab="Salaries" key="4">
-                  <SalaryTab />
-                </TabPane>
-                <TabPane tab="Photos" key="5">
-                  <PhotosTab />
-                </TabPane>
-                <TabPane tab="Jobs" key="6">
-                  <JobsTab />
-                </TabPane>
-              </Tabs>
+                <div className="row" style={{ paddingBottom: "15px" }}>
+                  <div className="col-md-1" style={{ paddingLeft: "20px" }}>
+                    <img
+                      src={this.state.companyDetails.companyLogo}
+                      className="companyLogo"
+                      alt="Company Logo"
+                    />
+                  </div>
+                  <div className="col-md-2 " style={{ paddingLeft: "45px" }}>
+                    <div className="row companytxt">
+                      {this.state.companyDetails.name}
+                    </div>
+                    <div className="row"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style={{ marginLeft: "10px" }}>
+                    <Tabs
+                      defaultActiveKey="1"
+                      onChange={callback}
+                      indicatorColor="secondary"
+                      style={{ width: "100%" }}
+                    >
+                      <TabPane tab="Snapshot" key="1">
+                        <Snapshot />
+                      </TabPane>
+                      <TabPane tab="Why Join Us" key="2">
+                        <WhyJoinUs />
+                      </TabPane>
+                      <TabPane tab="Reviews" key="3">
+                        <ReviewsTab />
+                      </TabPane>
+                      <TabPane tab="Salaries" key="4">
+                        <SalaryTab />
+                      </TabPane>
+                      <TabPane tab="Photos" key="5">
+                        <PhotosTab />
+                      </TabPane>
+                      <TabPane tab="Jobs" key="6">
+                        <JobsTab />
+                      </TabPane>
+                    </Tabs>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="horizontalRule"></div>
+            <div className="horizontalRule"></div>
+          </>
+        )}
       </>
     );
   }
