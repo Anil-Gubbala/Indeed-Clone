@@ -60,7 +60,7 @@
   display: flex;
   justify-content: center;
   border-radius: 6.25rem;
-  color: '#1150bf';
+  color: "#1150bf";
   text-emphasis-color: #1150bf;
 }
 
@@ -88,7 +88,8 @@ h3 {
   margin: 0.25rem 0px 1rem;
   color: rgb(45, 45, 45);
   font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', Roboto, Noto, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", Roboto,
+    Noto, sans-serif;
   font-size: 1rem;
   line-height: 1.5;
 }
@@ -103,7 +104,8 @@ h3 {
   --light-gray: #ececec;
   --success-green: #008040;
   color: #000;
-  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
   font-size: 1rem;
   letter-spacing: 0;
   font-weight: 400;
@@ -126,7 +128,8 @@ h3 {
   --light-gray: #ececec;
   --success-green: #008040;
   color: #000;
-  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
   font-size: 1rem;
   letter-spacing: 0;
   font-weight: 400;
@@ -146,7 +149,8 @@ h3 {
   --light-gray: #ececec;
   --success-green: #008040;
   color: #000;
-  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
   font-size: 1rem;
   letter-spacing: 0;
   font-weight: 400;
@@ -165,7 +169,8 @@ h3 {
   --lighter-font: #6f6f6f;
   --light-gray: #ececec;
   --success-green: #008040;
-  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
   font-size: 1rem;
   letter-spacing: 0;
   font-weight: 400;
@@ -185,7 +190,8 @@ h3 {
   --lighter-font: #6f6f6f;
   --light-gray: #ececec;
   --success-green: #008040;
-  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
   font-size: 1rem;
   letter-spacing: 0;
   font-weight: 400;
@@ -205,7 +211,8 @@ h3 {
   --lighter-font: #6f6f6f;
   --light-gray: #ececec;
   --success-green: #008040;
-  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto, sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, Liberation Sans, Roboto, Noto,
+    sans-serif;
   font-size: 1rem;
   letter-spacing: 0;
   font-weight: 400;

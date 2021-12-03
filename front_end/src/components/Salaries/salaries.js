@@ -1,56 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import {isSignedIn  } from "../../utils/checkLogin";
-import { Redirect, useHistory } from 'react-router-dom';
-import HelpIcon from '@mui/icons-material/Help';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { isSignedIn } from "../../utils/checkLogin";
+import { Redirect, useHistory } from "react-router-dom";
+import HelpIcon from "@mui/icons-material/Help";
 
-
-import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from "@material-ui/icons/Search";
 
 // import { searchCompany, getCompanyReviews } from '../../Redux/CompanyReviews/action';
-import { SearchButton, useStyles } from '../reviews/companyreviewstyles';
-import './salaries.css';
-import SalaryBox from '../layout/SalariesBox';
-import DashLoginNav from '../navbar/DashLoginNav';
-import { get, post } from '../../utils/serverCall';
+import { SearchButton, useStyles } from "../reviews/companyreviewstyles";
+import "./salaries.css";
+import SalaryBox from "../layout/SalariesBox";
+import DashLoginNav from "../navbar/DashLoginNav";
+import { get, post } from "../../utils/serverCall";
 
 function Salaries() {
-  console.log('Entered');
+  console.log("Entered");
   const classes = useStyles();
   const [companies, setCompanies] = useState([]);
-  const [avgsalary, setavg] = useState('');
+  const [avgsalary, setavg] = useState("");
   const history = useHistory();
   const defaultValues = {
-    title: '',
-    location: '',
+    title: "",
+    location: "",
   };
   const [details, setDetails] = useState(defaultValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      get('/jobsearch', { title: details.title, location: details.location })
-      .then((res) => {
-        console.log(res);
-        setavg(res.averagesalary[0].avg);
-        setCompanies(res.top5companies);
-      });
+    axios;
+    get("/jobsearch", {
+      title: details.title,
+      location: details.location,
+    }).then((res) => {
+      console.log(res);
+      setavg(res.averagesalary[0].avg);
+      setCompanies(res.top5companies);
+    });
   };
 
   //   const handleCompanyClick = (id) => {
   //     history.push(`/reviews?id=${id}`);
   //   };
 
-  if(! isSignedIn()){
+  if (!isSignedIn()) {
     return <Redirect push to="/login" />;
   }
 
   return (
     <div>
-       <DashLoginNav/>
+      <DashLoginNav />
       <div className="head">
         <div className="picoutline">
-          <img style={{height: '500px'}}
+          <img
+            style={{ height: "500px" }}
             src="https://d3hbwax96mbv6t.cloudfront.net/title-webapp/_next/static/images/salaries-8d20dc14bdeae8889387e0fb40e0d546.png"
             className="css-1yijzqt e183knr21 ls-is-cached lazyloaded"
             alt=""
@@ -64,7 +66,8 @@ function Salaries() {
                 <span className="css9wd">Find a career you'll love</span>
               </h1>
               <span className="css-1w7">
-                Explore which careers have the highest job satisfaction, best salaries, and more
+                Explore which careers have the highest job satisfaction, best
+                salaries, and more
               </span>
             </div>
             <div className="css-zwr" />
@@ -92,7 +95,7 @@ function Salaries() {
                   </div>
                 </div>
               </div>
-              <div className="what" style={{ paddingLeft: '20px' }}>
+              <div className="what" style={{ paddingLeft: "20px" }}>
                 <div className="css-150">
                   <div className="what-input">
                     <span className="span-what">Where</span>
@@ -106,7 +109,10 @@ function Salaries() {
                           className="title"
                           placeholder="location"
                           onChange={(e) => {
-                            setDetails({ ...details, location: e.target.value });
+                            setDetails({
+                              ...details,
+                              location: e.target.value,
+                            });
                           }}
                         />
                       </span>
@@ -132,7 +138,9 @@ function Salaries() {
             <div className="main">
               <div className="sal">
                 <div className="content">
-                  <h1 className="sal-agg">Software Engineer salary in United States</h1>
+                  <h1 className="sal-agg">
+                    Software Engineer salary in United States
+                  </h1>
                   <h2 className="css-jmm">
                     How much does a Software Engineer make in the United States?
                   </h2>
@@ -149,8 +157,8 @@ function Salaries() {
                       <div className="salaryvalue ">${avgsalary}</div>
                       <div className="salarytype ">per year</div>
                       <h3 className="info">
-                        The average salary for a {details.title} is ${avgsalary} per year in{' '}
-                        {details.location}
+                        The average salary for a {details.title} is ${avgsalary}{" "}
+                        per year in {details.location}
                       </h3>
                     </div>
                   </div>
@@ -160,7 +168,7 @@ function Salaries() {
           </div>
         </div>
       </div>
-      <div className="toppaying" style={{height: '500px'}}>
+      <div className="toppaying" style={{ height: "500px" }}>
         <div>
           <h2 className="toppaying_header">
             Top companies for Software Engineers in United States
@@ -184,7 +192,6 @@ function Salaries() {
               key={item.results._id}
               id={item.results._id}
               name={item.results.name}
-              
               avg={item.results.avg}
               count={item.count}
               rating={item.rating}
