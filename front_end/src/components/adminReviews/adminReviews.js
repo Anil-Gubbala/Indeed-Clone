@@ -17,6 +17,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import AdminNavbar from "../admin/AdminNavbar";
+import { isAdmin, isSignedIn } from "../../utils/checkLogin";
+import { Redirect } from 'react-router-dom';
 
 const { TabPane } = Tabs;
 
@@ -73,6 +76,7 @@ class AdminReviews extends Component {
   renderReviews = () => {
     return (
       <>
+      
         <div style={{ margintop: "20px", padding: "25px" }}>
           <div>
             {this.state.allReviews == [] ? (
@@ -183,44 +187,6 @@ class AdminReviews extends Component {
                             </div>
                           </div>
                         </div>
-                        <div style={{ display: "flex" }}>
-                          <div className="col-md-2"></div>
-                          <div className="col-md-8">
-                            <div style={{ color: "#767676" }}>
-                              Was this review helful
-                            </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                marginLeft: "25px",
-
-                                paddingTop: "10px",
-                              }}
-                            >
-                              <div>
-                                <button
-                                  className="reviewhlp"
-                                  // onClick={() => {
-                                  //   this.upvote(review._id);
-                                  // }}
-                                >
-                                  Yes - {review.upVotes}
-                                </button>
-                              </div>
-                              <div style={{ marginLeft: "10px" }}>
-                                <button
-                                  className="reviewhlp"
-                                  // onClick={() => {
-                                  //   this.downvote(review._id);
-                                  // }}
-                                >
-                                  No - {review.downVotes}
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
                         <hr></hr>
                       </div>
                     </>
@@ -272,9 +238,18 @@ class AdminReviews extends Component {
     </BarChart>;
   };
 
+  
+
   render() {
+    if(! isSignedIn()){
+      return <Redirect push to="/login" />;
+    }
+    if(! isAdmin()){
+      return <Redirect push to="/invalid" />;
+    }
     return (
       <>
+      <AdminNavbar></AdminNavbar>
         <div style={{ marginLeft: "20%", marginRight: "20%" }}>
           <div>
             <img

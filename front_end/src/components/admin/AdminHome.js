@@ -8,20 +8,25 @@ import TopRatedCompanies from "./TopRatedCompanies";
 import "antd/dist/antd.css";
 import { Tabs } from "antd";
 import ApproveReviews from "./ApproveReviews";
-import { isAdmin } from "../../utils/checkLogin";
+import { isAdmin, isSignedIn } from "../../utils/checkLogin";
 import { Redirect } from 'react-router-dom';
 import Analytics from "./Analytics";
 import ApproveImages from "./ApproveImages";
 import AdminCompany from "../adminCompany/adminCompany";
+import AdminNavbar from "./AdminNavbar";
 
 function AdminHome() {
-  if(! isAdmin()){
+  if(! isSignedIn()){
     return <Redirect push to="/login" />;
+  }
+  if(! isAdmin()){
+    return <Redirect push to="/invalid" />;
   }
   const { TabPane } = Tabs;
   const tabChange = () => {};
   return (
     <>
+    <AdminNavbar></AdminNavbar>
       {/* <ReviewsPerDay></ReviewsPerDay>
       <MostViewedCompanies></MostViewedCompanies>
       <MostReviewedCompanies></MostReviewedCompanies>
