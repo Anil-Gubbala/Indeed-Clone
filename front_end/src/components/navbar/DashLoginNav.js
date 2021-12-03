@@ -10,11 +10,25 @@ import PersonIcon from '@mui/icons-material/Person';
 import './navbar.css';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import axios from 'axios';
+import { get, put, post } from "../../utils/serverCall";
 
 class DashLoginNav extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  handleSubmit = () => {
+    console.log("Handle submit!");
+    get('/signout')
+    .then((result) => {
+      localStorage.clear();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    
   }
 
   render() {
@@ -89,7 +103,7 @@ class DashLoginNav extends Component {
     <a className="dropdown-item" href="#">Search Preferences</a>
     <a className="dropdown-item" href="#">Settings</a>
     <a className="dropdown-item" href="#">Help Center</a>
-    <a className="dropdown-item" href="#">
+    <a className="dropdown-item"  onClick={this.handleSubmit}>
     <Link to="/">Sign Out</Link>
     </a>
   </div>

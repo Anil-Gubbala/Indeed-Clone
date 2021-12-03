@@ -101,7 +101,7 @@ export const SearchableDropdown = ({list, location}) => {
           <div class="Header">
           <img src="https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/8af1f1544e551bf42990ae60c8e5ccd8" alt="company" width="670" height="100"/>
             <p>{jobdetails.role}</p>
-            <p><Link to={{pathname:"/companyHomes", state: {companyId: jobdetails.companyId._id }}}>{jobdetails.companyId.name} </Link> &nbsp; {avgrating} &nbsp; {countreviews}</p>
+            <p><Link to={"/companyHomes?id="+jobdetails.companyId._id}>{jobdetails.companyId.name} </Link> &nbsp; {avgrating} &nbsp; {countreviews}</p>
 
             <Rating name="half-rating-read" defaultValue={2.0} precision={0.5} readOnly />
 
