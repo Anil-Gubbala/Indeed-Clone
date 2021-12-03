@@ -7,14 +7,21 @@ import { IoIosLock } from 'react-icons/io';
 
 const ProfilePage = () => {
 
+
 const [employerData,setEmployerData] = useState([]);
+const [profileMsg,setProfileMsg]=useState("");
 
 useEffect(() => {
   console.log("I am called");
-  post("/Profile",{_id:"61a4739875c76feb200ca414"})
+  post("/Profile",{_id:localStorage.getItem("userId")})
   .then(result =>{
-    console.log(result.payload);
-    setEmployerData(result.payload);
+    if(result.payload =="Looks like you have not yet entered your details! Please enter your details to save it!"){
+      setProfileMsg("Looks like you your profile is empty!")
+    }
+    else{
+      console.log(result.payload);
+      setEmployerData(result.payload);
+    }
   })
 }, [])
 
@@ -105,14 +112,14 @@ useEffect(() => {
 const handleNameChange = () =>{
   const isValid=nameValidation();
   if(isValid){
-    put("/EditCompanyName",{_id:"61a4739875c76feb200ca414",firstName:firstName,lastName:lastName,})
+    put("/EditCompanyName",{_id:localStorage.getItem("userId"),firstName:firstName,lastName:lastName,})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
       console.log(err);
       console.log("Error saving in database")
     })
-    window.location.reload();
+    // window.location.reload();
   }
 }
 
@@ -120,28 +127,28 @@ const handleNameChange = () =>{
 const handleRoleChange = () =>{
   const isValid=roleValidation();
   if(isValid){
-    put("/EditCompanyRole",{_id:"61a4739875c76feb200ca414",role:role,})
+    put("/EditCompanyRole",{_id:localStorage.getItem("userId"),role:role,})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
       console.log(err);
       console.log("Error saving in database")
     })
-    window.location.reload();
+    // window.location.reload();
   }
 }
 
 const handleAddressChange = () =>{
   const isValid=addressValidation();
   if(isValid){
-    put("/EditCompanyAddress",{_id:"61a4739875c76feb200ca414",streetAddress:streetAddress,city:city,state:state,zipCode:zipCode})
+    put("/EditCompanyAddress",{_id:localStorage.getItem("userId"),streetAddress:streetAddress,city:city,state:state,zipCode:zipCode})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
       console.log(err);
       console.log("Error saving in database")
     })
-    window.location.reload();
+    // window.location.reload();
   }
 }
 
@@ -215,6 +222,14 @@ const addressValidation = () =>{
     <>
     <NavBar/>
     <div className="body-profile">
+    {profileMsg=="Looks like you your profile is empty!" ?
+    <div className="alert-popup-profile" style={{width:"45%",justifyContent:"center"}}>
+      <span className="error-msg closebtn" style={{padding:"0",textAlign:"center"}}>{profileMsg}</span>
+    </div>
+    :
+    <div>
+    </div>
+    }
     <div>
     <div className="first">
     <Row>

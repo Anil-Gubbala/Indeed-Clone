@@ -111,6 +111,16 @@
   margin-top: 2%;
 }
 
+.alert-popup-profile {
+  padding: 20px;
+  background-color: #E1E8EB;
+  color: black;
+  margin-top: 2%;
+  margin-left: 29%;
+  height:50px;
+  text-align: center
+}
+
 .error-msg .closebtn {
   margin-left: 15px;
   color: white;

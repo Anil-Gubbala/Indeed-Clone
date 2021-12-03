@@ -10,8 +10,23 @@ function employerReviews () {
 const[featured,setFeatured] = useState("");
 const[review,getReviews] = useState({});
 
+const [data,getData] = useState("");
+
+  useEffect(() => {
+      get(`/GetCompany`,{employerId:localStorage.getItem("userId")})
+        .then((result) =>{
+          console.log(result)
+        console.log("data image",result.data.data[0]["companyPicture"]);
+        const allCompanyData = result.data.data[0]["companyPicture"];
+        getData(allCompanyData);
+      }).catch(err =>{
+        console.log(err);
+      })
+    }, [])
+
+
 useEffect(() => {
-      get(`/empReviews/getCompanyReviews`)
+      get(`/empReviews/getCompanyReviews`,{companyId:localStorage.getItem("companyId")})
         .then((result) =>{
         console.log("data for display",result.reviews);
           const allReviews= result.reviews;
@@ -25,6 +40,10 @@ useEffect(() => {
     return(
       <>
       <NavBar/>
+      <div>
+      </div>
+      <img src={data} alt="company-pic" style={{width:"100%",paddingTop:"3%",paddingBottom:"3%"}}/>
+      <div></div>
       <div>
       </div>
       {Array.from(review).map(function(d,idx){

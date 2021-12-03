@@ -101,7 +101,7 @@ const handleAddCompanyDetails = () =>{
         setCompanyLogo(result.imagePath);
         const imagePath3 = result.imagePath;
   post("/AddCompany",{
-    _id:"61962f8b97ef3ba02f04e4d2",
+    _id:localStorage.getItem("userId"),
     website:website.toLowerCase(),
     companySize:size,
     companyType:type,
@@ -114,8 +114,11 @@ const handleAddCompanyDetails = () =>{
     companyPicture:imagePath1,
     ceoImage:imagePath2,
     companyLogo:imagePath3,
+    employerId:localStorage.getItem("userId"),
 
   }).then((response) =>{
+    console.log(response.payload);
+    localStorage.setItem("companyId",response.payload._id);
     console.log("Added to DB!")
     window.open("/PostJob","_self")
     })
