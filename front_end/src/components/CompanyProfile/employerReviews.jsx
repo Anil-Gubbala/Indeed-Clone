@@ -12,6 +12,7 @@ const[review,getReviews] = useState({});
 
 const [data,getData] = useState("");
 
+
   useEffect(() => {
       get(`/GetCompany`,{employerId:localStorage.getItem("userId")})
         .then((result) =>{
