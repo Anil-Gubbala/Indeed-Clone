@@ -12,7 +12,6 @@ const[review,getReviews] = useState({});
 
 const [data,getData] = useState("");
 
-
   useEffect(() => {
       get(`/GetCompany`,{employerId:localStorage.getItem("userId")})
         .then((result) =>{
@@ -27,7 +26,7 @@ const [data,getData] = useState("");
 
 
 useEffect(() => {
-      get(`/empReviews/getCompanyReviews`,{companyId:localStorage.getItem("companyId")})
+      get(`/empReviews/getCompanyReviews`,{companyId:localStorage.getItem("companyId"),status:1})
         .then((result) =>{
           console.log(result.reviews)
           console.log("length",Object.keys(result.reviews).length)

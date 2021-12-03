@@ -31,6 +31,7 @@ import AdminCompany from "../components/adminCompany/adminCompany";
 import AdminReviews from "../components/adminReviews/adminReviews";
 import MyReviews from "../components/reviews/Myreviews";
 import EmployerUserProfile from "../components/profile/employeruserprofile";
+import Invalid from "../components/invalid/invalid";
 
 class Routes extends Component {
   render() {
@@ -82,6 +83,7 @@ class Routes extends Component {
         <Route exact path="/admincompany" component={AdminCompany} />
         <Route exact path="/adminreviews" component={AdminReviews} />
         <Route exact path="/noreviews" component={noreviews} />
+        <Route exact path="/invalid" component={Invalid} />
       </div>
     );
   }

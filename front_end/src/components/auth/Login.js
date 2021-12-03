@@ -5,7 +5,7 @@ import { login } from "../../actions/auth";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { isJobSeeker } from "../../utils/checkLogin";
+import { isAdmin, isEmployer, isJobSeeker } from "../../utils/checkLogin";
 
 export const Login = ({ login, isAuthenticated, details, state }) => {
   const [formData, setFormData] = useState({
@@ -25,12 +25,14 @@ export const Login = ({ login, isAuthenticated, details, state }) => {
     console.log(details.accountType);
     if (isJobSeeker()) {
       return <Redirect to="/landing" />;
-    } else {
-      if (localStorage.get("companyId") === undefined) {
+    } else if(isEmployer()){
+      if (localStorage.getItem("companyId") === undefined) {
         return <Redirect to="/addcompany" />;
       } else {
         return <Redirect to="/EmployerLanding" />;
       }
+    }else if(isAdmin()){
+      return <Redirect to="/adminHome"></Redirect>
     }
   }
   return (

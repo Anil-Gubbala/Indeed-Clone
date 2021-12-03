@@ -125,7 +125,7 @@ const handleAddCompanyDetails = () =>{
     }).catch(err=>{
       console.log(err);
     })
-    // window.open("/PostJob","_self")
+    window.open("/PostJob","_self")
     })
     })
     })
