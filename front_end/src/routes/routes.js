@@ -19,6 +19,7 @@ import ProfilePage from "../components/EmployerLanding/ProfilePage";
 import AddCompanyDetails from "../components/CompanyProfile/AddCompanyDetails";
 import EditCompanyPage from "../components/CompanyProfile/EditCompanyPage";
 import employerReviews from "../components/CompanyProfile/employerReviews";
+import noreviews from "../components/CompanyProfile/NoReviews";
 
 import Employer from "../components/Employer/EmployerLanding";
 import PostJob from "../components/PostJob/PostJob";
@@ -28,6 +29,9 @@ import Analytics from "../components/Analytics/Analytics";
 import Statistics from "../components/Analytics/Statistics";
 import AdminCompany from "../components/adminCompany/adminCompany";
 import AdminReviews from "../components/adminReviews/adminReviews";
+import MyReviews from "../components/reviews/Myreviews";
+import Analytics from "../components/Analytics/Analytics";
+import Statistics from "../components/Analytics/Statistics";
 
 class Routes extends Component {
   render() {
@@ -54,6 +58,9 @@ class Routes extends Component {
         <Route exact path="/reviews">
           <CompanyReviews />
         </Route>
+        <Route exact path="/myreviews">
+          <MyReviews />
+        </Route>
         <Route exact path="/profile">
           <Profile />
         </Route>
@@ -72,6 +79,7 @@ class Routes extends Component {
         <Route exact path="/employerreviews" component={employerReviews} />
         <Route exact path="/admincompany" component={AdminCompany} />
         <Route exact path="/adminreviews" component={AdminReviews} />
+        <Route exact path="/noreviews" component={noreviews} />
       </div>
     );
   }

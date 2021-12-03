@@ -103,6 +103,7 @@ export const Register = ({register,  isAuthenticated}) => {
                                         <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
                                             in</button>
                                     </div>
+                                    <Link to='/login'>Have an account? Sign in</Link>
                                     <hr class="my-4" />
                                     <div class="d-grid ">
                                         <button class="btn btngoogle " type="button">

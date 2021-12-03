@@ -19,11 +19,11 @@ class DashLoginNav extends Component {
 
   render() {
     return (
-        <nav class="navbar navbar-expand-md  ">
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
+        <nav className="navbar navbar-expand-md  ">
+        <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul className="navbar-nav mr-auto">
+                <li className="nav-item active">
+                    <a className="nav-link" href="#">
 
                     <svg
                         width="108"
@@ -44,59 +44,59 @@ class DashLoginNav extends Component {
 
                     </a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link">
+                <li className="nav-item">
+                <a className="nav-link">
                 <Link to="/company">Find Jobs</Link>
                 </a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link">
-                <Link to="/company">Company Reviews</Link>
+                <li className="nav-item">
+                <a className="nav-link">
+                <Link to="/reviews">Company Reviews</Link>
                 </a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link">
-                <Link to="/company">Find Salaries</Link>
+                <li className="nav-item">
+                <a className="nav-link">
+                <Link to="/salary">Find Salaries</Link>
                 </a>
                 </li>
                 
             </ul>
         </div>
        
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item landli">
-                <a class="nav-link">
+        <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul className="navbar-nav ml-auto">
+                <li className="nav-item landli">
+                <a className="nav-link">
                 <ChatIcon />
 
                 </a>
                 </li>
-                <li class="nav-item landli">
-                <a class="nav-link">
+                <li className="nav-item landli">
+                <a className="nav-link">
                 <NotificationsIcon />
                 </a>
                 </li>
-                <li class="nav-item landli">
-                <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li className="nav-item landli">
+                <div className="dropdown">
+  <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <PersonIcon/>
   </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Profile</a>
-    <a class="dropdown-item" href="#">My Jobs</a>
-    <a class="dropdown-item" href="#">My Reviews</a>
-    <a class="dropdown-item" href="#">Email Preferences</a>
-    <a class="dropdown-item" href="#">Search Preferences</a>
-    <a class="dropdown-item" href="#">Settings</a>
-    <a class="dropdown-item" href="#">Help Center</a>
-    <a class="dropdown-item" href="#">
+  <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a className="dropdown-item" href="#">Profile</a>
+    <a className="dropdown-item" href="#">My Jobs</a>
+    <a className="dropdown-item" href="#">My Reviews</a>
+    <a className="dropdown-item" href="#">Email Preferences</a>
+    <a className="dropdown-item" href="#">Search Preferences</a>
+    <a className="dropdown-item" href="#">Settings</a>
+    <a className="dropdown-item" href="#">Help Center</a>
+    <a className="dropdown-item" href="#">
     <Link to="/">Sign Out</Link>
     </a>
   </div>
 </div>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link">
+                <li className="nav-item">
+                <a className="nav-link">
                 <Link to="/">Employer/Post Job</Link>
                 </a>
                 </li>

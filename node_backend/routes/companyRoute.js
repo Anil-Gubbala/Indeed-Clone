@@ -242,8 +242,9 @@ router.post("/reviews", async (request, response) => {
 router.get("/companySearch", async (request, response) => {
   try {
     console.log("Entered company");
-    const data = await companyService.getCompanyDetails_nameloc(request);
-    response.status(data.status).json(data.body);
+    await companyService.getCompanyDetails_nameloc(request,response);
+    // console.log("data",data);
+    // response.status(data.status).json(data.body);
   } catch (err) {
     console.log(err);
     const message = err.message

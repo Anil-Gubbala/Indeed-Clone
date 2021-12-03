@@ -16,6 +16,7 @@ router.post("/AddCompany", (req, res) => {
         }
         else if(data.status===200){
           const payload = {
+            _id:data.data._id,
             website: data.data.website,
             companySize: data.data.companySize,
             companyType:data.data.companyType,
@@ -28,6 +29,7 @@ router.post("/AddCompany", (req, res) => {
             companyPicture:data.data.companyPicture,
             companyLogo:data.data.companyLogo,
             ceoImage:data.data.ceoImage,
+            employerId:data.data.employerId,
         };
           console.log("Successfully added company",payload);
           res.status(200).json({payload});
@@ -41,6 +43,25 @@ router.post("/AddCompany", (req, res) => {
         res.end("Invalid data")
         }
   })
+  })
+
+  router.put("/AddCompany/Id",(req,res) =>{
+    console.log("Inside Add Company Id to User Profile Page");
+    kafka.makeRequest("addCompanyId",req.body,(err,data) =>{
+      if(err){
+        res.writeHead(400,{
+          "Content-type":"text/plain",
+        });
+        res.end("Cannot save company Id details");
+      }
+      else{
+        let payload={
+          companyId:data.data.companyId,
+        }
+        console.log("payload in backend",JSON.stringify(payload))
+        res.status(200).json({payload});
+      }
+    })
   })
 
 

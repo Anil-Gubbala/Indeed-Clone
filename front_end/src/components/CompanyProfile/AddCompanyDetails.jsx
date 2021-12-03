@@ -1,5 +1,5 @@
 import React,{useState} from "react"
-import { post } from '../../utils/serverCall';
+import { post,put } from '../../utils/serverCall';
 import "./AddCompanyDetails.css"
 import NavBar from "./../EmpNavbar/EmpNavbar"
 import {Row,Col} from "react-bootstrap"
@@ -101,7 +101,6 @@ const handleAddCompanyDetails = () =>{
         setCompanyLogo(result.imagePath);
         const imagePath3 = result.imagePath;
   post("/AddCompany",{
-    _id:"61962f8b97ef3ba02f04e4d2",
     website:website.toLowerCase(),
     companySize:size,
     companyType:type,
@@ -114,10 +113,19 @@ const handleAddCompanyDetails = () =>{
     companyPicture:imagePath1,
     ceoImage:imagePath2,
     companyLogo:imagePath3,
+    employerId:localStorage.getItem("userId"),
 
   }).then((response) =>{
+    console.log(response.payload);
+    localStorage.setItem("companyId",response.payload._id);
     console.log("Added to DB!")
-    window.open("/PostJob","_self")
+    put("/AddCompany/Id",{companyId:localStorage.getItem("companyId"),emailId:localStorage.getItem("emailId")})
+    .then((result) =>{
+      console.log("Added to users table!");
+    }).catch(err=>{
+      console.log(err);
+    })
+    // window.open("/PostJob","_self")
     })
     })
     })
@@ -226,8 +234,8 @@ const formValidation = () =>{
         <HelpIcon/>Not here to post a job?
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item lg" href="#">Looking for jobs</a>
-        <a class="dropdown-item" href="#">Upload Your resume</a>
+        <a class="dropdown-item lg" href="http://localhost:3000/landing">Looking for jobs</a>
+        <a class="dropdown-item" href="http://localhost:3000/profile">Upload Your resume</a>
         </div>
         </div>
         <h6 className="heading-add">Your Company's Website<span style={{color:"red"}}>*</span></h6>

@@ -1,10 +1,18 @@
 const _ = require("lodash");
 const dotenv = require("dotenv");
-
+var mysql = require("mysql");
+var constraints = require("../kafka/config");
 dotenv.config();
 const jobSchema = require("../db/schema/job").createModel();
 const operations = require("../db/operations");
 const { request } = require("express");
+const sqlconnection = mysql.createPool({
+  host: constraints.DB.host,
+  user: constraints.DB.username,
+  password: constraints.DB.password,
+  port: constraints.DB.port,
+  database: constraints.DB.database,
+});
 
 exports.saveJobDetails = async (request) => {
   try {
@@ -83,7 +91,7 @@ exports.filterJobsInSearch = async (request) => {
   }
 };
 
-exports.getJobDetails_search = async (request) => {
+exports.getJobDetails_search = async (request,res) => {
   try {
     const { title, location } = request.query;
     const averagesalary = await jobSchema.aggregate([
@@ -96,25 +104,66 @@ exports.getJobDetails_search = async (request) => {
     ]);
 
     console.log(`averagesalary${averagesalary}`);
-    const top5com = await jobSchema
+    await jobSchema
       .aggregate([
         {
           $match: {
             $and: [{ jobTitle: title }, { "location.city": location }],
           },
         },
-        { $group: { _id: "$companyName", avg: { $avg: "$salary" } } },
+        {
+          $group: {
+            _id: "$companyId",
+            name: { $first: "$companyName" },
+            avg: { $avg: "$salary" },
+          },
+        },
       ])
       .limit(5)
-      .sort({ avg: -1 });
-
-    console.log(`top 5 companies${top5com}`);
-    const response = {
-      averagesalary,
-      top5companies: top5com,
-    };
-    console.log(response);
-    return { status: 200, body: response };
+      .sort({ avg: -1 })
+      .then((top5com) => {
+        let resultMap = {};
+        top5com.forEach((each) => {
+          resultMap[each._id] = each;
+        });
+        const keys = Object.keys(resultMap);
+        console.log(keys);
+        const resMap = [];
+        sqlconnection.query(
+          `select companyId, count(*) as count, AVG(rating) as avg from indeed.reviews where companyId IN (?) group by companyId;`,
+          [keys],
+          (err, result) => {
+            console.log(result);
+            if (err) {
+              console.log(err);
+              const message = err.message
+                ? err.message
+                : "Error while fetching details";
+              const code = err.statusCode ? err.statusCode : 500;
+              return { status: code, body: { message } };
+            } else {
+              result.forEach((each) => {
+                const temp = {};
+                temp.count = each.count;
+                temp.rating = each.avg;
+                temp.results = resultMap[each.companyId];
+                resMap.push(temp);
+              });
+              console.log(resMap);
+              console.log(`top 5 companies${resMap}`);
+              const response = {
+                averagesalary,
+                top5companies: resMap,
+              };
+              console.log(response);
+              res.send(response);
+             // return { status: 200, body: response };
+              // return { status: 200, body: resMap };
+            }
+          }
+        );
+        
+      });
   } catch (err) {
     const message = err.message ? err.message : "Error while fetching details";
     const code = err.statusCode ? err.statusCode : 500;

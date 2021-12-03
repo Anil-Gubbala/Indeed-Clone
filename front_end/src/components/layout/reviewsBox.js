@@ -39,7 +39,7 @@ function ReviewBox(props) {
           />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div className="col-md-1" style={{ paddingLeft: '20px' }}>
-              <img src={g} className="companyLogo" alt="Company Logo" />
+              <img src={props.logo} className="companyLogo" alt="Company Logo" />
             </div>
             <div
               style={{
@@ -57,9 +57,9 @@ function ReviewBox(props) {
                 }}
               >
                 <div>
-                  <u>3.5</u>
+                  <u>{props.rating}</u>
                 </div>
-                <StarIcon style={{ color: '#9d2b6b' }} />
+                <Rating value={props.rating}readOnly style={{ color: '#9d2b6b' }} />
               </div>
             </div>
             <div style={{ display: 'flex', paddingLeft: '15px', width: '500px' }}>

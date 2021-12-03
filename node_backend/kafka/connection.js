@@ -15,7 +15,7 @@ function ConnectionProvider() {
     this.kafkaConsumerConnection = new kafka.Consumer(
       this.client,
       [{ topic: topicName, partition: 0 }],
-      { fetchMaxBytes: 5242880 }
+      { fetchMaxBytes: 5242880 , groupId:"groupId"}
     );
     this.client.on("ready", () => {
       console.log("client ready!");
