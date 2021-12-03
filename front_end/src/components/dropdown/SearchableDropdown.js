@@ -12,6 +12,7 @@ import $ from 'jquery';
 import Popper from 'popper.js';
 import axios from 'axios';
 import Rating from '@material-ui/lab/Rating';
+import { Link, Redirect } from 'react-router-dom';
 
 
 export const SearchableDropdown = ({list, location}) => {
@@ -23,6 +24,11 @@ export const SearchableDropdown = ({list, location}) => {
     const [citytoggle, setCityToggle] = useState('');
     const [cart, setCart] = useState([]);
     const [jobList, setJobList] = useState([]);
+    const [joblocation, setLocation] = useState('');
+    const [jobtitle, setJobTitle] = useState('');
+    const [jobrole, setJobRole] = useState('');
+    const [jobsarraydb, setJobsArrayDb] = useState([]);
+
     const addToPopup = (el) => {
 
         setCart([el]);
@@ -48,8 +54,8 @@ export const SearchableDropdown = ({list, location}) => {
           <div class="Header">
           <img src="https://d2q79iu7y748jz.cloudfront.net/s/_headerimage/1960x400/8af1f1544e551bf42990ae60c8e5ccd8" alt="company" width="670" height="100"/>
             <p>{jobdetails.role}</p>
-            <p>{jobdetails.companyId.name} &nbsp; {avgrating} &nbsp; {countreviews}</p>
-              
+            <p><Link to={{pathname:"/companyHomes", state: {companyId: jobdetails.companyId._id }}}>{jobdetails.companyId.name} </Link> &nbsp; {avgrating} &nbsp; {countreviews}</p>
+
             <Rating name="half-rating-read" defaultValue={2.0} precision={0.5} readOnly />
 
             <a><button type="button" class="btn btn-primary">Apply Now</button></a>
@@ -88,6 +94,7 @@ export const SearchableDropdown = ({list, location}) => {
         //   ).flat();
         
         setJobList(re.data);
+        setJobsArrayDb(re.data);
         }
         fetchData();
     }, [])
@@ -99,11 +106,30 @@ export const SearchableDropdown = ({list, location}) => {
         e.preventDefault();
         console.log(value+" "+city);
         var r = await axios.post('/filterjob',{role:value,location:city});
-        // const result = r.data.map(
-        //     ({details, ...rest}) => details.map(o => Object.assign({}, rest, o))
-        //   ).flat();
+        
+        if (value == "" && city == "") {
+          console.log("reached if");
+          setJobList(r.data);
+        }
+        else{
+          console.log("reached else");
+      let arra = [];
+      arra = jobsarraydb.filter((salary) => {
+        return (
+          (salary.role == value || salary.companyId.name == value ||
+            value == "") &&
+          (salary.location.city == city ||
+            city == "")
+        );
+      });
+      setJobList(arra);
+        }
+
+
+
+
         console.log(r.data);
-        setJobList(r.data);
+       // setJobList(r.data);
     }
     return (
         <>

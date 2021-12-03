@@ -9,23 +9,10 @@ import DashNav from '../navbar/DashNav';
 import DashLoginNav from '../navbar/DashLoginNav';
 
 
-const list = [
-  { id: 1, data: 'amazon' },
-  { id: 2, data: 'google' },
-  { id: 3, data: 'linkedin' },
-  { id: 4, data: 'arizon' },
-  { id: 5, data: 'paypal' },
-  { id: 6, data: 'Roblox' }
-]
 
-var list2=[{role: 'SDE'}]
+var list2=[{role: 'SDE'}];
+var locat=[{city: 'San Jose'}];
 
-// const location = [
-//   { id: 1, data: 'Texas' },
-//   { id: 2, data: 'San Jose' },
-//   { id: 3, data: 'Santa Clara' },
-//   { id: 4, data: 'Milpitas' }
-// ]
 
 
 export const LandingPage = (props) => {
@@ -37,10 +24,13 @@ export const LandingPage = (props) => {
 
     useEffect(() => {
       async function fetchData() {
-        const req = await axios.get('/getjobinsearch');
+        //const req = await axios.get('/getjobinsearch');
         
+        var r = await axios.post('/filterjob',{role:"",location:""});
+        setCart(r.data);
+
         //console.log(req.data);
-        const result = req.data;
+        const result = r.data;
 
         console.log(result);
 
@@ -48,19 +38,31 @@ export const LandingPage = (props) => {
           var myObj = {
             "role" : item.role
           };
-          // var myObj2 = {
-          //   "role" : item.companyName
-          // };
+          var myObj2 = {
+            "role" : item.companyId.name
+          };
+          var loc = {
+            "city": item.location.city
+          };
         
+          if (!list2.includes(myObj)){
           list2.push( myObj );
-          //list2.push( myObj2 );
+          }
+          if (!list2.includes(myObj2)){
+          list2.push( myObj2 );
+          }
+          if (!locat.includes(loc)){
+            locat.push( loc );
+            }
+        
         });
 
         console.log(list2);
         console.log(result);
         list2 = list2.filter((li, idx, self) => self.map(itm => itm.role).indexOf(li.role) === idx)
+        locat = locat.filter((li, idx, self) => self.map(itm => itm.city).indexOf(li.city) === idx)
         setRoles(list2);
-        setLocation(result);
+        setLocation(locat);
       }
 
       fetchData();

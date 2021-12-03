@@ -2,13 +2,16 @@ const express = require('express');
 const router = express.Router();
 const userService = require('../services/userService');
 const User = require('../db/schema/user');
+const userSchema = require("../db/schema/user").createModel();
 var mysql = require('mysql');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var constraints = require('../kafka/config');
 const config = require('../Utils/config')
 const { kafkaRequest } = require('../kafka/kafkaRequest');
+const mongoose = require("mongoose");
 const saltRounds = 10;
+
 
 const sqlconnection = mysql.createPool({
   host: constraints.DB.host,
@@ -382,6 +385,30 @@ router.get('/signout', (req, res) => {
   } else {
     res.send();
   }
+});
+
+router.get('/addfav', (req,res)=>{
+  try{   
+    const {emailId,jobId} = req.body;
+    userSchema.findOneAndUpdate({emailId:emailId},{$addToSet:{savedJobs:jobId}},function(err,doc){
+    //const adddata = await User.find({});
+      if(doc){
+        res.send("success");
+      }
+      else{
+        res.send("failure");
+      }
+      });
+    }
+ catch (err) {
+     console.log(err);
+     const message = err.message
+       ? err.message
+       : 'Error while getting user Details';
+    const code = err.statusCode ? err.statusCode : 500;
+     return res.status(code).json({ message });
+     }
+
 });
 
 module.exports = router;
