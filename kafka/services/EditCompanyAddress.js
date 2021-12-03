@@ -19,8 +19,8 @@ const handle_request = async( msg, callback) => {
     }
   }
 }
-
-  Employer.updateOne(query,newValues,(error,data) =>{
+  var options = {upsert:true};
+  Employer.updateOne(query,newValues,options,(error,data) =>{
     if(error){
       console.log("Error fetching data");
       callback(error,null);

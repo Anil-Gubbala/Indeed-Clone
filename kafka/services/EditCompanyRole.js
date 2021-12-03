@@ -14,8 +14,9 @@ const handle_request = async( msg, callback) => {
       role:msg.role,
   }
 };
+  var options = {upsert:true};
 
-  Employer.updateOne(query,newValues,(error,data) =>{
+  Employer.updateOne(query,newValues,options,(error,data) =>{
     if(error){
       console.log("Error fetching data");
       callback(error,null);

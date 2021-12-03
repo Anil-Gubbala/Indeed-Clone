@@ -86,13 +86,15 @@ const getJobsbyFilter = async (modelObject, details) => {
         //select: "-_id",
       })
       .lean();
-
+      
+    // console.log(obj.filter(x => x.role === ""));
+     return obj;
     return await obj.find({
       $and: [
         {
           $or: [
             { "companyId.name": { $regex: new RegExp(details.keyw, "i") } },
-            { role: { $regex: new RegExp(details.keyw, "i") } },
+            { "role": { $regex: new RegExp(details.keyw, "i") } },
           ],
         },
         { "location.city": { $regex: new RegExp(details.location, "i") } },
@@ -106,7 +108,7 @@ const getJobsbyFilter = async (modelObject, details) => {
 
 const getJobsInSearch = async (modelObject, details) => {
   try {
-    return await modelObject.find({}, { role: 1, "location.city": 1, _id: 0 });
+    return await modelObject.find({}, { role: 1, "location.city": 1,  _id: 0 });
   } catch (error) {
     console.log("Error while retreiving data by details:" + error);
     throw new Error(error);
