@@ -14,9 +14,9 @@ import Analytics from "./Analytics";
 import ApproveImages from "./ApproveImages";
 
 function AdminHome() {
-  // if(! isAdmin()){
-  //   return <Redirect push to="/login" />;
-  // }
+  if(! isAdmin()){
+    return <Redirect push to="/login" />;
+  }
   const { TabPane } = Tabs;
   const tabChange = () => {};
   return (
