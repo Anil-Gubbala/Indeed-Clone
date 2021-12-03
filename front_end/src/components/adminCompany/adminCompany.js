@@ -86,7 +86,7 @@ function AdminCompany() {
 
   if (redirectToReviews) {
     return (
-      <Redirect
+      <Redirect push
         to={{
           pathname: "/adminreviews",
           state: { id: selectedCompany },

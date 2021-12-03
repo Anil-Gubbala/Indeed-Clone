@@ -120,7 +120,7 @@ exports.getCompanyPhotos = async (request) => {
 //get companies for admins
 exports.getAdminCompanies = async (request) => {
   try {
-    let response = await companySchema.find({"name": { $regex: '.*' + request.query.search + '.*' }}).limit(10);
+    let response = await companySchema.find({"name": {$regex: request.query.search, $options: 'i'}}).limit(10);
     return { status: 200, body: response };
   } catch (err) {
     console.log(err);
