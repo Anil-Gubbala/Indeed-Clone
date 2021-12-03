@@ -15,6 +15,8 @@ import { styled } from "@mui/material/styles";
 import { Link, NavLink } from "react-router-dom";
 import DashLoginNav from "../navbar/DashLoginNav";
 import { get, post } from '../../utils/serverCall';
+import NavBar from "../EmpNavbar/EmpNavbar";
+import Navbar from "../Employer/Empnav"
 
 function EmployerUserProfile() {
   const Input = styled("input")({
@@ -94,7 +96,8 @@ document.body.removeChild(link);
   return (
   
     <container>
-    <DashLoginNav/>
+    <NavBar/>
+    <Navbar/>
   <container className="profile__main__container">
     <div className="profile-main">
       <div className="circle">
