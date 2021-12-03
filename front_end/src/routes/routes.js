@@ -30,8 +30,6 @@ import Statistics from "../components/Analytics/Statistics";
 import AdminCompany from "../components/adminCompany/adminCompany";
 import AdminReviews from "../components/adminReviews/adminReviews";
 import MyReviews from "../components/reviews/Myreviews";
-import Analytics from "../components/Analytics/Analytics";
-import Statistics from "../components/Analytics/Statistics";
 
 class Routes extends Component {
   render() {
