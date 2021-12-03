@@ -8,6 +8,8 @@ export const isJobSeeker = () => localStorage.getItem(STORAGE.accountType) === '
 export const getEmailId = () => localStorage.getItem(STORAGE.emailId);
 export const getUserInfo = () => JSON.parse(localStorage.getItem(STORAGE.details));
 export const getUserId = () => localStorage.getItem(STORAGE.userId);
+export const getCompanyId = () => localStorage.getItem(STORAGE.companyId);
+export const setCompanyId = (companyId) => localStorage.setItem(STORAGE.companyId,companyId);
 
 
 export const setLogin = (info) => {
