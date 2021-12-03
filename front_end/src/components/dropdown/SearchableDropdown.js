@@ -251,7 +251,7 @@ export const SearchableDropdown = ({list, location}) => {
 
   <table>
   <tr>
-    <th  style={{width:'95%'}}>{country.role}    &nbsp; &nbsp; Guest Service Worker, California</th>
+    <th  style={{width:'95%'}}>{country.role}    &nbsp; &nbsp; {country.location.city}</th>
     <th class="innerDiv">
     
     
