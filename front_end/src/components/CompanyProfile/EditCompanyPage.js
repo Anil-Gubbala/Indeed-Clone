@@ -7,9 +7,9 @@ import {Row,Col} from "react-bootstrap"
 const ProfilePage = () => {
 
   useEffect(() => {
-      get(`/GetCompany`,{_id:"61a47a7c41e79758f01d1ace"})
+      get(`/GetCompany`,{employerId:localStorage.getItem("userId")})
         .then((result) =>{
-        localStorage.setItem("companyDetails",JSON.stringify(result.data.data[0]));
+          console.log(result)
         console.log("data for display",result.data.data[0]);
         const allCompanyData = result.data.data[0];
         // console.log("website",((response.data))["payload"][0]["website"]);
@@ -116,7 +116,7 @@ useEffect(() => {
 const handleWebsiteChange = () =>{
   const isValid=websiteValidation();
   if(isValid){
-    put("/edit/website",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],website:website.toLowerCase(),})
+    put("/edit/website",{_id:localStorage.getItem("companyId"),website:website.toLowerCase(),})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -130,10 +130,8 @@ const handleWebsiteChange = () =>{
 const handleSizeChange = () =>{
   const isValid=sizeValidation();
   if(isValid){
-    put("http://localhost:8080/edit/size",{
-    _id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],
-    companySize:size,
-  }).then((result) =>{
+    put("/edit/size",{_id:localStorage.getItem("companyId"),companySize:size,})
+    .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
       console.log(err);
@@ -146,7 +144,7 @@ const handleSizeChange = () =>{
 const handleTypeChange = () =>{
   const isValid=typeValidation();
   if(isValid){
-    put("/edit/type",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],companyType:type,}).
+    put("/edit/type",{_id:localStorage.getItem("companyId"),companyType:type,}).
     then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -160,7 +158,7 @@ const handleTypeChange = () =>{
 const handleRevenueChange = () =>{
   const isValid=revenueValidation();
   if(isValid){
-    put("/edit/revenue",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],revenue:revenue})
+    put("/edit/revenue",{_id:localStorage.getItem("companyId"),revenue:revenue})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -173,7 +171,7 @@ const handleRevenueChange = () =>{
 const handleHeadquartersChange = () =>{
   const isValid=headquatersValidation();
   if(isValid){
-  put("/edit/headquaters",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],headquaters:headquarters,})
+  put("/edit/headquaters",{_id:localStorage.getItem("companyId"),headquaters:headquarters,})
   .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -186,7 +184,7 @@ const handleHeadquartersChange = () =>{
 const handleIndustryChange = () =>{
   const isValid=industryValidation();
   if(isValid){
-    put("/edit/industry",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],industry:industry})
+    put("/edit/industry",{_id:localStorage.getItem("companyId"),industry:industry})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -199,7 +197,7 @@ const handleIndustryChange = () =>{
 const handleFoundedChange = () =>{
   const isValid=foundedValidation();
   if(isValid){
-    put("/edit/founded",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],founded:founded,})
+    put("/edit/founded",{_id:localStorage.getItem("companyId"),founded:founded,})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -212,7 +210,7 @@ const handleFoundedChange = () =>{
 const handleMissionChange = () =>{
   const isValid=missionValidation();
   if(isValid){
-    put("/edit/mission",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],mission:mission,})
+    put("/edit/mission",{_id:localStorage.getItem("companyId"),mission:mission,})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{
@@ -225,7 +223,7 @@ const handleMissionChange = () =>{
 const handleCEOChange = () =>{
   const isValid=ceoValidation();
   if(isValid){
-    put("/edit/ceo",{_id:JSON.parse(localStorage.getItem("companyDetails"))["_id"],ceo:ceo,})
+    put("/edit/ceo",{_id:localStorage.getItem("companyId"),ceo:ceo,})
     .then((result) =>{
       console.log("Data Stored in Database");
     }).catch(err =>{

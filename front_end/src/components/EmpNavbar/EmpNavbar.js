@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {Link} from 'react-router-dom';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
@@ -6,7 +5,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import ArticleIcon from '@mui/icons-material/Article';
 import EditIcon from '@mui/icons-material/Edit';
-import LogoutIcon from '@mui/icons-material/Logout';
 import HelpIcon from '@mui/icons-material/Help';
 import './Employer.css'
 
@@ -52,11 +50,14 @@ function Navbar(){
                 <PersonIcon className="icon-nav" style={{height:"30px",width:"100px",color:"white"}}/>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="http://localhost:3000/employerProfile"><span><ArticleIcon/></span>Profile</a>
+                  &nbsp;
+                <div style={{marginLeft:"20%"}}>{localStorage.getItem("emailId")}</div>
                 &nbsp;
-                <a class="dropdown-item" href="http://localhost:3000/editCompany"><span><EditIcon/></span>Edit Your Company Profile</a>
-                <hr/>
-                <a class="dropdown-item" href="#"><span><LogoutIcon/></span>Logout</a>
+                <a class="dropdown-item" href="http://localhost:3000/employerProfile" style={{fontWeight:"500"}}><span><ArticleIcon/></span>  &nbsp;Profile</a>
+                &nbsp;
+                <a class="dropdown-item" href="http://localhost:3000/editCompany" style={{fontWeight:"500"}}><span><EditIcon/></span>  &nbsp;Edit Your Company Profile</a>
+                <hr style={{height:"2px",border:"none",color: "#333",backgroundColor: "#A7BBC7"}}/>
+                <a class="dropdown-item" href="#" style={{color:"#085ff7",textAlign:"center",fontWeight:"bold"}}>Sign Out</a>
                 </div>
                 </div>
             </div>
@@ -65,4 +66,3 @@ function Navbar(){
     );
 }
 export default Navbar;
-

@@ -2,28 +2,9 @@ const router = require ("express").Router();
 var kafka = require("../kafka/client");
 const { makeRequest } = require("../kafka/client");
 
-var constraints = require('../kafka/config');
-const config = require('../Utils/config')
-var mysql = require('mysql');
-
-const sqlconnection = mysql.createPool({
-  host: constraints.DB.host,
-  user: constraints.DB.username,
-  password: constraints.DB.password,
-  port: constraints.DB.port,
-  database: constraints.DB.database,
-});
-
-
-sqlconnection.getConnection((err) => {
-  if (err) {
-    throw 'Error occured ' + err.message;
-  }
-  console.log('pool created');
-});
 
 router.get("/empReviews/getCompanyReviews", (req, res) => {
-  kafka.makeRequest("empReviews",req.body,(err,data) =>{
+  kafka.makeRequest("empReviews",req.query,(err,data) =>{
     if (err) {
       res.status(500).send({});
     } else {
@@ -60,26 +41,5 @@ router.post("/empReviews/markAsFeatured", (req, res) => {
     }
   });
 });
-
-router.post("/empReviews/avgrating",(req,res)=>{
-  const {companyId} = req.body;
-  try{
-    sqlconnection.query(`SELECT avg(rating) as avgrating, count(*) as totalreviews FROM reviews WHERE companyId=?`,companyId
-       ,  function (error,results){
-          console.log(results);
-         if(results.length !== 0){
-            res.send(JSON.stringify(results));
-         }
-        });
-  }
-  catch(err){
-    console.log(err);
- const message = err.message
-      ? err.message
-       : "Error while getting user Details";
-     const code = err.statusCode ? err.statusCode : 500;
-     return response.status(code).json({ message });
-  }
-})
 
 module.exports = router;
