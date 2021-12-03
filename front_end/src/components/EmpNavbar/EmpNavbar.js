@@ -13,9 +13,9 @@ import './Employer.css'
 function Navbar(){
 
 
-    function logOut(){
+    function handleLogOut(){
         localStorage.clear();
-        window.open('../UserSign','_self');
+        window.open('/login','_self');
     }
 
     return(
@@ -57,7 +57,9 @@ function Navbar(){
                 &nbsp;
                 <a class="dropdown-item" href="http://localhost:3000/editCompany" style={{fontWeight:"500"}}><span><EditIcon/></span>  &nbsp;Edit Your Company Profile</a>
                 <hr style={{height:"2px",border:"none",color: "#333",backgroundColor: "#A7BBC7"}}/>
-                <a class="dropdown-item" href="#" style={{color:"#085ff7",textAlign:"center",fontWeight:"bold"}}>Sign Out</a>
+                <button type="button" className="btn btn-outline" style={{marginLeft:"30%"}}>
+                <Link onClick={handleLogOut}><a class="dropdown-item" href="#" style={{color:"#085ff7",fontWeight:"bold"}}>Sign Out</a></Link>
+                </button>
                 </div>
                 </div>
             </div>
